@@ -14,9 +14,13 @@ export default function Stats({
         return "/images/school.png"
       case "Students":
         return "/images/account.png"
+      case "Participants":
+        return "/images/account.png"
+      case "Events":
+        return "/images/event.png"
+      default:
+        return "/images/???.png"
     }
-
-    return "/images/???.png"
   };
 
   return (

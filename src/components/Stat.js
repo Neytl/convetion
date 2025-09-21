@@ -1,5 +1,4 @@
 import Image from "next/image";
-import "convention/app/css/stats.css";
 
 export default function Stats({
   imageSrc,

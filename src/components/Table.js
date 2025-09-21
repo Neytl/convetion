@@ -11,9 +11,34 @@ export default function Table({
   }
   
   let rowIndex = 0;
+  
+  let columns = ((numColumns) => {
+    switch(numColumns) {
+      case 2:
+        return "two-columns";
+      case 3:
+        return "three-columns";
+      case 4:
+      default:
+        return "four-columns";
+    }
+  })(tableColumns.length);
+
+  let entryIconSrc = ((tableType) => {
+    switch(tableType) {
+      case "admin_schools":
+        return "/images/school.png";
+      case "admin_events":
+      case "school_events":
+        return "/images/event.png";
+      case "school_students":
+      default:
+        return "/images/account.png";
+    }
+  })(tableType);
 
   return (
-    <div className="table">
+    <div className={"table " + columns}>
       <div className="tableHeader">
         {
           tableColumns.map(columnName => (
@@ -24,7 +49,7 @@ export default function Table({
       <div className="tableEntries">
         {
           tableData.map(entryData => (
-            <TableEntry key={rowIndex++} entryIconSrc="/images/school.png" dataEntries={Object.entries(entryData).map(a => a[1])} tableType={tableType} />
+            <TableEntry key={rowIndex++} entryIconSrc={entryIconSrc} dataEntries={Object.entries(entryData).map(a => a[1])} tableType={tableType} />
           ))
         }
       </div>

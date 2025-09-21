@@ -6,7 +6,16 @@
 
 .tableHeader, .tableEntryData  {
   display: grid;
+}
+
+.table.two-columns .tableHeader,.table.two-columns .tableEntryData  {
   grid-template-columns: 1fr 1fr;
+}
+.table.three-columns .tableHeader,.table.three-columns .tableEntryData  {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.table.four-columns .tableHeader,.table.four-columns .tableEntryData  {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .tableEntryData {

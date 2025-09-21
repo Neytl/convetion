@@ -1,6 +1,6 @@
 import Image from "next/image";
 import "convention/app/css/nav.css";
-import Link from "next/link";
+import NavLink from "convention/components/NavLink";
 
 export default function Nav() {
   return (
@@ -10,8 +10,10 @@ export default function Nav() {
         <span>School Name</span>
       </div>
       <div id="links">
-        <Link href={"/"}>Schools</Link>
-        <Link href={"/adminEvents"}>Events</Link>
+        <NavLink name={"Admin - Schools"} href={"/"} iconSrc={"/images/school.png"}/>
+        <NavLink name={"Admin - Events"} href={"/adminEvents"} iconSrc={"/images/event.png"}/>
+        <NavLink name={"School - Students"} href={"/schoolStudents"} iconSrc={"/images/school.png"}/>
+        <NavLink name={"School - Events"} href={"/schoolEvents"} iconSrc={"/images/event.png"}/>
       </div>
     </div>
   );
