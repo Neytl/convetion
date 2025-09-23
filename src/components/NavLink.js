@@ -7,7 +7,7 @@ export default function NavLink({
   iconSrc
 }) {
   return (
-    <a class="navLink" href={href}>
+    <a className="navLink" href={href}>
       <Image src={iconSrc} alt="" width={30} height={30} />
       <span>{name}</span>
     </a>

@@ -30,7 +30,7 @@ export default function Table({
         return "/images/school.png";
       case "admin_events":
       case "school_events":
-        return "/images/event.png";
+        return "/images/account.png";
       case "school_students":
       default:
         return "/images/account.png";
@@ -38,20 +38,30 @@ export default function Table({
   })(tableType);
 
   return (
-    <div className={"table " + columns}>
-      <div className="tableHeader">
-        {
-          tableColumns.map(columnName => (
-            <span key={columnName}>{columnName}</span>
-          ))
-        }
+    <div className={columns}>
+      <div className="tableButtonContainer">
+        <div className="tableButton">
+          <span>Add School</span>
+          <div className="tableButtonDropdown">
+
+          </div>
+        </div>
       </div>
-      <div className="tableEntries">
-        {
-          tableData.map(entryData => (
-            <TableEntry key={rowIndex++} entryIconSrc={entryIconSrc} dataEntries={Object.entries(entryData).map(a => a[1])} tableType={tableType} />
-          ))
-        }
+      <div className="table">
+        <div className="tableHeader">
+          {
+            tableColumns.map(columnName => (
+              <span key={columnName}>{columnName}</span>
+            ))
+          }
+        </div>
+        <div className="tableEntries">
+          {
+            tableData.map(entryData => (
+              <TableEntry key={rowIndex++} entryIconSrc={entryIconSrc} dataEntries={Object.entries(entryData).map(a => a[1])} tableType={tableType} />
+            ))
+          }
+        </div>
       </div>
     </div>
   );

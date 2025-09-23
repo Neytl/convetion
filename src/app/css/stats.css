@@ -5,6 +5,29 @@
     gap: 5em;
 }
 
+.stat {
+    display: flex;
+    flex-direction: column;
+    gap: .2em;
+}
+
+.stat img {
+    background-color: lavender;
+    padding: .5em;
+    border-radius: .5em;
+    box-shadow: #979797 0 0 0.5em 0px;
+}
+
+.stat > span {
+    margin: 0 .2em;
+}
+
 .stat > div {
     display: flex;
+    align-items: center;
+    gap: .4em;
+}
+
+.stat > div > span {
+    font-size: 2.3em;
 }

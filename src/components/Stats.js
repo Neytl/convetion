@@ -8,21 +8,6 @@ export default function Stats({
     return <div>Loading stats...</div>;
   }
   
-  let lookupIcon = (statType) => {
-    switch(statType) {
-      case "Schools":
-        return "/images/school.png"
-      case "Students":
-        return "/images/account.png"
-      case "Participants":
-        return "/images/account.png"
-      case "Events":
-        return "/images/event.png"
-      default:
-        return "/images/???.png"
-    }
-  };
-
   return (
     <div id="stats">
       {
@@ -32,4 +17,19 @@ export default function Stats({
       }
     </div>
   );
+}
+
+function lookupIcon(statType) {
+  switch(statType) {
+    case "Schools":
+      return "/images/school.png"
+    case "Students":
+      return "/images/account.png"
+    case "Participants":
+      return "/images/account.png"
+    case "Events":
+      return "/images/event.png"
+    default:
+      return "/images/???.png"
+  }
 }

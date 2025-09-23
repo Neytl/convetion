@@ -1,6 +1,17 @@
 
+/* #header {
+  background-color: aqua;
+}
+.table {
+  background-color: azure;  
+}
+#content {
+  background-color: salmon;
+} */
+
 body {
   margin: 0;
+  user-select: none;
 }
 
 #page {
@@ -11,7 +22,6 @@ body {
 }
 
 #content {
-  background-color: salmon;
   flex-grow: 1;
   padding: 2em;
   display: flex;

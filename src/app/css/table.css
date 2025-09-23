@@ -1,27 +1,137 @@
 
 .table {
-  background-color: azure;
-  
+  border-radius: .3em;
+  box-shadow: #979797 0 0 0.5em 0px;
 }
 
+.tableEntry:nth-child(odd) .tableEntryData {
+  background-color: lavender;
+}
+
+/* Header & Data */
 .tableHeader, .tableEntryData  {
   display: grid;
+  gap: 1em;
+  min-width: max-content;
 }
 
-.table.two-columns .tableHeader,.table.two-columns .tableEntryData  {
+.two-columns {
+  max-width: 40em;
+}
+.two-columns .tableHeader,.two-columns .tableEntryData  {
   grid-template-columns: 1fr 1fr;
 }
-.table.three-columns .tableHeader,.table.three-columns .tableEntryData  {
+
+.three-columns {
+  max-width: 60em;
+}
+.three-columns .tableHeader,.three-columns .tableEntryData  {
   grid-template-columns: 1fr 1fr 1fr;
 }
-.table.four-columns .tableHeader,.table.four-columns .tableEntryData  {
+
+.four-columns {
+  max-width: 80em;
+}
+.four-columns .tableHeader,.four-columns .tableEntryData  {
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-.tableEntryData {
-  padding: 1em 0;
+.tableHeader {
+  padding: 1em;
+  background-color: #819ae3;
+  border-radius: .3em .3em 0 0;
 }
 
-.primaryTableEntryData {
+.tableEntryData {
+  padding: 1em;
+  cursor: pointer;
+}
+.tableEntryData:hover {
+  box-shadow: inset .5em 0 #4d7273;
+}
+
+.tableEntries, .tableEntry:last-child, .tableEntry:last-child .tableEntryData, .tableEntry:last-child .tableEntryDropdown {
+    border-radius: 0 0 .3em .3em;
+}
+
+.tableEntryData > * {
   display: flex;
+  align-items: center;
+  gap: .3em;
+}
+
+
+/* Table Button */
+.tableButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  padding: .5em 0;  
+}
+
+.tableButton {
+  box-shadow: #979797 0 0 0.5em 0px;
+  padding: .5em 1em;
+  background-color: lavender;
+  border-radius: .5em;
+}
+
+
+/* Table Dropdowns */
+.tableEntryDropdown {
+  padding: 1em;
+  padding-left: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  background-color: #cad8d1;
+  box-shadow: inset 1em 0 #87aeaf;
+}
+
+.iconSpan {
+   display: flex;
+   align-items: center;
+   gap: .3em;
+   width: fit-content;
+}
+
+.tableEntryButton {
+  background-color: #e6e6fa;
+  border-radius: .5em;
+  padding: .5em 1em;
+  padding-right: 1.3em;
+  box-shadow: 0 0 .5em #979797;
+  justify-content: center;
+  width: 6em;
+  cursor: pointer;
+}
+
+.tableEntryButton:hover {
+  background-color: #f2f4fd;
+}
+
+.tableEntryDropdownButtons {
+  display: flex;
+  gap: 1em;
+}
+
+.tableEntry.closed .tableEntryDropdown {
+  display: none;
+}
+
+
+/* - Admin Schools - */
+.schoolLoginInfo {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  width: fit-content;
+  gap: 1em;
+}
+
+/* Admin Events */
+.eventParticipants {
+  display: grid;
+  align-items: center;
+  gap: 1em;
+  grid-template-columns: 1fr 2em;
 }
