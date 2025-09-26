@@ -1,6 +1,5 @@
-
 .table {
-  border-radius: .3em;
+  border-radius: 0.3em;
   box-shadow: #979797 0 0 0.5em 0px;
 }
 
@@ -9,7 +8,8 @@
 }
 
 /* Header & Data */
-.tableHeader, .tableEntryData  {
+.tableHeader,
+.tableEntryData {
   display: grid;
   gap: 1em;
   min-width: max-content;
@@ -18,28 +18,31 @@
 .two-columns {
   max-width: 40em;
 }
-.two-columns .tableHeader,.two-columns .tableEntryData  {
+.two-columns .tableHeader,
+.two-columns .tableEntryData {
   grid-template-columns: 1fr 1fr;
 }
 
 .three-columns {
   max-width: 60em;
 }
-.three-columns .tableHeader,.three-columns .tableEntryData  {
+.three-columns .tableHeader,
+.three-columns .tableEntryData {
   grid-template-columns: 1fr 1fr 1fr;
 }
 
 .four-columns {
   max-width: 80em;
 }
-.four-columns .tableHeader,.four-columns .tableEntryData  {
+.four-columns .tableHeader,
+.four-columns .tableEntryData {
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .tableHeader {
   padding: 1em;
   background-color: #819ae3;
-  border-radius: .3em .3em 0 0;
+  border-radius: 0.3em 0.3em 0 0;
 }
 
 .tableEntryData {
@@ -47,34 +50,48 @@
   cursor: pointer;
 }
 .tableEntryData:hover {
-  box-shadow: inset .5em 0 #4d7273;
+  box-shadow: inset 0.5em 0 #4d7273;
 }
 
-.tableEntries, .tableEntry:last-child, .tableEntry:last-child .tableEntryData, .tableEntry:last-child .tableEntryDropdown {
-    border-radius: 0 0 .3em .3em;
+.tableEntries,
+.tableEntry:last-child,
+.tableEntry:last-child .tableEntryData,
+.tableEntry:last-child .tableEntryDropdown {
+  border-radius: 0 0 0.3em 0.3em;
 }
 
 .tableEntryData > * {
   display: flex;
   align-items: center;
-  gap: .3em;
+  gap: 0.3em;
 }
 
-
-/* Table Button */
-.tableButtonContainer {
+/* Table Topper */
+.tableTopper {
   display: flex;
-  justify-content: flex-end;
-  padding: .5em 0;  
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.tableTopper > span {
+  font-style: italic;
+  padding: 0.1em 0.5em;
+  font-size: 1.6em;
+  color: #afafaf;
 }
 
 .tableButton {
   box-shadow: #979797 0 0 0.5em 0px;
-  padding: .5em 1em;
+  padding: 0.5em 1em;
   background-color: lavender;
-  border-radius: .5em;
+  border-radius: 0.5em;
+  margin-bottom: 0.5em;
+  cursor: pointer;
 }
 
+.tableButton:hover {
+  background-color: #f2f4fd;
+}
 
 /* Table Dropdowns */
 .tableEntryDropdown {
@@ -88,18 +105,18 @@
 }
 
 .iconSpan {
-   display: flex;
-   align-items: center;
-   gap: .3em;
-   width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  width: fit-content;
 }
 
 .tableEntryButton {
   background-color: #e6e6fa;
-  border-radius: .5em;
-  padding: .5em 1em;
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
   padding-right: 1.3em;
-  box-shadow: 0 0 .5em #979797;
+  box-shadow: 0 0 0.5em #979797;
   justify-content: center;
   width: 6em;
   cursor: pointer;
@@ -117,7 +134,6 @@
 .tableEntry.closed .tableEntryDropdown {
   display: none;
 }
-
 
 /* - Admin Schools - */
 .schoolLoginInfo {

@@ -3,16 +3,12 @@ import IconSpan from "./IconSpan";
 import TableEntryButton from "./TableEntryButton";
 import "convention/app/css/table.css";
 
-export default function TableEntry({
-  entryIconSrc,
-  dataEntries,
-  tableType
-}) {
+export default function TableEntry({ entryIconSrc, dataEntries, tableType }) {
   let columnIndex = 0;
 
-  let onclickEntry = event => {
-      event.target.closest('.tableEntry').classList.toggle("closed");
-  }
+  const onclickEntry = (event) => {
+    event.target.closest(".tableEntry").classList.toggle("closed");
+  };
 
   return (
     <div className="tableEntry closed">
@@ -21,19 +17,17 @@ export default function TableEntry({
           <Image src={entryIconSrc} alt="" width={30} height={30} />
           <span>{dataEntries[0]}</span>
         </div>
-        {
-          dataEntries.slice(1).map(dataValue => (
-            <span key={columnIndex++}>{dataValue}</span>
-          ))
-        }
-      </div>      
+        {dataEntries.slice(1).map((dataValue) => (
+          <span key={columnIndex++}>{dataValue}</span>
+        ))}
+      </div>
       {lookupTableEntryDropdown(tableType)}
     </div>
   );
 }
 
 function lookupTableEntryDropdown(tableType) {
-  switch(tableType) {
+  switch (tableType) {
     case "admin_schools":
       return generateAdminSchoolEntryDropdown();
     case "admin_events":
@@ -41,7 +35,7 @@ function lookupTableEntryDropdown(tableType) {
     case "school_events":
       return generateSchoolEventsEntryDropdown();
     case "school_students":
-      default:
+    default:
       return generateSchoolStudentsEntryDropdown();
   }
 }
@@ -69,10 +63,16 @@ function generateAdminEventsEntryDropdown() {
   return (
     <div className="tableEntryDropdown">
       <div className="eventParticipants">
-        <IconSpan imageSrc="/images/account.png" text="Student 1 - New School" />
-        <Image src="/images/delete.png" alt="" width="20" height="20" />        
-        <IconSpan imageSrc="/images/account.png" text="Student 2 - Harmony School" />
-        <Image src="/images/delete.png" alt="" width="20" height="20" />        
+        <IconSpan
+          imageSrc="/images/account.png"
+          text="Student 1 - New School"
+        />
+        <Image src="/images/delete.png" alt="" width="20" height="20" />
+        <IconSpan
+          imageSrc="/images/account.png"
+          text="Student 2 - Harmony School"
+        />
+        <Image src="/images/delete.png" alt="" width="20" height="20" />
       </div>
       <div className="tableEntryDropdownButtons">
         <TableEntryButton imageSrc="/images/add.png" text="Participant" />
@@ -99,11 +99,11 @@ function generateSchoolStudentsEntryDropdown() {
     <div className="tableEntryDropdown">
       <div className="eventParticipants">
         <IconSpan imageSrc="/images/event.png" text="Event 1" />
-        <Image src="/images/delete.png" alt="" width="20" height="20" />        
+        <Image src="/images/delete.png" alt="" width="20" height="20" />
         <IconSpan imageSrc="/images/event.png" text="Event 2" />
-        <Image src="/images/delete.png" alt="" width="20" height="20" />      
+        <Image src="/images/delete.png" alt="" width="20" height="20" />
         <IconSpan imageSrc="/images/event.png" text="Event 3" />
-        <Image src="/images/delete.png" alt="" width="20" height="20" />        
+        <Image src="/images/delete.png" alt="" width="20" height="20" />
       </div>
       <div className="tableEntryDropdownButtons">
         <TableEntryButton imageSrc="/images/add.png" text="Event" />

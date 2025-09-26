@@ -1,0 +1,99 @@
+#popupContainer {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: #000000bd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 50;
+}
+
+#popup {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  gap: 1em;
+  border-radius: 1em;
+  position: relative;
+  user-select: none;
+  width: 20em;
+  cursor: default;
+  background-color: #f8f8f8;
+}
+
+#closePopupButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0 0.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e3e3e3;
+  border-radius: 0 1em 0 0.5em;
+  width: 2em;
+  height: 2em;
+}
+
+#closePopupButton:hover,
+#popupContainer:hover #popup:not(:hover) #closePopupButton {
+  background-color: #d6d6d6;
+}
+
+#popupTitle {
+  font-size: 2em;
+  text-align: center;
+}
+
+/* Popup Content */
+
+#loginFields {
+  display: flex;
+  flex-direction: column;
+}
+
+#loginFields input {
+  padding: 0.5em;
+  border-radius: 0.5em;
+}
+
+#loginUsername {
+  margin-bottom: 0.5em;
+}
+
+#loginMessage {
+  min-height: 1.5em;
+  opacity: 0;
+  color: #dc1515;
+  font-size: 0.8em;
+  padding: 0.2em 0.2em 0.5em 0.2em;
+}
+
+#loginMessage.active {
+  opacity: 1;
+}
+
+#loginButton {
+  padding: 0.5em;
+  border-radius: 0.5em;
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+  background-color: var(--selected-color);
+}
+
+.loginFieldLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+  padding: 0.5em 0 0 0.2em;
+}
+
+#loginFields img {
+  width: 0.8em;
+  height: 0.8em;
+}

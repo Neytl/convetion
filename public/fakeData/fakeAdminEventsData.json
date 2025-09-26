@@ -1,36 +1,32 @@
 {
-    "tableName": "",
-    "tableType": "admin_events",
-    "columnNames": [
-        "Event", 
-        "Participants",
-        "Team Size"
-    ],
-    "tableData": [
-        {
-            "event": "Solo Instrument",
-            "participants": 10,
-            "teamSize": 0
-        },
-        {
-            "event": "4 x 100",
-            "participants": 16,
-            "teamSize": 4
-        },
-        {
-            "event": "Soccer",
-            "participants": 32,
-            "teamSize": 8
-        }
-    ],
-    "stats": [
-        {
-            "title": "Events",
-            "value": 3
-        },
-        {
-            "title": "Participants",
-            "value": 50
-        }
-    ]
+  "tableName": "",
+  "tableType": "admin_events",
+  "columnNames": ["Event", "Participants", "Team Size"],
+  "tableData": [
+    {
+      "event": "Solo Instrument",
+      "participants": 10,
+      "teamSize": "-"
+    },
+    {
+      "event": "4 x 100",
+      "participants": 16,
+      "teamSize": 4
+    },
+    {
+      "event": "Soccer",
+      "participants": 32,
+      "teamSize": 8
+    }
+  ],
+  "stats": [
+    {
+      "title": "Events",
+      "value": 3
+    },
+    {
+      "title": "Participants",
+      "value": 50
+    }
+  ]
 }
