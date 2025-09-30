@@ -4,22 +4,25 @@ import TinyImage from "./TinyImage";
 export default function AddSchoolPopup() {
   return (
     <div id="addSchoolPopup" className="hidden">
-      <form id="loginFields">
-        <div className="loginFieldLabel">
-          <TinyImage imageSrc="/images/account.png" />
-          <label htmlFor="loginUsername">Username</label>
+      <form className="popupFields">
+        <div>
+          <div className="popupInputLabel">
+            <TinyImage imageSrc="/images/school.png" />
+            <label htmlFor="schoolName">Name</label>
+          </div>
+          <input type="text" id="schoolName" placeholder="School Name" />
         </div>
-        <input type="text" id="loginUsername" />
-        <div className="loginFieldLabel">
-          <TinyImage imageSrc="/images/password.png" />
-          <label htmlFor="loginPassword">Password</label>
-        </div>
-        <input type="password" id="loginPassword" />
       </form>
 
-      <span id="loginMessage"></span>
+      <span className="popupMessage"></span>
 
-      <div id="loginButton">Log In</div>
+      <div className="popupButtonContainer">
+        <div className="submitPopupButton">Add</div>
+      </div>
     </div>
   );
 }
+
+export const clearSchoolPopup = () => {
+  document.getElementById("schoolName").value = "";
+};

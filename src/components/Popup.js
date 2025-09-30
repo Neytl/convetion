@@ -1,6 +1,9 @@
 "use client";
 import "convention/app/css/popup.css";
 import AddSchoolPopup from "./popupContent/AddSchoolPopup";
+import { clearSchoolPopup } from "./popupContent/AddSchoolPopup";
+import AddEventPopup from "./popupContent/AddEventPopup";
+import { clearEventPopup } from "./popupContent/AddEventPopup";
 
 // export default function Popup({ title, contentElement }) {
 export default function Popup() {
@@ -22,6 +25,7 @@ export default function Popup() {
         <div id="popupTitle">Title</div>
         <div id="popupContent">
           <AddSchoolPopup />
+          <AddEventPopup />
         </div>
       </div>
     </div>
@@ -37,11 +41,13 @@ export const openTableButtonPopup = (tableType) => {
   switch (tableType) {
     case "admin_schools":
       document.getElementById("popupTitle").innerHTML = "Add School";
+      clearSchoolPopup();
       document.getElementById("addSchoolPopup").classList.remove("hidden");
       break;
     case "admin_events":
       document.getElementById("popupTitle").innerHTML = "Add Event";
-      document.getElementById("addSchoolPopup").classList.remove("hidden");
+      clearEventPopup();
+      document.getElementById("addEventPopup").classList.remove("hidden");
       break;
     case "school_events":
       document.getElementById("popupTitle").innerHTML = "Add Student";

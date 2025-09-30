@@ -51,21 +51,22 @@
 
 /* Popup Content */
 
-#loginFields {
+.popupFields {
   display: flex;
   flex-direction: column;
+  gap: 2em;
 }
 
-#loginFields input {
+.popupFields input,
+.popupSelect {
   padding: 0.5em;
   border-radius: 0.5em;
+  width: -webkit-fill-available;
+  border: none;
+  border: solid rgb(185, 185, 185) 1px;
 }
 
-#loginUsername {
-  margin-bottom: 0.5em;
-}
-
-#loginMessage {
+.popupMessage {
   min-height: 1.5em;
   opacity: 0;
   color: #dc1515;
@@ -73,27 +74,55 @@
   padding: 0.2em 0.2em 0.5em 0.2em;
 }
 
-#loginMessage.active {
+.popupMessage.active {
   opacity: 1;
 }
 
-#loginButton {
+.submitPopupButton {
   padding: 0.5em;
   border-radius: 0.5em;
   text-align: center;
   outline: none;
   cursor: pointer;
-  background-color: var(--selected-color);
+  background-color: #d6d6d6;
+  width: 5em;
 }
 
-.loginFieldLabel {
+.popupInputLabel {
   display: flex;
   align-items: center;
   gap: 0.2em;
-  padding: 0.5em 0 0 0.2em;
+  padding-left: 0.4em;
 }
 
-#loginFields img {
-  width: 0.8em;
-  height: 0.8em;
+.popupButtonContainer {
+  display: flex;
+  justify-content: center;
+  padding-top: 1em;
+}
+
+/* Admin Events Popup */
+#teamSizeRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+#teamSizeRow input {
+  width: auto;
+}
+
+#teamSizeRow > div {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+}
+
+.popupCheckbox {
+  scale: 1.5;
+}
+
+#eventHasTeamsButton,
+#eventHasTeamsButton label {
+  cursor: pointer;
 }
