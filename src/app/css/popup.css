@@ -44,6 +44,13 @@
   background-color: #d6d6d6;
 }
 
+#popupHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+
 #popupTitle {
   font-size: 2em;
   text-align: center;
@@ -54,7 +61,7 @@
 .popupFields {
   display: flex;
   flex-direction: column;
-  gap: 2em;
+  gap: 1.2em;
 }
 
 .popupFields input,
@@ -101,15 +108,18 @@
   padding-top: 1em;
 }
 
+.popupFields > div {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+}
+
 /* Admin Events Popup */
 #teamSizeRow {
   display: flex;
-  flex-direction: column;
   gap: 0.5em;
-}
-
-#teamSizeRow input {
-  width: auto;
+  align-items: center;
+  justify-content: space-between;
 }
 
 #teamSizeRow > div {
@@ -118,11 +128,45 @@
   gap: 0.3em;
 }
 
-.popupCheckbox {
-  scale: 1.5;
+.sliderContainer {
+  display: inline-block;
+  height: 27.2px;
+  position: relative;
+  width: 48px;
 }
 
-#eventHasTeamsButton,
-#eventHasTeamsButton label {
+.sliderContainer input {
+  display: none;
+}
+
+.slider {
+  background-color: #ccc;
+  bottom: 0;
   cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 0.4s;
+  border-radius: 27.2px;
+}
+
+.slider:before {
+  background-color: #fff;
+  bottom: 3.2px;
+  content: "";
+  height: 20.8px;
+  left: 3.2px;
+  position: absolute;
+  transition: 0.4s;
+  width: 20.8px;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #66bb6a;
+}
+
+input:checked + .slider:before {
+  transform: translateX(20.8px);
 }

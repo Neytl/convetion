@@ -7,8 +7,7 @@ export default function AddSchoolPopup() {
       <form className="popupFields">
         <div>
           <div className="popupInputLabel">
-            <TinyImage imageSrc="/images/school.png" />
-            <label htmlFor="schoolName">Name</label>
+            <label htmlFor="schoolName">Name:</label>
           </div>
           <input type="text" id="schoolName" placeholder="School Name" />
         </div>
