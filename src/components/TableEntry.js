@@ -49,11 +49,9 @@ function generateAdminSchoolEntryDropdown(tableType, data) {
 
   let editSchoolData = function () {
     openTableButtonPopup("edit_" + tableType + "_popup");
-    console.log(data);
     let input = document.getElementById("editSchoolName");
     input.value = data[0];
     input.dataset.schooID = data[0];
-    document.getElementById("submitAdminSchool").innerHTML = "Update";
   };
 
   let deleteSchool = function (event) {
@@ -108,6 +106,46 @@ function generateAdminSchoolEntryDropdown(tableType, data) {
 }
 
 function generateAdminEventsEntryDropdown(tableType, data) {
+  let printEvent = function () {
+    // TODO
+    console.log("Printing out '" + data[0] + "' event data...");
+  };
+
+  let editEvent = function () {
+    openTableButtonPopup("edit_" + tableType + "_popup");
+
+    let input = document.getElementById("editEventName");
+    input.value = data[0];
+    input.dataset.eventID = data[0];
+
+    if (data[2] != "-") {
+      // Teams
+      document.getElementById("editEventHasTeams").checked = true;
+      document
+        .getElementById("editTeamSizeContainer")
+        .classList.remove("hidden");
+      document.getElementById("editEventTeamSize").value = parseInt(data[2]);
+    } else {
+      document.getElementById("editEventHasTeams").checked = false;
+      document.getElementById("editTeamSizeContainer").classList.add("hidden");
+    }
+
+    // TODO - set the event category
+    // ...
+  };
+
+  let deleteEvent = function (event) {
+    if (confirm("Are you sure you want to delete '" + data[0] + "'?")) {
+      let body = {
+        eventID: data[0],
+      };
+      console.log("Fetch Delete Event", body);
+
+      let elementToDelete = document.getElementById("entry" + data[0]);
+      elementToDelete.parentElement.removeChild(elementToDelete);
+    }
+  };
+
   return (
     <div className="tableEntryDropdown">
       <div className="eventParticipants">
@@ -123,26 +161,63 @@ function generateAdminEventsEntryDropdown(tableType, data) {
         <Image src="/images/delete.png" alt="" width="20" height="20" />
       </div>
       <div className="tableEntryDropdownButtons">
-        <TableEntryButton imageSrc="/images/add.png" text="Participant" />
-        <TableEntryButton imageSrc="/images/print.png" text="Print" />
-        <TableEntryButton imageSrc="/images/edit.png" text="Edit" />
-        <TableEntryButton imageSrc="/images/delete.png" text="Delete" />
-      </div>
-    </div>
-  );
-}
-
-function generateSchoolEventsEntryDropdown(tableType, data) {
-  return (
-    <div className="tableEntryDropdown">
-      <div className="tableEntryDropdownButtons">
-        <TableEntryButton imageSrc="/images/delete.png" text="Remove" />
+        <TableEntryButton
+          onClick={printEvent}
+          imageSrc="/images/print.png"
+          text="Print"
+        />
+        <TableEntryButton
+          onClick={editEvent}
+          imageSrc="/images/edit.png"
+          text="Edit"
+        />
+        <TableEntryButton
+          onClick={deleteEvent}
+          imageSrc="/images/delete.png"
+          text="Delete"
+        />
       </div>
     </div>
   );
 }
 
 function generateSchoolStudentsEntryDropdown(tableType, data) {
+  let editStudent = function () {
+    openTableButtonPopup("edit_" + tableType + "_popup");
+    console.log(data);
+
+    let input = document.getElementById("editEventName");
+    input.value = data[0];
+    input.dataset.eventID = data[0];
+
+    if (data[2] != "-") {
+      // Teams
+      document.getElementById("editEventHasTeams").checked = true;
+      document
+        .getElementById("editTeamSizeContainer")
+        .classList.remove("hidden");
+      document.getElementById("editEventTeamSize").value = parseInt(data[2]);
+    } else {
+      document.getElementById("editEventHasTeams").checked = false;
+      document.getElementById("editTeamSizeContainer").classList.add("hidden");
+    }
+
+    // TODO - set the event category
+    // ...
+  };
+
+  let deleteStudent = function (event) {
+    if (confirm("Are you sure you want to delete '" + data[0] + "'?")) {
+      let body = {
+        studentID: data[0],
+      };
+      console.log("Fetch Delete Student", body);
+
+      let elementToDelete = document.getElementById("entry" + data[0]);
+      elementToDelete.parentElement.removeChild(elementToDelete);
+    }
+  };
+
   return (
     <div className="tableEntryDropdown">
       <div className="eventParticipants">
@@ -154,9 +229,26 @@ function generateSchoolStudentsEntryDropdown(tableType, data) {
         <Image src="/images/delete.png" alt="" width="20" height="20" />
       </div>
       <div className="tableEntryDropdownButtons">
-        <TableEntryButton imageSrc="/images/add.png" text="Event" />
-        <TableEntryButton imageSrc="/images/edit.png" text="Student" />
-        <TableEntryButton imageSrc="/images/delete.png" text="Delete" />
+        <TableEntryButton
+          onClick={editStudent}
+          imageSrc="/images/edit.png"
+          text="Student"
+        />
+        <TableEntryButton
+          onClick={deleteStudent}
+          imageSrc="/images/delete.png"
+          text="Delete"
+        />
+      </div>
+    </div>
+  );
+}
+
+function generateSchoolEventsEntryDropdown(tableType, data) {
+  return (
+    <div className="tableEntryDropdown">
+      <div className="tableEntryDropdownButtons">
+        <TableEntryButton imageSrc="/images/delete.png" text="Remove" />
       </div>
     </div>
   );

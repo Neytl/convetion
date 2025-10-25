@@ -1,52 +1,54 @@
 // import Image from "next/image";
 import TinyImage from "./TinyImage";
 
-export default function AddEventPopup() {
+export default function EditEventPopup() {
   let onToggleCheckbox = function (event) {
     if (event.target.checked) {
-      document.getElementById("teamSizeContainer").classList.remove("hidden");
+      document
+        .getElementById("editTeamSizeContainer")
+        .classList.remove("hidden");
     } else {
-      document.getElementById("teamSizeContainer").classList.add("hidden");
+      document.getElementById("editTeamSizeContainer").classList.add("hidden");
     }
   };
 
   return (
-    <div id="admin_events_popup" className="hidden">
+    <div id="edit_admin_events_popup" className="hidden">
       <form className="popupFields">
         {/* Event Name */}
         <div>
           <div className="popupInputLabel">
-            <label htmlFor="eventName">Name:</label>
+            <label htmlFor="editEventName">Name:</label>
           </div>
           <input
             onInput={clearError}
             type="text"
-            id="eventName"
+            id="editEventName"
             placeholder="Event Name"
           />
         </div>
         {/* Team Size */}
         <div id="teamSizeRow">
-          <div id="eventHasTeamsButton">
+          <div id="editEventHasTeamsButton">
             <div className="popupInputLabel">
               <label htmlFor="eventHasTeams">Teams?</label>
             </div>
-            <label className="sliderContainer" htmlFor="eventHasTeams">
+            <label className="sliderContainer" htmlFor="editEventHasTeams">
               <input
                 onChange={onToggleCheckbox}
                 type="checkbox"
-                id="eventHasTeams"
+                id="editEventHasTeams"
               />
               <div className="slider"></div>
             </label>
           </div>
-          <div id="teamSizeContainer">
+          <div id="editTeamSizeContainer">
             <div className="popupInputLabel">
               <label htmlFor="eventTeamSize">Size:</label>
             </div>
             <input
               type="number"
-              id="eventTeamSize"
+              id="editEventTeamSize"
               defaultValue={4}
               min={2}
               max={30}
@@ -56,10 +58,10 @@ export default function AddEventPopup() {
         {/* Category */}
         <div>
           <div className="popupInputLabel">
-            <label htmlFor="eventCategory">Category:</label>
+            <label htmlFor="editEventCategory">Category:</label>
           </div>
           <select
-            id="eventCategory"
+            id="editEventCategory"
             defaultValue={"Sports"}
             className="popupSelect"
           >
@@ -71,8 +73,8 @@ export default function AddEventPopup() {
       <span className="popupMessage"></span>
 
       <div className="popupButtonContainer">
-        <div onClick={addNewEvent} className="submitPopupButton">
-          Add
+        <div onClick={updateEvent} className="submitPopupButton">
+          Update
         </div>
       </div>
     </div>
@@ -90,21 +92,22 @@ function clearError(event) {
   event.target.classList.remove("error");
 }
 
-function addNewEvent() {
+function updateEvent() {
   let body = {
-    eventName: document.getElementById("eventName").value,
-    eventHasTeams: document.getElementById("eventHasTeams").checked,
-    eventTeamSize: document.getElementById("eventTeamSize").value,
-    eventCategory: document.getElementById("eventCategory").value,
+    eventID: document.getElementById("editEventName").dataset.eventID,
+    eventName: document.getElementById("editEventName").value,
+    eventHasTeams: document.getElementById("editEventHasTeams").checked,
+    eventTeamSize: document.getElementById("editEventTeamSize").value,
+    eventCategory: document.getElementById("editEventCategory").value,
   };
 
   // Incomplete data
   if (!body.eventName) {
-    document.getElementById("eventName").classList.add("error");
+    document.getElementById("editEventName").classList.add("error");
     return;
   }
 
   // Make the request
-  console.log("Fetch Add Event", body);
+  console.log("Fetch Update Event", body);
   document.getElementById("popupContainer").classList.add("hidden");
 }

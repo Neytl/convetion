@@ -5,6 +5,9 @@ import { clearSchoolPopup } from "./popupContent/AddSchoolPopup";
 import EditSchoolPopup from "./popupContent/EditSchoolPopup";
 import AddEventPopup from "./popupContent/AddEventPopup";
 import { clearEventPopup } from "./popupContent/AddEventPopup";
+import EditEventPopup from "./popupContent/EdiEventPopup";
+import AddStudentPopup from "./popupContent/AddStudentPopup";
+import { clearStudentPopup } from "./popupContent/AddStudentPopup";
 import Image from "next/image";
 
 // export default function Popup({ title, contentElement }) {
@@ -38,6 +41,8 @@ export default function Popup() {
           <AddSchoolPopup />
           <EditSchoolPopup />
           <AddEventPopup />
+          <EditEventPopup />
+          <AddStudentPopup />
         </div>
       </div>
     </div>
@@ -67,11 +72,16 @@ export const openTableButtonPopup = (popupName) => {
       document.getElementById("popupHeaderIcon").srcset = "/images/event.png";
       clearEventPopup();
       break;
-    case "school_events_popup":
-      document.getElementById("popupTitle").innerHTML = "Add Student";
+    case "edit_admin_events_popup":
+      document.getElementById("popupTitle").innerHTML = "Edit Event";
       document.getElementById("popupHeaderIcon").srcset = "/images/event.png";
       break;
     case "school_students_popup":
+      document.getElementById("popupTitle").innerHTML = "Add Student";
+      document.getElementById("popupHeaderIcon").srcset = "/images/account.png";
+      clearStudentPopup();
+      break;
+    case "school_events_popup":
       document.getElementById("popupTitle").innerHTML = "Add Student";
       document.getElementById("popupHeaderIcon").srcset = "/images/event.png";
       break;
