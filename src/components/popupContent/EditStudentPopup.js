@@ -77,7 +77,7 @@ function updateStudent() {
   if (!!body.birthdate) {
     const date = new Date(body.birthdate);
     if (!(date instanceof Date && !isNaN(date) && date.getFullYear() > 2000)) {
-      document.getElementById("birthdate").classList.add("error");
+      document.getElementById("editBirthdate").classList.add("error");
       errors = true;
     }
   }

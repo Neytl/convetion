@@ -8,6 +8,7 @@ import { clearEventPopup } from "./popupContent/AddEventPopup";
 import EditEventPopup from "./popupContent/EdiEventPopup";
 import AddStudentPopup from "./popupContent/AddStudentPopup";
 import { clearStudentPopup } from "./popupContent/AddStudentPopup";
+import EditStudentPopup from "./popupContent/EditStudentPopup";
 import Image from "next/image";
 
 // export default function Popup({ title, contentElement }) {
@@ -43,6 +44,7 @@ export default function Popup() {
           <AddEventPopup />
           <EditEventPopup />
           <AddStudentPopup />
+          <EditStudentPopup />
         </div>
       </div>
     </div>
@@ -80,6 +82,10 @@ export const openTableButtonPopup = (popupName) => {
       document.getElementById("popupTitle").innerHTML = "Add Student";
       document.getElementById("popupHeaderIcon").srcset = "/images/account.png";
       clearStudentPopup();
+      break;
+    case "edit_school_students_popup":
+      document.getElementById("popupTitle").innerHTML = "Edit Student";
+      document.getElementById("popupHeaderIcon").srcset = "/images/account.png";
       break;
     case "school_events_popup":
       document.getElementById("popupTitle").innerHTML = "Add Student";

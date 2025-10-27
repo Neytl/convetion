@@ -186,24 +186,12 @@ function generateSchoolStudentsEntryDropdown(tableType, data) {
     openTableButtonPopup("edit_" + tableType + "_popup");
     console.log(data);
 
-    let input = document.getElementById("editEventName");
+    let input = document.getElementById("editFirstName");
     input.value = data[0];
-    input.dataset.eventID = data[0];
+    input.dataset.studentID = data[0];
 
-    if (data[2] != "-") {
-      // Teams
-      document.getElementById("editEventHasTeams").checked = true;
-      document
-        .getElementById("editTeamSizeContainer")
-        .classList.remove("hidden");
-      document.getElementById("editEventTeamSize").value = parseInt(data[2]);
-    } else {
-      document.getElementById("editEventHasTeams").checked = false;
-      document.getElementById("editTeamSizeContainer").classList.add("hidden");
-    }
-
-    // TODO - set the event category
-    // ...
+    document.getElementById("editLastName").value = data[1];
+    document.getElementById("editBirthdate").value = "";
   };
 
   let deleteStudent = function (event) {
