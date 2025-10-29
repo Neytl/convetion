@@ -8,7 +8,16 @@ export default function TableEntry({ entryIconSrc, dataEntries, tableType }) {
   let columnIndex = 0;
 
   const onclickEntry = (event) => {
-    event.target.closest(".tableEntry").classList.toggle("closed");
+    let target = event.target.closest(".tableEntry");
+
+    if (target.classList.toggle("closed")) {
+      target.style.height = target.children[0].offsetHeight + "px";
+    } else {
+      target.style.height =
+        target.children[0].offsetHeight +
+        target.children[1].offsetHeight +
+        "px";
+    }
   };
 
   return (
