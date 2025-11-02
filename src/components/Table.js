@@ -135,7 +135,7 @@ function getTableEntryIcon(tableType) {
     case "admin_events":
     case "school_event":
     case "school_team_event":
-      return "/images/account.png";
+      return "/images/event.png";
     case "school_students":
     default:
       return "/images/account.png";

@@ -1,30 +1,42 @@
 {
   "tables": [
     {
-      "tableName": "",
+      "tableName": "Harmony School",
       "tableType": "school_students",
       "columnNames": ["Name", "Age", "Group", "Events"],
       "tableData": [
         {
-          "name": "Student 1",
+          "fullName": "Student 1",
+          "firstNames": "Student",
+          "lastNames": "1",
+          "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
           "age": 7,
           "group": "Corderitos",
           "events": 0
         },
         {
-          "name": "Student 2",
+          "fullName": "Student 2",
+          "firstNames": "Student",
+          "lastNames": "2",
+          "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
           "age": 6,
           "group": "Ovejitas",
           "events": 3
         },
         {
-          "name": "Student 3",
+          "fullName": "Student 3",
+          "firstNames": "Student",
+          "lastNames": "3",
+          "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
           "age": 7,
           "group": "Corderitos",
           "events": 2
         },
         {
-          "name": "Student 4",
+          "fullName": "Student 4",
+          "firstNames": "Student",
+          "lastNames": "4",
+          "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
           "age": 9,
           "group": "Corderos",
           "events": 1

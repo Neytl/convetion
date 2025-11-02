@@ -7,40 +7,50 @@
       "tableData": [
         {
           "eventName": "Solo Instrument",
+          "eventID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
           "teamSize": "-",
-          "category": "Music",
+          "category": "Música",
           "participants": [
             {
-              "name": "Student 1",
-              "school": "Harmony School",
+              "fullName": "Student 1",
+              "schoolName": "Harmony School",
               "ageGroup": "Corderitos",
               "Age": "7",
-              "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa"
+              "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdsa"
+            },
+            {
+              "fullName": "Student 2",
+              "schoolName": "Harmony School",
+              "ageGroup": "Corderitos",
+              "Age": "7",
+              "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasddsa"
             }
           ]
         },
         {
           "eventName": "4 x 100",
+          "eventID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
           "teamSize": "4",
-          "category": "Sports",
+          "category": "Deportes",
           "participants": [
             {
-              "name": "Student 2",
-              "school": "Harmony School",
+              "fullName": "Student 2",
+              "schoolName": "Harmony School",
               "ageGroup": "Corderitos",
               "Age": "7",
-              "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa"
+              "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfadfsa"
             }
           ]
         },
         {
           "eventName": "Soccer",
+          "eventID": "ajhsdljk-asdfdfasdf-adsfasdf-asfasdfsa",
           "teamSize": "8",
-          "category": "Sports",
+          "category": "Deportes",
           "participants": [
             {
-              "name": "Student 3",
-              "school": "Harmony School",
+              "fullName": "Student 3",
+              "schoolName": "Harmony School",
               "ageGroup": "Corderitos",
               "Age": "7",
               "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa"

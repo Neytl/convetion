@@ -9,19 +9,22 @@
           "schoolName": "Harmony School",
           "numStudents": 15,
           "username": "Harmony School",
-          "password": "9435"
+          "password": "9435",
+          "schoolID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa"
         },
         {
           "schoolName": "New School",
           "numStudents": 0,
           "username": "New School",
-          "password": "3854"
+          "password": "3854",
+          "schoolID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa"
         },
         {
           "schoolName": "Hope Academy",
           "numStudents": 3,
           "username": "Hope Academy",
-          "password": "1945"
+          "password": "1945",
+          "schoolID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa"
         }
       ]
     }

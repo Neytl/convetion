@@ -60,10 +60,13 @@ export default function AddEventPopup() {
           </div>
           <select
             id="eventCategory"
-            defaultValue={"Sports"}
+            defaultValue={"Deportes"}
             className="popupSelect"
           >
-            <option>Sports</option>
+            <option>Deportes</option>
+            <option>Música</option>
+            <option>Exhibiciones</option>
+            <option>Concursos Académicos</option>
           </select>
         </div>
       </form>

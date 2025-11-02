@@ -41,7 +41,7 @@ function updateSchool() {
   let input = document.getElementById("editSchoolName");
 
   let body = {
-    schoolID: input.dataset.schooID,
+    schoolID: input.dataset.schoolID,
     schoolName: input.value,
   };
 

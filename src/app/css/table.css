@@ -158,10 +158,30 @@
 
 /* Admin Events */
 .eventParticipants {
-  display: grid;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
   gap: 1em;
-  grid-template-columns: 1fr 2em;
+}
+
+.eventParticipants > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eventParticipants > div:hover {
+  text-decoration: underline;
+}
+
+.deleteParticipantButton {
+  padding: 0.5em;
+  cursor: pointer;
+  border-radius: 100%;
+}
+
+.deleteParticipantButton:hover {
+  background-color: #e6e6fa;
+  box-shadow: 0 0 0.5em #979797;
 }
 
 /* School Events */
