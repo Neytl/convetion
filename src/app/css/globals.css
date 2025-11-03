@@ -37,7 +37,7 @@ body {
   padding: 2em;
   display: flex;
   flex-direction: column;
-  gap: 3em;
+  /* gap: 3em; */
   overflow: auto;
 }
 
@@ -47,4 +47,10 @@ body {
 
 .invert {
   filter: invert(1);
+}
+
+#timeLeft {
+  font-size: 1.5em;
+  font-weight: bold;
+  padding-bottom: 1em;
 }

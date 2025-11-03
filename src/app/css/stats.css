@@ -11,10 +11,11 @@
 }
 
 .stat img {
-  background-color: lavender;
-  padding: 0.5em;
+  background-color: #c8b98e;
   border-radius: 0.3em;
-  box-shadow: #979797 0 0 0.5em 0px;
+  padding: 0.5em;
+  box-shadow: 0 0 0.5em #696969;
+  filter: invert(1);
 }
 
 .stat > div {

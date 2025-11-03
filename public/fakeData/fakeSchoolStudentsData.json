@@ -12,7 +12,16 @@
           "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
           "age": 7,
           "group": "Corderitos",
-          "events": 0
+          "events": [
+            {
+              "eventName": "Soccer",
+              "eventID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa"
+            },
+            {
+              "eventName": "Solo Instrument",
+              "eventID": "ajhsdljk-asdfdfasdf-adsfasdf-adsdsfasdfsa"
+            }
+          ]
         },
         {
           "fullName": "Student 2",
@@ -21,7 +30,20 @@
           "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
           "age": 6,
           "group": "Ovejitas",
-          "events": 3
+          "events": [
+            {
+              "eventName": "Soccer",
+              "eventID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa"
+            },
+            {
+              "eventName": "Solo Instrument",
+              "eventID": "ajhsdljk-asdfdfasdf-adsfasdf-adsdsfasdfsa"
+            },
+            {
+              "eventName": "Event 3",
+              "eventID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfacvsdfsa"
+            }
+          ]
         },
         {
           "fullName": "Student 3",
@@ -30,7 +52,20 @@
           "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
           "age": 7,
           "group": "Corderitos",
-          "events": 2
+          "events": [
+            {
+              "eventName": "Soccer",
+              "eventID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa"
+            },
+            {
+              "eventName": "Solo Instrument",
+              "eventID": "ajhsdljk-asdfdfasdf-adsfasdf-adsdsfasdfsa"
+            },
+            {
+              "eventName": "Event 3",
+              "eventID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfacvsdfsa"
+            }
+          ]
         },
         {
           "fullName": "Student 4",
@@ -39,7 +74,20 @@
           "studentID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa",
           "age": 9,
           "group": "Corderos",
-          "events": 1
+          "events": [
+            {
+              "eventName": "Soccer",
+              "eventID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfasdfsa"
+            },
+            {
+              "eventName": "Solo Instrument",
+              "eventID": "ajhsdljk-asdfdfasdf-adsfasdf-adsdsfasdfsa"
+            },
+            {
+              "eventName": "Event 3",
+              "eventID": "ajhsdljk-asdfdfasdf-adsfasdf-adsfacvsdfsa"
+            }
+          ]
         }
       ]
     }

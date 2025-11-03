@@ -1,6 +1,7 @@
 "use client";
 import Stats from "convention/components/Stats";
 import Table from "convention/components/Table";
+import PageInfo from "convention/components/PageInfo";
 
 import { useState, useEffect } from "react";
 
@@ -9,17 +10,21 @@ export default function Content({ dataEndpoint }) {
     tables: [],
   });
 
+  const [pathname, setPathname] = useState("");
+
   useEffect(() => {
     if (!!viewData.stats) return;
+    setPathname(window.location.pathname);
     fetch("./fakeData/" + dataEndpoint + ".json")
       .then((response) => response.json())
       .then((data) => {
         setViewData(data);
       });
-  });
+  }, [viewData.stats, dataEndpoint]);
 
   return (
     <div id="content">
+      <PageInfo pathname={pathname} />
       <Stats statsData={viewData.stats} />
       {viewData.tables.map((table) => (
         <Table

@@ -216,26 +216,35 @@ function generateAdminEventsEntryDropdown(tableType, data, columnIndex) {
     }
   };
 
-  let deleteParticipant = function (event) {
-    let participantToDelete = event.target.parentElement.id;
+  let deleteParticipant = function (event, participantToDelete) {
     let body = {
       participantID: participantToDelete,
       eventID: data.eventID,
     };
 
     console.log("Fetch Delete Participant", body);
+
+    // Delete the participant element
     let elementToDelete = event.target.parentElement;
+    let entryElement =
+      elementToDelete.parentElement.parentElement.parentElement;
     elementToDelete.parentElement.removeChild(elementToDelete);
+
+    // Update the height and update the # of events
+    entryElement.style.height =
+      entryElement.children[0].offsetHeight +
+      entryElement.children[1].offsetHeight +
+      "px";
+
+    let eventNumberElement = entryElement.children[0].children[1];
+    eventNumberElement.innerHTML = parseInt(eventNumberElement.innerHTML) - 1;
   };
 
   let eventParticipantsElements = [];
 
   data.participants.forEach((participant) => {
     eventParticipantsElements.push(
-      <div
-        key={participant.studentID}
-        id={data.eventID + participant.studentID}
-      >
+      <div key={participant.studentID}>
         <IconSpan
           imageSrc="/images/account.png"
           text={participant.fullName + " - " + participant.schoolName}
@@ -246,7 +255,9 @@ function generateAdminEventsEntryDropdown(tableType, data, columnIndex) {
           alt=""
           width="20"
           height="20"
-          onClick={deleteParticipant}
+          onClick={(event) => {
+            deleteParticipant(event, participant.studentID);
+          }}
         />
       </div>
     );
@@ -298,16 +309,56 @@ function generateSchoolStudentsEntryDropdown(tableType, data, columnIndex) {
     }
   };
 
+  let deleteParticipant = function (event, eventToDelete) {
+    let body = {
+      participantID: data.studentID,
+      eventID: eventToDelete,
+    };
+
+    console.log("Fetch Delete Participant", body);
+
+    // Delete the participant element
+    let elementToDelete = event.target.parentElement;
+    let entryElement =
+      elementToDelete.parentElement.parentElement.parentElement;
+    elementToDelete.parentElement.removeChild(elementToDelete);
+
+    // Update the height and update the # of events
+    entryElement.style.height =
+      entryElement.children[0].offsetHeight +
+      entryElement.children[1].offsetHeight +
+      "px";
+
+    let eventNumberElement = entryElement.children[0].children[3];
+    eventNumberElement.innerHTML = parseInt(eventNumberElement.innerHTML) - 1;
+  };
+
+  let eventsElements = [];
+
+  data.events.forEach((studentEvent) => {
+    eventsElements.push(
+      <div key={studentEvent.eventID}>
+        <IconSpan
+          imageSrc="/images/account.png"
+          text={studentEvent.eventName}
+        />
+        <Image
+          className="deleteParticipantButton"
+          src="/images/delete.png"
+          alt=""
+          width="20"
+          height="20"
+          onClick={(event) => {
+            deleteParticipant(event, studentEvent.eventID);
+          }}
+        />
+      </div>
+    );
+  });
+
   return (
     <div className="tableEntryDropdown">
-      <div className="eventParticipants">
-        <IconSpan imageSrc="/images/event.png" text="Event 1" />
-        <Image src="/images/delete.png" alt="" width="20" height="20" />
-        <IconSpan imageSrc="/images/event.png" text="Event 2" />
-        <Image src="/images/delete.png" alt="" width="20" height="20" />
-        <IconSpan imageSrc="/images/event.png" text="Event 3" />
-        <Image src="/images/delete.png" alt="" width="20" height="20" />
-      </div>
+      <div className="eventParticipants">{eventsElements}</div>
       <div className="tableEntryDropdownButtons">
         <TableEntryButton
           onClick={editStudent}
