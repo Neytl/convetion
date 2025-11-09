@@ -65,7 +65,7 @@ function lookupTableEntryData(tableType, data, entryIconSrc) {
             <span>{data.fullName}</span>
           </div>
           <span key={columnIndex++}>{data.age}</span>
-          <span key={columnIndex++}>{data.group}</span>
+          <span key={columnIndex++}>{data.ageGroup}</span>
           <span key={columnIndex++}>{data.events.length}</span>
         </div>
       );
@@ -330,10 +330,7 @@ function generateSchoolStudentsEntryDropdown(tableType, data, columnIndex) {
   data.events.forEach((studentEvent) => {
     eventsElements.push(
       <div key={studentEvent.eventID}>
-        <IconSpan
-          imageSrc="/images/account.png"
-          text={studentEvent.eventName}
-        />
+        <IconSpan imageSrc="/images/event.png" text={studentEvent.eventName} />
         <Image
           className="deleteParticipantButton"
           src="/images/delete.png"

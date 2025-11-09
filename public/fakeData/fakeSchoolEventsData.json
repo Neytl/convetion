@@ -4,7 +4,7 @@
       "tableName": "Soccer",
       "tableType": "school_team_event",
       "maxTeamSize": 8,
-      "columnNames": ["Name", "Age Group", "Age", "Team #"],
+      "columnNames": ["Name", "Age", "Age Group"],
       "tableData": [
         {
           "fullName": "Student 1",

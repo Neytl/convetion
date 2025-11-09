@@ -15,11 +15,38 @@ export default function Content({ dataEndpoint }) {
   useEffect(() => {
     if (!!viewData.stats) return;
     setPathname(window.location.pathname);
-    fetch("./fakeData/" + dataEndpoint + ".json")
-      .then((response) => response.json())
-      .then((data) => {
-        setViewData(data);
-      });
+
+    if (window.location.pathname == "/") {
+      console.log("Loading from database...");
+      fetch("https://localhost:44398/api/MiniConvention/adminSchoolsPage")
+        .then((response) => response.json())
+        .then((data) => {
+          setViewData(data);
+        });
+    } else if (window.location.pathname == "/adminEvents") {
+      console.log("Loading from database...");
+      fetch("https://localhost:44398/api/MiniConvention/adminEventsPage")
+        .then((response) => response.json())
+        .then((data) => {
+          setViewData(data);
+        });
+    } else if (window.location.pathname == "/schoolStudents") {
+      console.log("Loading from database...");
+      fetch(
+        "https://localhost:44398/api/MiniConvention/schoolStudentsPage/07e98351-dec7-403b-8ecb-e461f12ffdd4"
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setViewData(data);
+        });
+    } else {
+      console.log("Loading from JSON...");
+      fetch("./fakeData/" + dataEndpoint + ".json")
+        .then((response) => response.json())
+        .then((data) => {
+          setViewData(data);
+        });
+    }
   }, [viewData.stats, dataEndpoint]);
 
   return (
