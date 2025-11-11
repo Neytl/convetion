@@ -2,7 +2,7 @@
 import { Birthstone } from "next/font/google";
 import TinyImage from "./TinyImage";
 
-export default function AddStudentPopup() {
+export default function AddStudentPopup({ postNewData }) {
   return (
     <div id="school_students_popup" className="hidden">
       <form className="popupFields">

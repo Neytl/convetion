@@ -1,13 +1,31 @@
 // import Image from "next/image";
 import TinyImage from "./TinyImage";
 
-export default function AddEventPopup() {
-  let onToggleCheckbox = function (event) {
+export default function AddEventPopup({ postNewData }) {
+  const onToggleCheckbox = (event) => {
     if (event.target.checked) {
       document.getElementById("teamSizeContainer").classList.remove("hidden");
     } else {
       document.getElementById("teamSizeContainer").classList.add("hidden");
     }
+  };
+
+  const addNewEvent = () => {
+    let payload = {
+      eventName: document.getElementById("eventName").value,
+      isTeamEvent: document.getElementById("eventHasTeams").checked,
+      maxTeamSize: document.getElementById("eventTeamSize").value,
+      category: document.getElementById("eventCategory").value,
+    };
+
+    // Incomplete data
+    if (!payload.eventName) {
+      document.getElementById("eventName").classList.add("error");
+      return;
+    }
+
+    // Make the request
+    postNewData("event", payload);
   };
 
   return (
@@ -91,43 +109,4 @@ export const clearEventPopup = () => {
 
 function clearError(event) {
   event.target.classList.remove("error");
-}
-
-function addNewEvent() {
-  let payload = {
-    eventName: document.getElementById("eventName").value,
-    isTeamEvent: document.getElementById("eventHasTeams").checked,
-    maxTeamSize: document.getElementById("eventTeamSize").value,
-    category: document.getElementById("eventCategory").value,
-  };
-
-  // Incomplete data
-  if (!payload.eventName) {
-    document.getElementById("eventName").classList.add("error");
-    return;
-  }
-
-  // Make the request
-  console.log("Fetch Add Event", payload);
-  fetch("https://localhost:44398/api/MiniConvention/event", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
-    },
-    body: JSON.stringify(payload),
-  })
-    .then((response) => {
-      if (!!response.status && response.status == 400) {
-        console.log("Bad request");
-        return null;
-      }
-
-      return response.json();
-    })
-    .then((data) => {
-      if (!!data) console.log(" = Response: ", data);
-    });
-
-  document.getElementById("popupContainer").classList.add("hidden");
 }

@@ -9,6 +9,7 @@ export default function TableEntry({
   data,
   tableType,
   rowIndex,
+  deleteDataEntry,
 }) {
   let entryID = "entry" + rowIndex;
 
@@ -31,7 +32,7 @@ export default function TableEntry({
   return (
     <div className="tableEntry closed" id={entryID}>
       {lookupTableEntryData(tableType, data, entryIconSrc)}
-      {lookupTableEntryDropdown(tableType, data, rowIndex)}
+      {lookupTableEntryDropdown(tableType, data, rowIndex, deleteDataEntry)}
     </div>
   );
 }
@@ -104,22 +105,47 @@ function lookupTableEntryData(tableType, data, entryIconSrc) {
   }
 }
 
-function lookupTableEntryDropdown(tableType, data, rowIndex) {
+function lookupTableEntryDropdown(tableType, data, rowIndex, deleteDataEntry) {
   switch (tableType) {
     case "admin_schools":
-      return generateAdminSchoolEntryDropdown(tableType, data, rowIndex);
+      return generateAdminSchoolEntryDropdown(
+        tableType,
+        data,
+        rowIndex,
+        deleteDataEntry
+      );
     case "admin_events":
-      return generateAdminEventsEntryDropdown(tableType, data, rowIndex);
+      return generateAdminEventsEntryDropdown(
+        tableType,
+        data,
+        rowIndex,
+        deleteDataEntry
+      );
     case "school_event":
     case "school_team_event":
-      return generateSchoolEventsEntryDropdown(tableType, data, rowIndex);
+      return generateSchoolEventsEntryDropdown(
+        tableType,
+        data,
+        rowIndex,
+        deleteDataEntry
+      );
     case "school_students":
     default:
-      return generateSchoolStudentsEntryDropdown(tableType, data, rowIndex);
+      return generateSchoolStudentsEntryDropdown(
+        tableType,
+        data,
+        rowIndex,
+        deleteDataEntry
+      );
   }
 }
 
-function generateAdminSchoolEntryDropdown(tableType, data, rowIndex) {
+function generateAdminSchoolEntryDropdown(
+  tableType,
+  data,
+  rowIndex,
+  deleteDataEntry
+) {
   let printSchoolData = function () {
     // TODO
     console.log("Printing out '" + data.schoolName + "' school data...");
@@ -134,34 +160,9 @@ function generateAdminSchoolEntryDropdown(tableType, data, rowIndex) {
 
   let deleteSchool = function (event) {
     if (confirm("Are you sure you want to delete '" + data.schoolName + "'?")) {
-      let payload = {
+      deleteDataEntry("school", {
         schoolID: data.schoolID,
-      };
-
-      console.log("Fetch Delete School", payload);
-      fetch("https://localhost:44398/api/MiniConvention/school", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        body: JSON.stringify(payload),
-      })
-        .then((response) => {
-          if (!!response.status && response.status == 400) {
-            console.log("Bad request");
-            return null;
-          }
-
-          return response.json();
-        })
-        .then((data) => {
-          if (!!data) console.log(" = Response: ", data);
-        });
-
-      let elementToDelete = document.getElementById("entry" + data.schoolID);
-      console.log("entry" + rowIndex, elementToDelete);
-      elementToDelete.parentElement.removeChild(elementToDelete);
+      });
     }
   };
 
@@ -204,7 +205,12 @@ function generateAdminSchoolEntryDropdown(tableType, data, rowIndex) {
   );
 }
 
-function generateAdminEventsEntryDropdown(tableType, data, columnIndex) {
+function generateAdminEventsEntryDropdown(
+  tableType,
+  data,
+  columnIndex,
+  deleteDataEntry
+) {
   let printEvent = function () {
     // TODO
     console.log("Printing out '" + data.eventName + "' event data...");
@@ -236,33 +242,9 @@ function generateAdminEventsEntryDropdown(tableType, data, columnIndex) {
 
   let deleteEvent = function (event) {
     if (confirm("Are you sure you want to delete '" + data.eventName + "'?")) {
-      let payload = {
+      deleteDataEntry("event", {
         eventID: data.eventID,
-      };
-
-      console.log("Fetch Delete Event", payload);
-      fetch("https://localhost:44398/api/MiniConvention/event", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        body: JSON.stringify(payload),
-      })
-        .then((response) => {
-          if (!!response.status && response.status == 400) {
-            console.log("Bad request");
-            return null;
-          }
-
-          return response.json();
-        })
-        .then((data) => {
-          if (!!data) console.log(" = Response: ", data);
-        });
-
-      let elementToDelete = document.getElementById("entry" + columnIndex);
-      elementToDelete.parentElement.removeChild(elementToDelete);
+      });
     }
   };
 
@@ -356,7 +338,12 @@ function generateAdminEventsEntryDropdown(tableType, data, columnIndex) {
   );
 }
 
-function generateSchoolStudentsEntryDropdown(tableType, data, columnIndex) {
+function generateSchoolStudentsEntryDropdown(
+  tableType,
+  data,
+  columnIndex,
+  deleteDataEntry
+) {
   let editStudent = function () {
     openTableButtonPopup("edit_" + tableType + "_popup");
     let input = document.getElementById("editFirstName");
@@ -480,7 +467,12 @@ function generateSchoolStudentsEntryDropdown(tableType, data, columnIndex) {
   );
 }
 
-function generateSchoolEventsEntryDropdown(tableType, data, columnIndex) {
+function generateSchoolEventsEntryDropdown(
+  tableType,
+  data,
+  columnIndex,
+  deleteDataEntry
+) {
   let removeStudent = function (event) {
     let payload = {
       studentID: data.studentID,

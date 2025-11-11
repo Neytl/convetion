@@ -5,6 +5,7 @@ import PageInfo from "convention/components/PageInfo";
 import Popup from "convention/components/Popup";
 
 import { useState, useEffect } from "react";
+import TableEntry from "./TableEntry";
 
 export default function Content({ dataEndpoint }) {
   const [viewData, setViewData] = useState({
@@ -13,9 +14,7 @@ export default function Content({ dataEndpoint }) {
 
   const [pathname, setPathname] = useState("");
 
-  const addDataEntry = (data) => {
-    let updatedData = structuredClone(viewData);
-
+  const closeTableEntries = () => {
     Array.from(
       document.getElementById(viewData.tables[0].tableName + "TableEntries")
         .children
@@ -23,14 +22,87 @@ export default function Content({ dataEndpoint }) {
       element.style = "";
       element.classList.add("closed");
     });
+  };
 
-    updatedData.tables[0].tableData.unshift(data);
-    updatedData.stats[0].value++;
-    setViewData(updatedData);
+  const postNewData = (endpoint, payload) => {
+    // Close the table
+    closeTableEntries();
+
+    // Make the request
+    console.log("Fetch add " + endpoint, payload);
+
+    fetch("https://localhost:44398/api/MiniConvention/" + endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => {
+        if (!!response.status && response.status == 400) {
+          console.log("Bad request");
+          return null;
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        if (!data) return;
+        let updatedData = structuredClone(viewData);
+        updatedData.tables[0].tableData.unshift(data);
+        updatedData.stats[0].value++;
+        setViewData(updatedData);
+      });
+
+    document.getElementById("popupContainer").classList.add("hidden");
+  };
+
+  const deleteDataEntry = (endpoint, payload) => {
+    // Close all open elements
+    closeTableEntries();
+
+    // Remove the element - update the view data
+    let updatedData = structuredClone(viewData);
+    let key = Object.keys(payload)[0];
+    let value = payload[key];
+    let tableData = updatedData.tables[0].tableData;
+
+    for (let i = 0; i < tableData.length; i++) {
+      if (value == tableData[i][key]) {
+        // Found the item to delete
+        tableData.splice(i, 1);
+        updatedData.stats[0].value--;
+        setViewData(updatedData);
+        break;
+      }
+    }
+
+    // Make the delete request
+    console.log("Fetch delete " + endpoint, payload);
+    fetch("https://localhost:44398/api/MiniConvention/" + endpoint, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => {
+        if (!!response.status && response.status == 400) {
+          console.log("Bad request");
+          return null;
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        if (!!data) console.log(" = Response: ", data);
+      });
   };
 
   const popupEvents = {
-    addDataEntry: addDataEntry,
+    postNewData: postNewData,
   };
 
   useEffect(() => {
@@ -84,6 +156,7 @@ export default function Content({ dataEndpoint }) {
             tableType={table.tableType}
             tableName={table.tableName}
             maxTeamSize={table.maxTeamSize}
+            deleteDataEntry={deleteDataEntry}
           />
         ))}
       </div>

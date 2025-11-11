@@ -10,6 +10,7 @@ export default function Table({
   tableType,
   tableName,
   maxTeamSize,
+  deleteDataEntry,
 }) {
   if (!tableColumns) {
     return <div>Loading table data...</div>;
@@ -44,6 +45,7 @@ export default function Table({
         data={entryData}
         tableType={tableType}
         rowIndex={rowIndex++}
+        deleteDataEntry={deleteDataEntry}
       />
     ));
   } else {
