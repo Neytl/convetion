@@ -7,12 +7,13 @@ import Popup from "convention/components/Popup";
 import { useState, useEffect } from "react";
 import TableEntry from "./TableEntry";
 
-export default function Content({ dataEndpoint }) {
+export default function Content({ setPageSchoolData }) {
   const [viewData, setViewData] = useState({
     tables: [],
   });
 
   const [pathname, setPathname] = useState("");
+
   const [schoolID, setSchoolID] = useState("");
 
   const closeTableEntries = () => {
@@ -160,12 +161,28 @@ export default function Content({ dataEndpoint }) {
 
   useEffect(() => {
     if (!!viewData.stats) return;
+
+    // Pull data from the URL and try to pull the page's school data
     setPathname(window.location.pathname);
+
     let queryStringSchoolID = new URLSearchParams(window.location.search).get(
       "school"
     );
     setSchoolID(queryStringSchoolID);
+    let storedPageSchoolData = JSON.parse(
+      sessionStorage.getItem("pageSchoolData")
+    );
+    let foundPageSchoolData =
+      !!storedPageSchoolData &&
+      (!queryStringSchoolID ||
+        storedPageSchoolData.schoolID == queryStringSchoolID);
 
+    if (foundPageSchoolData) {
+      // Storage hit!
+      setPageSchoolData(storedPageSchoolData);
+    }
+
+    // Request the page data from the database
     if (window.location.pathname == "/") {
       console.log("Loading from database...");
       fetch("https://localhost:44398/api/MiniConvention/adminSchoolsPage")
@@ -189,16 +206,41 @@ export default function Content({ dataEndpoint }) {
         .then((response) => response.json())
         .then((data) => {
           setViewData(data);
+
+          if (!foundPageSchoolData) {
+            setPageSchoolData(data.pageSchoolData);
+            sessionStorage.setItem(
+              "pageSchoolData",
+              JSON.stringify(data.pageSchoolData)
+            );
+          }
         });
     } else {
-      console.log("Loading from JSON...");
-      fetch("./fakeData/" + dataEndpoint + ".json")
+      // console.log("Loading from JSON...");
+      // fetch("./fakeData/" + dataEndpoint + ".json")
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     setViewData(data);
+      //   });
+
+      console.log("Loading from database...");
+      fetch(
+        "https://localhost:44398/api/MiniConvention/schoolStudentsPage/" +
+          queryStringSchoolID
+      )
         .then((response) => response.json())
         .then((data) => {
           setViewData(data);
+          if (!foundPageSchoolData) {
+            setPageSchoolData(data.pageSchoolData);
+            sessionStorage.setItem(
+              "pageSchoolData",
+              JSON.stringify(data.pageSchoolData)
+            );
+          }
         });
     }
-  }, [viewData, dataEndpoint]);
+  }, [viewData, setPageSchoolData]);
 
   return (
     <div id="content">

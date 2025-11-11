@@ -1,15 +1,18 @@
+"use client";
 import Nav from "convention/components/Nav";
 import Content from "convention/components/Content";
-import Popup from "convention/components/Popup";
 import Topper from "convention/components/Topper";
+import { useState } from "react";
 
-export default function AdminEventsPage() {
+export default function SchoolEventsPage() {
+  const [pageSchoolData, setPageSchoolData] = useState(null);
+
   return (
     <div id="page">
       <Topper />
       <div id="split">
-        <Nav />
-        <Content dataEndpoint="fakeSchoolEventsData" />
+        <Nav pageSchoolData={pageSchoolData} />
+        <Content setPageSchoolData={setPageSchoolData} />
       </div>
     </div>
   );

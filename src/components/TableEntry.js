@@ -157,13 +157,19 @@ function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
     window.location.href = "./schoolStudents?school=" + data.schoolID;
   };
 
+  let viewEvents = function () {
+    window.location.href = "./schoolEvents?school=" + data.schoolID;
+  };
+
   return (
     <div className="tableEntryDropdown">
-      <div className="schoolLoginInfo">
-        <IconSpan imageSrc="/images/account.png" text="Username:" />
-        <span>{data.username}</span>
-        <IconSpan imageSrc="/images/password.png" text="Password:" />
-        <span>{data.password}</span>
+      <div className="loginInfoContainer">
+        <div className="schoolLoginInfo">
+          <IconSpan imageSrc="/images/account.png" text="Username:" />
+          <span>{data.username}</span>
+          <IconSpan imageSrc="/images/password.png" text="Password:" />
+          <span>{data.password}</span>
+        </div>
       </div>
       <div className="tableEntryDropdownButtons">
         <TableEntryButton
@@ -185,6 +191,11 @@ function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
           imageSrc="/images/account.png"
           text="Students"
           onClick={viewStudents}
+        />
+        <TableEntryButton
+          imageSrc="/images/event.png"
+          text="Events"
+          onClick={viewEvents}
         />
       </div>
     </div>
