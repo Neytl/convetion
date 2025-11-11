@@ -11,7 +11,6 @@ export default function AdminEventsPage() {
         <Nav />
         <Content dataEndpoint="fakeSchoolStudentsData" />
       </div>
-      <Popup />
     </div>
   );
 }

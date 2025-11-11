@@ -10,8 +10,26 @@ export default function TableEntry({
   tableType,
   rowIndex,
 }) {
+  let entryID = "entry" + rowIndex;
+
+  switch (tableType) {
+    case "admin_schools":
+      entryID = "entry" + data.schoolID;
+      break;
+    case "admin_events":
+      entryID = "entry" + data.schoolID;
+      break;
+    case "school_students":
+      entryID = "entry" + data.schoolID;
+      break;
+    case "school_event":
+    case "school_team_event":
+      entryID = "entry" + data.schoolID;
+      break;
+  }
+
   return (
-    <div className="tableEntry closed" id={"entry" + rowIndex}>
+    <div className="tableEntry closed" id={entryID}>
       {lookupTableEntryData(tableType, data, entryIconSrc)}
       {lookupTableEntryDropdown(tableType, data, rowIndex)}
     </div>
@@ -53,7 +71,7 @@ function lookupTableEntryData(tableType, data, entryIconSrc) {
             <span>{data.eventName}</span>
           </div>
           <span key={columnIndex++}>{data.participants.length}</span>
-          <span key={columnIndex++}>{data.teamSize}</span>
+          <span key={columnIndex++}>{data.maxTeamSize}</span>
           <span key={columnIndex++}>{data.category}</span>
         </div>
       );
@@ -116,10 +134,30 @@ function generateAdminSchoolEntryDropdown(tableType, data, rowIndex) {
 
   let deleteSchool = function (event) {
     if (confirm("Are you sure you want to delete '" + data.schoolName + "'?")) {
-      let body = {
+      let payload = {
         schoolID: data.schoolID,
       };
-      console.log("Fetch Delete School", body);
+
+      console.log("Fetch Delete School", payload);
+      fetch("https://localhost:44398/api/MiniConvention/school", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify(payload),
+      })
+        .then((response) => {
+          if (!!response.status && response.status == 400) {
+            console.log("Bad request");
+            return null;
+          }
+
+          return response.json();
+        })
+        .then((data) => {
+          if (!!data) console.log(" = Response: ", data);
+        });
 
       let elementToDelete = document.getElementById("entry" + rowIndex);
       console.log("entry" + rowIndex, elementToDelete);
@@ -179,14 +217,14 @@ function generateAdminEventsEntryDropdown(tableType, data, columnIndex) {
     input.value = data.eventName;
     input.dataset.eventID = data.eventID;
 
-    if (data.teamSize != "-") {
+    if (data.maxTeamSize != "-") {
       // Teams
       document.getElementById("editEventHasTeams").checked = true;
       document
         .getElementById("editTeamSizeContainer")
         .classList.remove("hidden");
       document.getElementById("editEventTeamSize").value = parseInt(
-        data.teamSize
+        data.maxTeamSize
       );
     } else {
       document.getElementById("editEventHasTeams").checked = false;
@@ -198,10 +236,30 @@ function generateAdminEventsEntryDropdown(tableType, data, columnIndex) {
 
   let deleteEvent = function (event) {
     if (confirm("Are you sure you want to delete '" + data.eventName + "'?")) {
-      let body = {
-        eventName: data.eventName,
+      let payload = {
+        eventID: data.eventID,
       };
-      console.log("Fetch Delete Event", body);
+
+      console.log("Fetch Delete Event", payload);
+      fetch("https://localhost:44398/api/MiniConvention/event", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify(payload),
+      })
+        .then((response) => {
+          if (!!response.status && response.status == 400) {
+            console.log("Bad request");
+            return null;
+          }
+
+          return response.json();
+        })
+        .then((data) => {
+          if (!!data) console.log(" = Response: ", data);
+        });
 
       let elementToDelete = document.getElementById("entry" + columnIndex);
       elementToDelete.parentElement.removeChild(elementToDelete);
@@ -209,12 +267,31 @@ function generateAdminEventsEntryDropdown(tableType, data, columnIndex) {
   };
 
   let deleteParticipant = function (event, participantToDelete) {
-    let body = {
+    let payload = {
       participantID: participantToDelete,
       eventID: data.eventID,
     };
 
-    console.log("Fetch Delete Participant", body);
+    console.log("Fetch Delete Participant", payload);
+    fetch("https://localhost:44398/api/MiniConvention/participant", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => {
+        if (!!response.status && response.status == 400) {
+          console.log("Bad request");
+          return null;
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        if (!!data) console.log(" = Response: ", data);
+      });
 
     // Delete the participant element
     let elementToDelete = event.target.parentElement;
@@ -286,15 +363,35 @@ function generateSchoolStudentsEntryDropdown(tableType, data, columnIndex) {
     input.value = data.firstNames;
     input.dataset.studentID = data.studentID;
     document.getElementById("editLastName").value = data.lastNames;
-    document.getElementById("editBirthdate").value = "";
+    document.getElementById("editBirthdate").value = data.birthdate;
   };
 
   let deleteStudent = function (event) {
     if (confirm("Are you sure you want to delete '" + data.fullName + "'?")) {
-      let body = {
+      let payload = {
         studentID: data.studentID,
       };
-      console.log("Fetch Delete Student", body);
+
+      console.log("Fetch Delete Student", payload);
+      fetch("https://localhost:44398/api/MiniConvention/student", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify(payload),
+      })
+        .then((response) => {
+          if (!!response.status && response.status == 400) {
+            console.log("Bad request");
+            return null;
+          }
+
+          return response.json();
+        })
+        .then((data) => {
+          if (!!data) console.log(" = Response: ", data);
+        });
 
       let elementToDelete = document.getElementById("entry" + columnIndex);
       elementToDelete.parentElement.removeChild(elementToDelete);
@@ -302,12 +399,31 @@ function generateSchoolStudentsEntryDropdown(tableType, data, columnIndex) {
   };
 
   let deleteParticipant = function (event, eventToDelete) {
-    let body = {
+    let payload = {
       participantID: data.studentID,
       eventID: eventToDelete,
     };
 
-    console.log("Fetch Delete Participant", body);
+    console.log("Fetch Delete Participant", payload);
+    fetch("https://localhost:44398/api/MiniConvention/participant", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => {
+        if (!!response.status && response.status == 400) {
+          console.log("Bad request");
+          return null;
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        if (!!data) console.log(" = Response: ", data);
+      });
 
     // Delete the participant element
     let elementToDelete = event.target.parentElement;
@@ -366,11 +482,31 @@ function generateSchoolStudentsEntryDropdown(tableType, data, columnIndex) {
 
 function generateSchoolEventsEntryDropdown(tableType, data, columnIndex) {
   let removeStudent = function (event) {
-    let body = {
+    let payload = {
       studentID: data.studentID,
       eventID: data.eventID,
     };
-    console.log("Fetch Delete Participant", body);
+
+    console.log("Fetch Delete Participant", payload);
+    fetch("https://localhost:44398/api/MiniConvention/participant", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => {
+        if (!!response.status && response.status == 400) {
+          console.log("Bad request");
+          return null;
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        if (!!data) console.log(" = Response: ", data);
+      });
 
     let elementToDelete = document.getElementById("entry" + columnIndex);
 

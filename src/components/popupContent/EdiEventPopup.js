@@ -96,21 +96,41 @@ function clearError(event) {
 }
 
 function updateEvent() {
-  let body = {
+  let payload = {
     eventID: document.getElementById("editEventName").dataset.eventID,
     eventName: document.getElementById("editEventName").value,
-    eventHasTeams: document.getElementById("editEventHasTeams").checked,
-    eventTeamSize: document.getElementById("editEventTeamSize").value,
-    eventCategory: document.getElementById("editEventCategory").value,
+    isTeamEvent: document.getElementById("editEventHasTeams").checked,
+    maxTeamSize: document.getElementById("editEventTeamSize").value,
+    category: document.getElementById("editEventCategory").value,
   };
 
   // Incomplete data
-  if (!body.eventName) {
+  if (!payload.eventName) {
     document.getElementById("editEventName").classList.add("error");
     return;
   }
 
   // Make the request
-  console.log("Fetch Update Event", body);
+  console.log("Fetch Update Event", payload);
+  fetch("https://localhost:44398/api/MiniConvention/event", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => {
+      if (!!response.status && response.status == 400) {
+        console.log("Bad request");
+        return null;
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      if (!!data) console.log(" = Response: ", data);
+    });
+
   document.getElementById("popupContainer").classList.add("hidden");
 }

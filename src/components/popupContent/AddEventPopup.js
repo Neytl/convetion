@@ -94,20 +94,40 @@ function clearError(event) {
 }
 
 function addNewEvent() {
-  let body = {
+  let payload = {
     eventName: document.getElementById("eventName").value,
-    eventHasTeams: document.getElementById("eventHasTeams").checked,
-    eventTeamSize: document.getElementById("eventTeamSize").value,
-    eventCategory: document.getElementById("eventCategory").value,
+    isTeamEvent: document.getElementById("eventHasTeams").checked,
+    maxTeamSize: document.getElementById("eventTeamSize").value,
+    category: document.getElementById("eventCategory").value,
   };
 
   // Incomplete data
-  if (!body.eventName) {
+  if (!payload.eventName) {
     document.getElementById("eventName").classList.add("error");
     return;
   }
 
   // Make the request
-  console.log("Fetch Add Event", body);
+  console.log("Fetch Add Event", payload);
+  fetch("https://localhost:44398/api/MiniConvention/event", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => {
+      if (!!response.status && response.status == 400) {
+        console.log("Bad request");
+        return null;
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      if (!!data) console.log(" = Response: ", data);
+    });
+
   document.getElementById("popupContainer").classList.add("hidden");
 }

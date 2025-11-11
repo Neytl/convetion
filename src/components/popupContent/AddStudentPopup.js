@@ -63,27 +63,27 @@ function clearError(event) {
 }
 
 function addNewStudent() {
-  let body = {
-    firstName: document.getElementById("firstName").value,
-    lastName: document.getElementById("lastName").value,
+  let payload = {
+    firstNames: document.getElementById("firstName").value,
+    lastNames: document.getElementById("lastName").value,
     birthdate: document.getElementById("birthdate").value,
   };
 
   // Incomplete data
   let errors = false;
-  if (!body.firstName) {
+  if (!payload.firstNames) {
     document.getElementById("firstName").classList.add("error");
     errors = true;
   }
-  if (!body.lastName) {
+  if (!payload.lastNames) {
     document.getElementById("lastName").classList.add("error");
     errors = true;
   }
-  if (!body.birthdate) {
+  if (!payload.birthdate) {
     document.getElementById("birthdate").classList.add("error");
     errors = true;
   } else {
-    const date = new Date(body.birthdate);
+    const date = new Date(payload.birthdate);
     if (!(date instanceof Date && !isNaN(date) && date.getFullYear() > 2000)) {
       document.getElementById("birthdate").classList.add("error");
       errors = true;
@@ -93,6 +93,25 @@ function addNewStudent() {
   if (errors) return;
 
   // Make the request
-  console.log("Fetch Add Student", body);
+  console.log("Fetch Add Student", payload);
+  fetch("https://localhost:44398/api/MiniConvention/student", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => {
+      if (!!response.status && response.status == 400) {
+        console.log("Bad request");
+        return null;
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      if (!!data) console.log(" = Response: ", data);
+    });
   document.getElementById("popupContainer").classList.add("hidden");
 }

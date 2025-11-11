@@ -12,7 +12,7 @@ import EditStudentPopup from "./popupContent/EditStudentPopup";
 import Image from "next/image";
 
 // export default function Popup({ title, contentElement }) {
-export default function Popup() {
+export default function Popup({ events }) {
   const closePopup = (event) => {
     if (
       event.target.closest("#closePopupButton") == null &&
@@ -39,7 +39,7 @@ export default function Popup() {
           <div id="popupTitle">Title</div>
         </div>
         <div id="popupContent">
-          <AddSchoolPopup />
+          <AddSchoolPopup addSchoolDataEntry={events.addSchoolDataEntry} />
           <EditSchoolPopup />
           <AddEventPopup />
           <EditEventPopup />

@@ -40,18 +40,38 @@ function clearError(event) {
 function updateSchool() {
   let input = document.getElementById("editSchoolName");
 
-  let body = {
+  let payload = {
     schoolID: input.dataset.schoolID,
     schoolName: input.value,
   };
 
   // Incomplete data
-  if (!body.schoolName) {
+  if (!payload.schoolName) {
     document.getElementById("editSchoolName").classList.add("error");
     return;
   }
 
   // Make the request
-  console.log("Fetch Update school", body);
+  console.log("Fetch Update school", payload);
+  fetch("https://localhost:44398/api/MiniConvention/school", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => {
+      if (!!response.status && response.status == 400) {
+        console.log("Bad request");
+        return null;
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      if (!!data) console.log(" = Response: ", data);
+    });
+
   document.getElementById("popupContainer").classList.add("hidden");
 }

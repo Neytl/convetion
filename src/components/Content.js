@@ -2,6 +2,7 @@
 import Stats from "convention/components/Stats";
 import Table from "convention/components/Table";
 import PageInfo from "convention/components/PageInfo";
+import Popup from "convention/components/Popup";
 
 import { useState, useEffect } from "react";
 
@@ -11,6 +12,25 @@ export default function Content({ dataEndpoint }) {
   });
 
   const [pathname, setPathname] = useState("");
+
+  const addSchoolDataEntry = (schoolData) => {
+    let updatedData = structuredClone(viewData);
+
+    Array.from(document.getElementById("SchoolsTableEntries").children).forEach(
+      (element) => {
+        element.style = "";
+        element.classList.add("closed");
+      }
+    );
+
+    updatedData.tables[0].tableData.unshift(schoolData);
+    updatedData.stats[0].value++;
+    setViewData(updatedData);
+  };
+
+  const popupEvents = {
+    addSchoolDataEntry: addSchoolDataEntry,
+  };
 
   useEffect(() => {
     if (!!viewData.stats) return;
@@ -47,10 +67,11 @@ export default function Content({ dataEndpoint }) {
           setViewData(data);
         });
     }
-  }, [viewData.stats, dataEndpoint]);
+  }, [viewData, dataEndpoint]);
 
   return (
     <div id="content">
+      <Popup events={popupEvents} />
       <PageInfo pathname={pathname} />
       <Stats statsData={viewData.stats} />
       <div id="tables">

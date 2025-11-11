@@ -1,6 +1,5 @@
 import Nav from "convention/components/Nav";
 import Content from "convention/components/Content";
-import Popup from "convention/components/Popup";
 import Topper from "convention/components/Topper";
 
 export default function AdminEventsPage() {
@@ -11,7 +10,6 @@ export default function AdminEventsPage() {
         <Nav />
         <Content dataEndpoint="fakeAdminSchoolsData" />
       </div>
-      <Popup />
     </div>
   );
 }

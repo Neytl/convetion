@@ -127,7 +127,9 @@ export default function Table({
       {getTableTopper(tableType, tableName)}
       <div className="table" id={tableID}>
         <div className="tableHeader">{tableHeader}</div>
-        <div className="tableEntries">{tableEntries}</div>
+        <div className="tableEntries" id={tableID + "Entries"}>
+          {tableEntries}
+        </div>
       </div>
     </div>
   );
