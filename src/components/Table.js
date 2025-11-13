@@ -18,7 +18,6 @@ export default function Table({
 
   let rowIndex = 0;
   let numColumns = tableColumns.length;
-  if (tableType == "school_team_event") numColumns--;
 
   let columns = ((numColumns) => {
     switch (numColumns) {
@@ -53,11 +52,12 @@ export default function Table({
     let currentTeam;
     let teamName;
     let currentTeamSize = 0;
+    let keyIndex = 0;
 
     let fillInRemainingEntries = function (entriesList, entriesLeft) {
       for (let i = entriesLeft; i > 0; i--) {
         entriesList.push(
-          <div className="tableEntry">
+          <div key={currentTeam + keyIndex++} className="tableEntry">
             <div className="tableEntryData">
               <div>
                 <Image
@@ -85,8 +85,9 @@ export default function Table({
 
         currentTeam = teamName;
         tableEntries.push(
-          <div className="tableEntryHeader">
-            <div>{"Team " + teamName}</div>
+          <div key={teamName} className="tableEntryHeader">
+            <div>{teamName}</div>
+            <div></div>
             <div>{"Corederitos"}</div>
           </div>
         );
@@ -102,6 +103,7 @@ export default function Table({
           data={entryData}
           tableType={tableType}
           rowIndex={rowIndex++}
+          deleteDataEntry={deleteDataEntry}
         />
       );
     });
@@ -158,9 +160,8 @@ function getTableButtonText(tableType) {
     case "admin_events":
       return "Add Event";
     case "school_event":
-      return "Add Participant";
     case "school_team_event":
-      return "Add Team";
+      return "Edit Event";
     case "school_students":
     default:
       return "Add Student";

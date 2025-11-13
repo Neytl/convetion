@@ -210,6 +210,7 @@
   border-top: 0.5em solid #2e4136;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  gap: 1em;
 }
 
 .addTeamMemeberButton {
@@ -219,4 +220,30 @@
 
 .tableEntryButtonContainer:not(:last-child) {
   padding-bottom: 2em;
+}
+
+.eventCategoryHeader {
+  font-size: 3em;
+  padding-top: 0.5em;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: underline;
+  max-width: 20em;
+}
+
+#tables.teamEvents .tableEntryData {
+  position: relative;
+  cursor: default;
+}
+
+.tableEntryData:hover .deleteParticipantContainer {
+  display: flex;
+}
+.deleteParticipantContainer {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 76px;
+  padding-right: 1em;
 }

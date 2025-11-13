@@ -31,13 +31,13 @@ export default function TableEntry({
 
   return (
     <div className="tableEntry closed" id={entryID}>
-      {lookupTableEntryData(tableType, data, entryIconSrc)}
+      {lookupTableEntryData(tableType, data, entryIconSrc, deleteDataEntry)}
       {lookupTableEntryDropdown(tableType, data, rowIndex, deleteDataEntry)}
     </div>
   );
 }
 
-function lookupTableEntryData(tableType, data, entryIconSrc) {
+function lookupTableEntryData(tableType, data, entryIconSrc, deleteDataEntry) {
   const onclickEntry = (event) => {
     let target = event.target.closest(".tableEntry");
 
@@ -93,13 +93,28 @@ function lookupTableEntryData(tableType, data, entryIconSrc) {
     case "school_event":
     case "school_team_event":
       return (
-        <div className="tableEntryData" onClick={onclickEntry}>
+        <div className="tableEntryData" onClick={() => {}}>
           <div className="primaryTableEntryData">
             <Image src={entryIconSrc} alt="" width={30} height={30} />
             <span>{data.fullName}</span>
           </div>
-          <span key={columnIndex++}>{data.ageGroup}</span>
           <span key={columnIndex++}>{data.age}</span>
+          <span key={columnIndex++}>{data.ageGroup}</span>
+          <div className="deleteParticipantContainer">
+            <Image
+              className="deleteParticipantButton"
+              src="/images/delete.png"
+              alt=""
+              width="20"
+              height="20"
+              onClick={() => {
+                deleteDataEntry("participant", {
+                  studentID: data.studentID,
+                  eventID: data.eventID,
+                });
+              }}
+            />
+          </div>
         </div>
       );
     default:
@@ -115,12 +130,7 @@ function lookupTableEntryDropdown(tableType, data, rowIndex, deleteDataEntry) {
       return generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry);
     case "school_event":
     case "school_team_event":
-      return generateSchoolEventsEntryDropdown(
-        tableType,
-        data,
-        rowIndex,
-        deleteDataEntry
-      );
+      return <div></div>;
     case "school_students":
     default:
       return generateSchoolStudentsEntryDropdown(
@@ -467,15 +477,6 @@ function generateSchoolEventsEntryDropdown(
       .then((data) => {
         if (!!data) console.log(" = Response: ", data);
       });
-
-    let elementToDelete = document.getElementById("entry" + columnIndex);
-
-    if (elementToDelete.parentElement.children.length == 1) {
-      elementToDelete =
-        elementToDelete.parentElement.parentElement.parentElement;
-    }
-
-    elementToDelete.parentElement.removeChild(elementToDelete);
   };
 
   return (

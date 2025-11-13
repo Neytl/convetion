@@ -61,7 +61,43 @@ export default function Content({ setPageSchoolData }) {
     document.getElementById("popupContainer").classList.add("hidden");
   };
 
+  const deleteParticipant = (payload) => {
+    // Remove the element - update the view data
+    let updatedData = structuredClone(viewData);
+
+    if (pathname == "/schoolEvents") {
+      let tableData;
+
+      // Find the table
+      for (let i = 0; i < updatedData.tables.length; i++) {
+        if (updatedData.tables[i].tableEventID == payload.eventID) {
+          tableData = updatedData.tables[i].tableData;
+          break;
+        }
+      }
+
+      // Find the student
+      for (let i = 0; i < tableData.length; i++) {
+        if (payload.studentID == tableData[i].studentID) {
+          // Found the item to delete
+          tableData.splice(i, 1);
+          setViewData(updatedData);
+          break;
+        }
+      }
+    }
+
+    // Make the delete request
+    console.log("Fetch delete participant", payload);
+    // TODO
+  };
+
   const deleteDataEntry = (endpoint, payload) => {
+    if (endpoint == "participant") {
+      deleteParticipant(payload);
+      return;
+    }
+
     // Close all open elements
     closeTableEntries();
 
@@ -216,16 +252,9 @@ export default function Content({ setPageSchoolData }) {
           }
         });
     } else {
-      // console.log("Loading from JSON...");
-      // fetch("./fakeData/" + dataEndpoint + ".json")
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     setViewData(data);
-      //   });
-
       console.log("Loading from database...");
       fetch(
-        "https://localhost:44398/api/MiniConvention/schoolStudentsPage/" +
+        "https://localhost:44398/api/MiniConvention/schoolEventsPage/" +
           queryStringSchoolID
       )
         .then((response) => response.json())
@@ -242,23 +271,52 @@ export default function Content({ setPageSchoolData }) {
     }
   }, [viewData, setPageSchoolData]);
 
+  // Not yet loaded
+  if (viewData.tables.length == 0) {
+    return (
+      <div id="content">
+        <Popup events={popupEvents} />
+        <PageInfo pathname={pathname} />
+        <Stats statsData={viewData.stats} />
+        <div id="tables"></div>
+      </div>
+    );
+  }
+
+  // Build tables
+  let tablesContent = [];
+  let currentCategory = "";
+
+  viewData.tables.forEach((table) => {
+    if (table.tableCategory != currentCategory) {
+      currentCategory = table.tableCategory;
+      tablesContent.push(
+        <div key={table.tableCategory} className="eventCategoryHeader">
+          {table.tableCategory}
+        </div>
+      );
+    }
+
+    tablesContent.push(
+      <Table
+        key={table.tableName}
+        tableColumns={table.columnNames}
+        tableData={table.tableData}
+        tableType={table.tableType}
+        tableName={table.tableName}
+        maxTeamSize={table.maxTeamSize}
+        deleteDataEntry={deleteDataEntry}
+      />
+    );
+  });
+
   return (
     <div id="content">
       <Popup events={popupEvents} />
       <PageInfo pathname={pathname} />
       <Stats statsData={viewData.stats} />
-      <div id="tables">
-        {viewData.tables.map((table) => (
-          <Table
-            key={table.tableName}
-            tableColumns={table.columnNames}
-            tableData={table.tableData}
-            tableType={table.tableType}
-            tableName={table.tableName}
-            maxTeamSize={table.maxTeamSize}
-            deleteDataEntry={deleteDataEntry}
-          />
-        ))}
+      <div id="tables" className="teamEvents">
+        {tablesContent}
       </div>
     </div>
   );
