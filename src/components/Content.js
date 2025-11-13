@@ -66,30 +66,54 @@ export default function Content({ setPageSchoolData }) {
     let updatedData = structuredClone(viewData);
 
     if (pathname == "/schoolEvents") {
-      let tableData;
-
       // Find the table
       for (let i = 0; i < updatedData.tables.length; i++) {
         if (updatedData.tables[i].tableEventID == payload.eventID) {
-          tableData = updatedData.tables[i].tableData;
-          break;
-        }
-      }
+          let tableData = updatedData.tables[i].tableData;
 
-      // Find the student
-      for (let i = 0; i < tableData.length; i++) {
-        if (payload.studentID == tableData[i].studentID) {
-          // Found the item to delete
-          tableData.splice(i, 1);
-          setViewData(updatedData);
+          // Last participant - delete the table
+          if (tableData.length == 1) {
+            updatedData.tables.splice(i, 1);
+            break;
+          }
+
+          // Find the student
+          for (let j = 0; j < tableData.length; j++) {
+            if (payload.studentID == tableData[j].studentID) {
+              // Found the item to delete
+              tableData.splice(j, 1);
+              break;
+            }
+          }
+
           break;
         }
       }
     }
 
+    setViewData(updatedData);
+
     // Make the delete request
     console.log("Fetch delete participant", payload);
-    // TODO
+    fetch("https://localhost:44398/api/MiniConvention/participant", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => {
+        if (!!response.status && response.status == 400) {
+          console.log("Bad request");
+          return null;
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        if (!!data) console.log(" = Response: ", data);
+      });
   };
 
   const deleteDataEntry = (endpoint, payload) => {
