@@ -6,6 +6,7 @@ import Popup from "convention/components/Popup";
 
 import { useState, useEffect } from "react";
 import TableEntry from "./TableEntry";
+import PageButton from "./PageButton";
 
 export default function Content({ setPageSchoolData }) {
   const [viewData, setViewData] = useState({
@@ -342,6 +343,7 @@ export default function Content({ setPageSchoolData }) {
       <div id="tables" className="teamEvents">
         {tablesContent}
       </div>
+      <PageButton pathName={pathname} pageData={viewData.pageSchoolData} />
     </div>
   );
 }
