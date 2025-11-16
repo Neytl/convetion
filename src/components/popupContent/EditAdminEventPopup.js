@@ -1,4 +1,4 @@
-export default function EditEventPopup({ updateDataEntry }) {
+export default function EditAdminEventPopup({ updateDataEntry }) {
   let onToggleCheckbox = function (event) {
     if (event.target.checked) {
       document

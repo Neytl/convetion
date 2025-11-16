@@ -218,6 +218,7 @@ export default function Content({ setPageSchoolData }) {
   const popupEvents = {
     postNewData: postNewData,
     updateDataEntry: updateDataEntry,
+    schoolData: viewData.pageSchoolData,
   };
 
   useEffect(() => {

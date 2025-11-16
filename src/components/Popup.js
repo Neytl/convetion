@@ -1,17 +1,16 @@
-"use client";
 import "convention/app/css/popup.css";
 import AddSchoolPopup from "./popupContent/AddSchoolPopup";
 import { clearSchoolPopup } from "./popupContent/AddSchoolPopup";
 import EditSchoolPopup from "./popupContent/EditSchoolPopup";
 import AddEventPopup from "./popupContent/AddEventPopup";
 import { clearEventPopup } from "./popupContent/AddEventPopup";
-import EditEventPopup from "./popupContent/EdiEventPopup";
+import EditAdminEventPopup from "./popupContent/EditAdminEventPopup";
 import AddStudentPopup from "./popupContent/AddStudentPopup";
 import { clearStudentPopup } from "./popupContent/AddStudentPopup";
 import EditStudentPopup from "./popupContent/EditStudentPopup";
 import Image from "next/image";
+import EditSchoolEventPopup from "./popupContent/EditSchoolEventPopup";
 
-// export default function Popup({ title, contentElement }) {
 export default function Popup({ events }) {
   const closePopup = (event) => {
     if (
@@ -23,7 +22,7 @@ export default function Popup({ events }) {
   };
 
   return (
-    <div id="popupContainer" onClick={closePopup} className="hidden">
+    <div id="popupContainer" onClick={closePopup} className="?hidden">
       <div id="popup">
         <div id="closePopupButton" onClick={closePopup}>
           <span>&times;</span>
@@ -42,9 +41,10 @@ export default function Popup({ events }) {
           <AddSchoolPopup postNewData={events.postNewData} />
           <EditSchoolPopup updateDataEntry={events.updateDataEntry} />
           <AddEventPopup postNewData={events.postNewData} />
-          <EditEventPopup updateDataEntry={events.updateDataEntry} />
+          <EditAdminEventPopup updateDataEntry={events.updateDataEntry} />
           <AddStudentPopup postNewData={events.postNewData} />
           <EditStudentPopup updateDataEntry={events.updateDataEntry} />
+          <EditSchoolEventPopup schoolData={events.schoolData} />
         </div>
       </div>
     </div>
