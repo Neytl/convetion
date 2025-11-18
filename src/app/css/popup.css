@@ -217,3 +217,35 @@ input:checked + .slider:before {
   background-color: #c9d5dc;
   outline: 3px solid #7381a4;
 }
+
+/* Add Events Popup */
+#eventsListConatiner {
+  gap: 0;
+  max-height: 30em;
+  width: 25em;
+  overflow: auto;
+}
+
+.eventCategoryPopupHeader,
+.eventLink {
+  border-top: 1px solid #646464;
+  padding: 0.7em 0.5em;
+}
+
+.eventLink:last-child {
+  border-bottom: 1px solid #646464;
+}
+
+.eventLink {
+  cursor: pointer;
+}
+
+.eventLink:hover {
+  background-color: #e3e3e3;
+}
+
+.eventCategoryPopupHeader {
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+}

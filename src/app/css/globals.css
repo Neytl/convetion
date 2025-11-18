@@ -50,6 +50,10 @@ body {
   filter: invert(1);
 }
 
+.pointer {
+  cursor: pointer !important;
+}
+
 #timeLeft {
   font-size: 1.5em;
   font-weight: bold;

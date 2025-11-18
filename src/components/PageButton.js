@@ -40,7 +40,26 @@ export default function PageButton({ pathName, pageData }) {
             id="pageButton"
             className="pageButton"
             onClick={() => {
-              // TODO - open the popup
+              // Close the current popup
+              document
+                .getElementById("popupContent")
+                .childNodes.forEach((element) =>
+                  element.classList.add("hidden")
+                );
+
+              // Set up the new popup
+              document.getElementById("popupTitle").innerHTML = "Add Event";
+              document.getElementById("popupHeaderIcon").srcset =
+                "/images/Event.png";
+
+              // Show the new popup
+              document
+                .getElementById("add_school_event_popup")
+                .classList.remove("hidden");
+              document
+                .getElementById("popupContainer")
+                .classList.remove("hidden");
+              document.getElementById("eventsListConatiner").scrollTop = 0;
             }}
           >
             <Image src={"/images/event.png"} alt="" width={20} height={20} />

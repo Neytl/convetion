@@ -59,7 +59,7 @@ export default function Table({
       for (let i = entriesLeft; i > 0; i--) {
         entriesList.push(
           <div key={currentTeam + keyIndex++} className="tableEntry">
-            <div className="tableEntryData">
+            <div className="tableEntryData pointer">
               <div>
                 <Image
                   src={"/images/account.png"}

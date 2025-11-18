@@ -1,6 +1,7 @@
 // import Image from "next/image";
 import { useEffect, useState } from "react";
 import TinyImage from "./TinyImage";
+import { setUpEditSchoolEventPopup } from "./EditSchoolEventPopup";
 
 export default function AddSchoolEventPopup() {
   const [events, setEvents] = useState([]);
@@ -31,7 +32,24 @@ export default function AddSchoolEventPopup() {
         key={event.eventID}
         className="eventLink"
         onClick={() => {
-          console.log(event);
+          // Load in current event data
+          let teamName = "";
+          let currentStudentList = JSON.parse(
+            sessionStorage.getItem(event.eventID + teamName)
+          );
+          if (!currentStudentList) currentStudentList = [];
+
+          // Set up the edit event popup
+          setUpEditSchoolEventPopup(currentStudentList, event.eventID);
+          document.getElementById("popupTitle").innerHTML = event.eventName;
+
+          // Show the new popup
+          document
+            .getElementById("add_school_event_popup")
+            .classList.add("hidden");
+          document
+            .getElementById("school_event_popup")
+            .classList.remove("hidden");
         }}
       >
         <TinyImage imageSrc="/images/event.png" />
@@ -41,7 +59,7 @@ export default function AddSchoolEventPopup() {
   });
 
   return (
-    <div id="add_school_event_popup" className="?hidden">
+    <div id="add_school_event_popup" className="hidden">
       <form className="popupFields" id="eventsListConatiner">
         {popupElements}
       </form>

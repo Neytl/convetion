@@ -24,7 +24,7 @@ export default function Popup({ events }) {
   };
 
   return (
-    <div id="popupContainer" onClick={closePopup} className="?hidden">
+    <div id="popupContainer" onClick={closePopup} className="hidden">
       <div id="popup">
         <div id="closePopupButton" onClick={closePopup}>
           <span>&times;</span>
