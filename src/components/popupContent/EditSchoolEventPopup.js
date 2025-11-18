@@ -2,7 +2,10 @@
 import { useEffect, useState } from "react";
 import TinyImage from "./TinyImage";
 
-export default function EditSchoolEventPopup({ schoolData }) {
+export default function EditSchoolEventPopup({
+  schoolData,
+  updateEventParticipants,
+}) {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
@@ -55,7 +58,7 @@ export default function EditSchoolEventPopup({ schoolData }) {
       <div className="popupButtonContainer">
         <div
           onClick={() => {
-            updateParticipants(schoolData.schoolID);
+            updateParticipants(schoolData.schoolID, updateEventParticipants);
           }}
           className="submitPopupButton"
         >
@@ -66,7 +69,12 @@ export default function EditSchoolEventPopup({ schoolData }) {
   );
 }
 
-export const setUpEditSchoolEventPopup = (tableData, eventID, teamName) => {
+export const setUpEditSchoolEventPopup = (
+  tableData,
+  eventID,
+  tableObject,
+  teamName
+) => {
   // Uncheck all participants
   Array.from(document.querySelectorAll(".selectableParticipant")).forEach(
     (element) => {
@@ -84,6 +92,9 @@ export const setUpEditSchoolEventPopup = (tableData, eventID, teamName) => {
       .getElementById("participant" + participantData.studentID)
       .classList.add("selected");
   });
+
+  // Store the current table data
+  sessionStorage.setItem("currentEvent", JSON.stringify(tableObject));
 };
 
 function toggleParticipant(studentData) {
@@ -119,7 +130,7 @@ function toggleParticipant(studentData) {
   );
 }
 
-function updateParticipants(schoolID) {
+function updateParticipants(schoolID, updateEventParticipants) {
   // Generate the data
   let eventID = document.getElementById("popupHeader").dataset.eventID;
   let teamName = "";
@@ -132,7 +143,7 @@ function updateParticipants(schoolID) {
   };
 
   // Make the requset
-  console.log("Update participants", currentStudentList);
+  console.log("Fetch update participants", currentStudentList);
   fetch(
     "https://localhost:44398/api/MiniConvention/participants/" +
       schoolID +
@@ -158,6 +169,7 @@ function updateParticipants(schoolID) {
     .then((data) => {
       if (!data) return;
       console.log(" = Response: ", data);
+      updateEventParticipants(eventID, data);
     });
 
   document.getElementById("popupContainer").classList.add("hidden");

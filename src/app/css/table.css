@@ -1,6 +1,7 @@
 .table {
   border-radius: 0.3em;
   box-shadow: #979797 0 0 0.5em 0px;
+  margin-bottom: 2.5em;
 }
 
 .tableEntry .tableEntryData {
@@ -224,11 +225,11 @@
 
 .eventCategoryHeader {
   font-size: 3em;
-  padding-top: 0.5em;
   font-weight: bold;
   text-align: center;
   text-decoration: underline;
   max-width: 20em;
+  padding-bottom: 0.1em;
 }
 
 #tables.teamEvents .tableEntryData {
@@ -246,4 +247,8 @@
   top: 0;
   height: 76px;
   padding-right: 1em;
+}
+
+.teamEvents .tableTopper > span {
+  color: #565656;
 }

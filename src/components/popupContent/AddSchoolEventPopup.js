@@ -40,7 +40,7 @@ export default function AddSchoolEventPopup() {
           if (!currentStudentList) currentStudentList = [];
 
           // Set up the edit event popup
-          setUpEditSchoolEventPopup(currentStudentList, event.eventID);
+          setUpEditSchoolEventPopup(currentStudentList, event.eventID, event);
           document.getElementById("popupTitle").innerHTML = event.eventName;
 
           // Show the new popup

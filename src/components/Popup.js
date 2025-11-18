@@ -46,7 +46,10 @@ export default function Popup({ events }) {
           <EditAdminEventPopup updateDataEntry={events.updateDataEntry} />
           <AddStudentPopup postNewData={events.postNewData} />
           <EditStudentPopup updateDataEntry={events.updateDataEntry} />
-          <EditSchoolEventPopup schoolData={events.schoolData} />
+          <EditSchoolEventPopup
+            schoolData={events.schoolData}
+            updateEventParticipants={events.updateEventParticipants}
+          />
           <AddSchoolEventPopup />
         </div>
       </div>

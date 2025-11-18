@@ -215,10 +215,49 @@ export default function Content({ setPageSchoolData }) {
     document.getElementById("popupContainer").classList.add("hidden");
   };
 
+  const updateEventParticipants = (eventID, newParticipants) => {
+    // Update participants for the given event, add the new table if not already in the list
+    let updatedData = structuredClone(viewData);
+    let found = false;
+    updatedData.tables.forEach((table) => {
+      if (found) return;
+      if (table.tableEventID == eventID) {
+        table.tableData = newParticipants;
+        found = true;
+      }
+    });
+
+    if (!found) {
+      let currentEvent = JSON.parse(sessionStorage.getItem("currentEvent"));
+      let newTable = {
+        columnNames: ["Name", "Age", "Age Group"],
+        tableEventID: eventID,
+        tableData: newParticipants,
+        tableType: "school_event",
+        tableName: currentEvent.eventName,
+        tableCategory: currentEvent.category,
+        maxTeamSize: currentEvent.maxTeamSize,
+      };
+
+      found = false;
+      for (let i = 0; i < updatedData.tables.length; i++) {
+        if (updatedData.tables[i].tableCategory == currentEvent.category) {
+          found = true;
+          updatedData.tables.splice(i, 0, newTable);
+        }
+      }
+
+      if (!found) updatedData.tables.unshift(newTable);
+    }
+
+    setViewData(updatedData);
+  };
+
   const popupEvents = {
     postNewData: postNewData,
     updateDataEntry: updateDataEntry,
     schoolData: viewData.pageSchoolData,
+    updateEventParticipants: updateEventParticipants,
   };
 
   useEffect(() => {
@@ -317,8 +356,8 @@ export default function Content({ setPageSchoolData }) {
     if (table.tableCategory != currentCategory) {
       currentCategory = table.tableCategory;
       tablesContent.push(
-        <div key={table.tableCategory} className="eventCategoryHeader">
-          {table.tableCategory}
+        <div key={currentCategory} className="eventCategoryHeader">
+          {currentCategory}
         </div>
       );
     }
