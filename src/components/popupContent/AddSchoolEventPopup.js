@@ -33,14 +33,13 @@ export default function AddSchoolEventPopup() {
         className="eventLink"
         onClick={() => {
           // Load in current event data
-          let teamName = "";
           let currentStudentList = JSON.parse(
-            sessionStorage.getItem(event.eventID + teamName)
+            sessionStorage.getItem(event.eventID)
           );
           if (!currentStudentList) currentStudentList = [];
 
           // Set up the edit event popup
-          setUpEditSchoolEventPopup(currentStudentList, event.eventID, event);
+          setUpEditSchoolEventPopup(currentStudentList, event);
           document.getElementById("popupTitle").innerHTML = event.eventName;
 
           // Show the new popup
@@ -52,7 +51,7 @@ export default function AddSchoolEventPopup() {
             .classList.remove("hidden");
         }}
       >
-        <TinyImage imageSrc="/images/event.png" />
+        <TinyImage imageSrc="event.png" />
         <div>{event.eventName}</div>
       </div>
     );

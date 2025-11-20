@@ -43,7 +43,7 @@ export default function EditSchoolEventPopup({
           toggleParticipant(student);
         }}
       >
-        <TinyImage imageSrc="/images/account.png" />
+        <TinyImage imageSrc="account.png" />
         <div>{student.fullName}</div>
       </div>
     );
@@ -51,6 +51,24 @@ export default function EditSchoolEventPopup({
 
   return (
     <div id="school_event_popup" className="hidden">
+      <div id="teamEventContainer">
+        <div id="teamOptionsContainer">
+          <div id="teamOptionsElements">
+            <div className="selected">Team 1</div>
+          </div>
+          <div key="addTeamButton" id="addTeamButton" onClick={addTeam}>
+            <TinyImage imageSrc="add.png" />
+            <span>Team</span>
+          </div>
+        </div>
+        <div id="participantsAmountContainer">
+          <span id="currentParticipantAmount">0</span>
+          <span>{"/"}</span>
+          <span id="currentMaxTeamSize">0</span>
+          <span> Participants</span>
+        </div>
+      </div>
+
       <form className="popupFields" id="participantsConatiner">
         {popupElements}
       </form>
@@ -69,12 +87,24 @@ export default function EditSchoolEventPopup({
   );
 }
 
+function addTeam() {
+  setUpEditSchoolEventPopup(
+    JSON.parse(
+      sessionStorage.getItem(sessionStorage.getItem("currentEventID"))
+    ),
+    JSON.parse(sessionStorage.getItem("currentEvent")),
+    null,
+    true
+  );
+}
+
 export const setUpEditSchoolEventPopup = (
   tableData,
-  eventID,
-  tableObject,
-  teamName
+  eventData,
+  teamToEdit,
+  addingTeam
 ) => {
+  let eventID = eventData.eventID;
   // Uncheck all participants
   Array.from(document.querySelectorAll(".selectableParticipant")).forEach(
     (element) => {
@@ -84,27 +114,92 @@ export const setUpEditSchoolEventPopup = (
 
   document.getElementById("popupHeader").dataset.eventID = eventID;
 
-  // Generate the new participants list
-  sessionStorage.setItem(eventID, JSON.stringify(tableData));
+  // Show team event data
+  if (eventData.isTeamEvent) {
+    document.getElementById("currentMaxTeamSize").innerHTML =
+      eventData.maxTeamSize;
+    document.getElementById("teamEventContainer").classList.remove("hidden");
+  } else {
+    document.getElementById("teamEventContainer").classList.add("hidden");
+  }
 
-  tableData.forEach((participantData) => {
-    document
-      .getElementById("participant" + participantData.studentID)
-      .classList.add("selected");
-  });
+  let currentTeamNumber = 0;
+
+  // Generate the new participants list
+  if (eventData.isTeamEvent) {
+    // Team event
+    let currentTeamName;
+    let currentEventParticipants = 0;
+    if (!teamToEdit && !addingTeam) teamToEdit = 1;
+
+    tableData.forEach((participantData) => {
+      if (!participantData.team) {
+        participantData.team = "Team 1";
+        participantData.teamNumber = 1;
+      }
+
+      if (participantData.team != currentTeamName) {
+        currentTeamName = participantData.team;
+        currentTeamNumber++;
+      }
+
+      if (currentTeamNumber == teamToEdit) {
+        // Show participant
+        currentEventParticipants++;
+        document
+          .getElementById("participant" + participantData.studentID)
+          .classList.add("selected");
+      }
+    });
+
+    document.getElementById("currentParticipantAmount").innerHTML =
+      currentEventParticipants;
+
+    // Build the team option buttons
+    let teamOptionsElements = document.getElementById("teamOptionsElements");
+    teamOptionsElements.innerHTML = "";
+    if (addingTeam) {
+      currentTeamNumber++;
+      teamToEdit = currentTeamNumber;
+    }
+
+    for (let i = 1; i <= currentTeamNumber; i++) {
+      let child = document.createElement("div");
+      child.innerHTML = "Team " + i;
+      child.onclick = () => {
+        setUpEditSchoolEventPopup(
+          JSON.parse(sessionStorage.getItem(eventID)),
+          eventData,
+          i
+        );
+      };
+      if (i == teamToEdit) child.classList.add("selected");
+      teamOptionsElements.appendChild(child);
+    }
+  } else {
+    // Solo event
+    tableData.forEach((participantData) => {
+      participantData.team = "";
+      participantData.teamNumber = 0;
+
+      document
+        .getElementById("participant" + participantData.studentID)
+        .classList.add("selected");
+    });
+  }
 
   // Store the current table data
-  sessionStorage.setItem("currentEvent", JSON.stringify(tableObject));
+  sessionStorage.setItem(eventID, JSON.stringify(tableData));
+  sessionStorage.setItem("currentEvent", JSON.stringify(eventData));
+  sessionStorage.setItem("currentEventID", eventID);
+  sessionStorage.setItem("currentTeam", teamToEdit);
 };
 
 function toggleParticipant(studentData) {
   let eventID = document.getElementById("popupHeader").dataset.eventID;
-  let teamName = "";
-  let currentStudentList = JSON.parse(
-    sessionStorage.getItem(eventID + teamName)
-  );
-
+  let currentStudentList = JSON.parse(sessionStorage.getItem(eventID));
   if (!currentStudentList) currentStudentList = [];
+  let teamNumber = parseInt(sessionStorage.getItem("currentTeam"));
 
   if (
     document
@@ -112,22 +207,52 @@ function toggleParticipant(studentData) {
       .classList.toggle("selected")
   ) {
     // Add to list
+    let currentEvent = JSON.parse(sessionStorage.getItem("currentEvent"));
+
+    if (currentEvent.maxTeamSize > 1) {
+      let currentAmount = parseInt(
+        document.getElementById("currentParticipantAmount").innerHTML
+      );
+
+      if (currentAmount + 1 > currentEvent.maxTeamSize) {
+        // Unable to add participant - already at the max amount
+        document
+          .getElementById("participant" + studentData.studentID)
+          .classList.remove("selected");
+
+        alert(
+          "Cannot select more than " +
+            currentEvent.maxTeamSize +
+            " participants per team. Unselect another student first."
+        );
+
+        return;
+      }
+    }
+
+    updateCurrentEventParticipantsAmount(+1);
+
+    // Insert new participant into the correct team - keep sorted
+    // TODO
+    // for (let i = 0; i <)
     currentStudentList.push({
       eventID: eventID,
       studentID: studentData.studentID,
+      teamNumber: teamNumber,
     });
   } else {
     // Remove from list
+    updateCurrentEventParticipantsAmount(-1);
     const indexToRemove = currentStudentList.findIndex(
-      (participant) => participant.studentID == studentData.studentID
+      (participant) =>
+        participant.studentID == studentData.studentID &&
+        participant.teamNumber == teamNumber
     );
+
     currentStudentList.splice(indexToRemove, 1);
   }
 
-  sessionStorage.setItem(
-    eventID + teamName,
-    JSON.stringify(currentStudentList)
-  );
+  sessionStorage.setItem(eventID, JSON.stringify(currentStudentList));
 }
 
 function updateParticipants(schoolID, updateEventParticipants) {
@@ -173,4 +298,10 @@ function updateParticipants(schoolID, updateEventParticipants) {
     });
 
   document.getElementById("popupContainer").classList.add("hidden");
+}
+
+function updateCurrentEventParticipantsAmount(change) {
+  let target = document.getElementById("currentParticipantAmount");
+  let currentAmount = parseInt(target.innerHTML);
+  target.innerHTML = currentAmount + change;
 }

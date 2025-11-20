@@ -249,3 +249,53 @@ input:checked + .slider:before {
   display: flex;
   justify-content: center;
 }
+
+#teamEventContainer {
+  padding: 0 1em 0.5em 1em;
+  width: 30em;
+}
+
+#teamOptionsContainer {
+  overflow: auto;
+  padding: 3px;
+  padding-bottom: 0.5em;
+}
+
+#teamOptionsContainer,
+#teamOptionsElements {
+  display: flex;
+  gap: 1.5em;
+}
+
+#teamOptionsElements > div,
+#addTeamButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1em;
+  font-size: 1.3em;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #d6d6d6;
+  border-radius: 0.5em;
+  outline: none;
+  width: 4.5em;
+  padding: 0.2em 0.5em;
+}
+
+#teamOptionsElements .selected {
+  background-color: #c9d5dc;
+  outline: 3px solid #7381a4;
+}
+
+#teamOptionsElements > div:hover,
+#addTeamButton:hover {
+  background-color: #c9d5dc;
+}
+
+#participantsAmountContainer {
+  font-style: italic;
+  position: absolute;
+  bottom: 1.5em;
+  right: 2em;
+}

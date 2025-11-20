@@ -9,6 +9,11 @@ import TableEntry from "./TableEntry";
 import PageButton from "./PageButton";
 
 export default function Content({ setPageSchoolData }) {
+  useEffect(() => {
+    sessionStorage.clear();
+    console.log("clear");
+  }, []);
+
   const [viewData, setViewData] = useState({
     tables: [],
   });
@@ -336,7 +341,7 @@ export default function Content({ setPageSchoolData }) {
     }
   }, [viewData, setPageSchoolData]);
 
-  // Not yet loaded
+  // Not yet loaded/no tables
   if (viewData.tables.length == 0) {
     return (
       <div id="content">
@@ -344,6 +349,7 @@ export default function Content({ setPageSchoolData }) {
         <PageInfo pathname={pathname} />
         <Stats statsData={viewData.stats} />
         <div id="tables"></div>
+        <PageButton pathName={pathname} pageData={viewData.pageSchoolData} />
       </div>
     );
   }
@@ -371,7 +377,7 @@ export default function Content({ setPageSchoolData }) {
         tableName={table.tableName}
         maxTeamSize={table.maxTeamSize}
         deleteDataEntry={deleteDataEntry}
-        tableEventID={table.tableEventID}
+        tableObject={table}
       />
     );
   });

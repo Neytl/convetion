@@ -11,7 +11,7 @@ export default function Table({
   tableName,
   maxTeamSize,
   deleteDataEntry,
-  tableEventID,
+  tableObject,
 }) {
   if (!tableColumns) {
     return <div>Loading table data...</div>;
@@ -50,15 +50,18 @@ export default function Table({
     ));
   } else {
     tableEntries = [];
-    let currentTeam;
-    let teamName;
+    let currentTeamNumber;
+    let teamNumber;
     let currentTeamSize = 0;
     let keyIndex = 0;
 
     let fillInRemainingEntries = function (entriesList, entriesLeft) {
       for (let i = entriesLeft; i > 0; i--) {
         entriesList.push(
-          <div key={currentTeam + keyIndex++} className="tableEntry">
+          <div
+            key={tableName + "-" + teamNumber + "-" + i + "-" + keyIndex++}
+            className="tableEntry"
+          >
             <div className="tableEntryData pointer">
               <div>
                 <Image
@@ -76,18 +79,18 @@ export default function Table({
     };
 
     tableData.forEach((entryData) => {
-      teamName = entryData.team;
+      teamNumber = entryData.teamNumber;
 
       // New team
-      if (teamName != currentTeam) {
-        if (!!currentTeam) {
+      if (currentTeamNumber != teamNumber) {
+        if (!!currentTeamNumber) {
           fillInRemainingEntries(tableEntries, maxTeamSize - currentTeamSize);
         }
 
-        currentTeam = teamName;
+        currentTeamNumber = teamNumber;
         tableEntries.push(
-          <div key={teamName} className="tableEntryHeader">
-            <div>{teamName}</div>
+          <div key={"Team" + teamNumber} className="tableEntryHeader">
+            <div>{"Team " + teamNumber}</div>
             <div></div>
             <div>{"Corederitos"}</div>
           </div>
@@ -129,7 +132,7 @@ export default function Table({
   // Build the table
   return (
     <div className={columns}>
-      {getTableTopper(tableType, tableName, tableData, tableEventID)}
+      {getTableTopper(tableType, tableName, tableData, tableObject)}
       <div className="table" id={tableID}>
         <div className="tableHeader">{tableHeader}</div>
         <div className="tableEntries" id={tableID + "Entries"}>
@@ -169,7 +172,7 @@ function getTableButtonText(tableType) {
   }
 }
 
-function getTableTopper(tableType, tableName, tableData, tableEventID) {
+function getTableTopper(tableType, tableName, tableData, tableObject) {
   return (
     <div className="tableTopper">
       <span>{tableName}</span>
@@ -180,7 +183,7 @@ function getTableTopper(tableType, tableName, tableData, tableEventID) {
             tableType + "_popup",
             tableName,
             tableData,
-            tableEventID
+            tableObject
           );
         }}
       >
