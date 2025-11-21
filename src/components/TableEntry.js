@@ -18,21 +18,21 @@ export default function TableEntry({
       entryID = "entry" + data.schoolID;
       break;
     case "admin_events":
-      entryID = "entry" + data.schoolID;
+      entryID = "entry" + data.eventID;
       break;
     case "school_students":
-      entryID = "entry" + data.schoolID;
+      entryID = "entry" + data.studentID;
       break;
     case "school_event":
     case "school_team_event":
-      entryID = "entry" + data.schoolID;
+      entryID = "entry" + data.studentID;
       break;
   }
 
   return (
     <div className="tableEntry closed" id={entryID}>
       {lookupTableEntryData(tableType, data, entryIconSrc, deleteDataEntry)}
-      {lookupTableEntryDropdown(tableType, data, rowIndex, deleteDataEntry)}
+      {lookupTableEntryDropdown(tableType, data, deleteDataEntry)}
     </div>
   );
 }
@@ -111,6 +111,7 @@ function lookupTableEntryData(tableType, data, entryIconSrc, deleteDataEntry) {
                 deleteDataEntry("participant", {
                   studentID: data.studentID,
                   eventID: data.eventID,
+                  // teamNumber: data.teamNumber,
                 });
               }}
             />
@@ -122,7 +123,7 @@ function lookupTableEntryData(tableType, data, entryIconSrc, deleteDataEntry) {
   }
 }
 
-function lookupTableEntryDropdown(tableType, data, rowIndex, deleteDataEntry) {
+function lookupTableEntryDropdown(tableType, data, deleteDataEntry) {
   switch (tableType) {
     case "admin_schools":
       return generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry);
@@ -136,7 +137,6 @@ function lookupTableEntryDropdown(tableType, data, rowIndex, deleteDataEntry) {
       return generateSchoolStudentsEntryDropdown(
         tableType,
         data,
-        rowIndex,
         deleteDataEntry
       );
   }
@@ -340,12 +340,7 @@ function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
   );
 }
 
-function generateSchoolStudentsEntryDropdown(
-  tableType,
-  data,
-  columnIndex,
-  deleteDataEntry
-) {
+function generateSchoolStudentsEntryDropdown(tableType, data, deleteDataEntry) {
   let editStudent = function () {
     openTableButtonPopup("edit_" + tableType + "_popup");
     let input = document.getElementById("editFirstName");
@@ -363,54 +358,21 @@ function generateSchoolStudentsEntryDropdown(
     }
   };
 
-  let deleteParticipant = function (event, eventToDelete) {
-    let payload = {
-      participantID: data.studentID,
+  let deleteParticipant = function (eventToDelete) {
+    deleteDataEntry("participant", {
+      studentID: data.studentID,
       eventID: eventToDelete,
-    };
-
-    console.log("Fetch Delete Participant", payload);
-    fetch("https://localhost:44398/api/MiniConvention/participant", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify(payload),
-    })
-      .then((response) => {
-        if (!!response.status && response.status == 400) {
-          console.log("Bad request");
-          return null;
-        }
-
-        return response.json();
-      })
-      .then((data) => {
-        if (!!data) console.log(" = Response: ", data);
-      });
-
-    // Delete the participant element
-    let elementToDelete = event.target.parentElement;
-    let entryElement =
-      elementToDelete.parentElement.parentElement.parentElement;
-    elementToDelete.parentElement.removeChild(elementToDelete);
-
-    // Update the height and update the # of events
-    entryElement.style.height =
-      entryElement.children[0].offsetHeight +
-      entryElement.children[1].offsetHeight +
-      "px";
-
-    let eventNumberElement = entryElement.children[0].children[3];
-    eventNumberElement.innerHTML = parseInt(eventNumberElement.innerHTML) - 1;
+    });
   };
 
   let eventsElements = [];
 
   data.events.forEach((studentEvent) => {
     eventsElements.push(
-      <div key={studentEvent.eventID}>
+      <div
+        key={studentEvent.eventID}
+        id={data.studentID + studentEvent.eventID}
+      >
         <IconSpan imageSrc="/images/event.png" text={studentEvent.eventName} />
         <Image
           className="deleteParticipantButton"
@@ -418,8 +380,8 @@ function generateSchoolStudentsEntryDropdown(
           alt=""
           width="20"
           height="20"
-          onClick={(event) => {
-            deleteParticipant(event, studentEvent.eventID);
+          onClick={() => {
+            deleteParticipant(studentEvent.eventID);
           }}
         />
       </div>
@@ -439,53 +401,6 @@ function generateSchoolStudentsEntryDropdown(
           onClick={deleteStudent}
           imageSrc="/images/delete.png"
           text="Delete"
-        />
-      </div>
-    </div>
-  );
-}
-
-function generateSchoolEventsEntryDropdown(
-  tableType,
-  data,
-  columnIndex,
-  deleteDataEntry
-) {
-  let removeStudent = function (event) {
-    let payload = {
-      studentID: data.studentID,
-      eventID: data.eventID,
-    };
-
-    console.log("Fetch Delete Participant", payload);
-    fetch("https://localhost:44398/api/MiniConvention/participant", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify(payload),
-    })
-      .then((response) => {
-        if (!!response.status && response.status == 400) {
-          console.log("Bad request");
-          return null;
-        }
-
-        return response.json();
-      })
-      .then((data) => {
-        if (!!data) console.log(" = Response: ", data);
-      });
-  };
-
-  return (
-    <div className="tableEntryDropdown">
-      <div className="tableEntryDropdownButtons">
-        <TableEntryButton
-          onClick={removeStudent}
-          imageSrc="/images/delete.png"
-          text="Remove"
         />
       </div>
     </div>

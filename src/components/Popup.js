@@ -61,7 +61,8 @@ export const openTableButtonPopup = (
   popupName,
   tableName,
   tableData,
-  tableObject
+  tableObject,
+  teamToOpen
 ) => {
   // Show the correct popup
   document
@@ -103,11 +104,15 @@ export const openTableButtonPopup = (
       popupName = "school_event_popup";
       document.getElementById("popupTitle").innerHTML = tableName;
       document.getElementById("popupHeaderIcon").srcset = "/images/event.png";
-      setUpEditSchoolEventPopup(structuredClone(tableData), {
-        eventID: tableObject.tableEventID,
-        isTeamEvent: tableObject.tableType == "school_team_event",
-        maxTeamSize: tableObject.maxTeamSize,
-      });
+      setUpEditSchoolEventPopup(
+        structuredClone(tableData),
+        {
+          eventID: tableObject.tableEventID,
+          isTeamEvent: tableObject.tableType == "school_team_event",
+          maxTeamSize: tableObject.maxTeamSize,
+        },
+        teamToOpen
+      );
       break;
     default:
       console.log("Error opening a popup!", popupName);

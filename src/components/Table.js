@@ -1,7 +1,6 @@
 import "convention/app/css/table.css";
 import TableEntry from "./TableEntry";
 import { openTableButtonPopup } from "./Popup";
-import IconSpan from "./IconSpan";
 import Image from "next/image";
 
 export default function Table({
@@ -55,14 +54,26 @@ export default function Table({
     let currentTeamSize = 0;
     let keyIndex = 0;
 
-    let fillInRemainingEntries = function (entriesList, entriesLeft) {
+    let fillInRemainingEntries = function (
+      entriesList,
+      entriesLeft,
+      teamNumberToOpen
+    ) {
       for (let i = entriesLeft; i > 0; i--) {
         entriesList.push(
-          <div
-            key={tableName + "-" + teamNumber + "-" + i + "-" + keyIndex++}
-            className="tableEntry"
-          >
-            <div className="tableEntryData pointer">
+          <div key={tableName + "-" + keyIndex++} className="tableEntry">
+            <div
+              className="tableEntryData pointer"
+              onClick={() => {
+                openTableButtonPopup(
+                  "school_team_event_popup",
+                  tableName,
+                  tableData,
+                  tableObject,
+                  teamNumberToOpen
+                );
+              }}
+            >
               <div>
                 <Image
                   src={"/images/account.png"}
@@ -84,7 +95,11 @@ export default function Table({
       // New team
       if (currentTeamNumber != teamNumber) {
         if (!!currentTeamNumber) {
-          fillInRemainingEntries(tableEntries, maxTeamSize - currentTeamSize);
+          fillInRemainingEntries(
+            tableEntries,
+            maxTeamSize - currentTeamSize,
+            currentTeamNumber
+          );
         }
 
         currentTeamNumber = teamNumber;
@@ -112,7 +127,11 @@ export default function Table({
       );
     });
 
-    fillInRemainingEntries(tableEntries, maxTeamSize - currentTeamSize);
+    fillInRemainingEntries(
+      tableEntries,
+      maxTeamSize - currentTeamSize,
+      currentTeamNumber
+    );
   }
 
   // Build the table header

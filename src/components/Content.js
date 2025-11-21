@@ -68,32 +68,65 @@ export default function Content({ setPageSchoolData }) {
   };
 
   const deleteParticipant = (payload) => {
+    console.log(payload);
+
     // Remove the element - update the view data
     let updatedData = structuredClone(viewData);
 
     if (pathname == "/schoolEvents") {
       // Find the table
       for (let i = 0; i < updatedData.tables.length; i++) {
-        if (updatedData.tables[i].tableEventID == payload.eventID) {
-          let tableData = updatedData.tables[i].tableData;
+        if (updatedData.tables[i].tableEventID != payload.eventID) continue;
 
-          // Last participant - delete the table
-          if (tableData.length == 1) {
-            updatedData.tables.splice(i, 1);
-            break;
-          }
+        // Found the table...
+        let tableData = updatedData.tables[i].tableData;
 
-          // Find the student
-          for (let j = 0; j < tableData.length; j++) {
-            if (payload.studentID == tableData[j].studentID) {
-              // Found the item to delete
-              tableData.splice(j, 1);
-              break;
-            }
-          }
-
+        // Last participant - delete the table
+        if (tableData.length == 1) {
+          updatedData.tables.splice(i, 1);
           break;
         }
+
+        // Find the student
+        for (let j = 0; j < tableData.length; j++) {
+          if (payload.studentID == tableData[j].studentID) {
+            // Found the item to delete
+            tableData.splice(j, 1);
+            break;
+          }
+        }
+
+        break;
+      }
+    } else if (pathname == "/schoolStudents") {
+      // Update the entry height
+      document
+        .getElementById(payload.studentID + payload.eventID)
+        .classList.add("hidden"); // Hide the element to be removed
+      let entryElement = document.getElementById("entry" + payload.studentID);
+
+      entryElement.style.height =
+        entryElement.children[0].offsetHeight +
+        entryElement.children[1].offsetHeight +
+        "px";
+
+      // Find the student
+      let tableData = updatedData.tables[0].tableData;
+      for (let i = 0; i < tableData.length; i++) {
+        if (tableData[i].studentID != payload.studentID) continue;
+
+        // Found the student - find the event
+        let participationData = tableData[i].events;
+
+        for (let j = 0; j < participationData.length; j++) {
+          if (payload.eventID == participationData[j].eventID) {
+            // Found the item to delete
+            participationData.splice(j, 1);
+            break;
+          }
+        }
+
+        break;
       }
     }
 
