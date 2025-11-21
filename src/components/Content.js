@@ -301,7 +301,9 @@ export default function Content({ setPageSchoolData }) {
         columnNames: ["Name", "Age", "Age Group"],
         tableEventID: eventID,
         tableData: newParticipants,
-        tableType: "school_event",
+        tableType: currentEvent.isTeamEvent
+          ? "school_team_event"
+          : "school_event",
         tableName: currentEvent.eventName,
         tableCategory: currentEvent.category,
         maxTeamSize: currentEvent.maxTeamSize,
@@ -340,7 +342,7 @@ export default function Content({ setPageSchoolData }) {
     );
     setSchoolID(queryStringSchoolID);
     let storedPageSchoolData = JSON.parse(
-      sessionStorage.getItem("pageSchoolData")
+      localStorage.getItem("pageSchoolData")
     );
     let foundPageSchoolData =
       !!storedPageSchoolData &&
@@ -379,7 +381,7 @@ export default function Content({ setPageSchoolData }) {
 
           if (!foundPageSchoolData) {
             setPageSchoolData(data.pageSchoolData);
-            sessionStorage.setItem(
+            localStorage.setItem(
               "pageSchoolData",
               JSON.stringify(data.pageSchoolData)
             );
@@ -396,7 +398,7 @@ export default function Content({ setPageSchoolData }) {
           setViewData(data);
           if (!foundPageSchoolData) {
             setPageSchoolData(data.pageSchoolData);
-            sessionStorage.setItem(
+            localStorage.setItem(
               "pageSchoolData",
               JSON.stringify(data.pageSchoolData)
             );

@@ -32,19 +32,22 @@ export default function AddSchoolEventPopup(pageTables) {
         key={event.eventID}
         className="eventLink"
         onClick={() => {
+          let tables = pageTables.pageTables;
+
           // Load in current event data
-          let currentStudentList = JSON.parse(
-            sessionStorage.getItem(event.eventID)
-          );
+          let currentStudentList;
+
+          for (let i = 0; i < tables.length; i++) {
+            if (tables[i].tableEventID == event.eventID) {
+              currentStudentList = structuredClone(tables[i].tableData);
+              break;
+            }
+          }
+
           if (!currentStudentList) currentStudentList = [];
 
           // Set up the edit event popup
-          setUpEditSchoolEventPopup(
-            currentStudentList,
-            event,
-            null,
-            pageTables.pageTables
-          );
+          setUpEditSchoolEventPopup(currentStudentList, event, null, tables);
           document.getElementById("popupTitle").innerHTML = event.eventName;
 
           // Show the new popup
