@@ -233,19 +233,27 @@ export const setUpEditSchoolEventPopup = (
   });
 };
 
-const MAX_EVENTS = 1;
+const MAX_EVENTS = 7;
 
 function toggleParticipant(studentData) {
   let eventID = document.getElementById("popupHeader").dataset.eventID;
   let currentStudentList = JSON.parse(sessionStorage.getItem(eventID));
   if (!currentStudentList) currentStudentList = [];
   let teamNumber = parseInt(sessionStorage.getItem("currentTeam"));
+  let participantElement = document.getElementById(
+    "participant" + studentData.studentID
+  );
 
-  if (
-    document
-      .getElementById("participant" + studentData.studentID)
-      .classList.toggle("selected")
-  ) {
+  // Check for maxed out student
+  if (participantElement.classList.contains("maxed")) {
+    alert(
+      "This student is already registered for 7 events. They cannot register for more events."
+    );
+
+    return;
+  }
+
+  if (participantElement.classList.toggle("selected")) {
     // Add to list
     let currentEvent = JSON.parse(sessionStorage.getItem("currentEvent"));
 
@@ -258,9 +266,7 @@ function toggleParticipant(studentData) {
             participantData.studentID == studentData.studentID
         )
       ) {
-        document
-          .getElementById("participant" + studentData.studentID)
-          .classList.remove("selected");
+        participantElement.classList.remove("selected");
 
         alert(
           "This student is already in another team! Students can only participate in one team per event."
@@ -275,9 +281,7 @@ function toggleParticipant(studentData) {
       );
 
       if (currentAmount + 1 > currentEvent.maxTeamSize) {
-        document
-          .getElementById("participant" + studentData.studentID)
-          .classList.remove("selected");
+        participantElement.classList.remove("selected");
 
         alert(
           "Cannot select more than " +
