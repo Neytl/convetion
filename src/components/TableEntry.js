@@ -250,54 +250,21 @@ function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
     }
   };
 
-  let deleteParticipant = function (event, participantToDelete) {
-    let payload = {
-      participantID: participantToDelete,
+  let deleteParticipant = function (participantToDelete) {
+    deleteDataEntry("participant", {
+      studentID: participantToDelete,
       eventID: data.eventID,
-    };
-
-    console.log("Fetch Delete Participant", payload);
-    fetch("https://localhost:44398/api/MiniConvention/participant", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify(payload),
-    })
-      .then((response) => {
-        if (!!response.status && response.status == 400) {
-          console.log("Bad request");
-          return null;
-        }
-
-        return response.json();
-      })
-      .then((data) => {
-        if (!!data) console.log(" = Response: ", data);
-      });
-
-    // Delete the participant element
-    let elementToDelete = event.target.parentElement;
-    let entryElement =
-      elementToDelete.parentElement.parentElement.parentElement;
-    elementToDelete.parentElement.removeChild(elementToDelete);
-
-    // Update the height and update the # of events
-    entryElement.style.height =
-      entryElement.children[0].offsetHeight +
-      entryElement.children[1].offsetHeight +
-      "px";
-
-    let eventNumberElement = entryElement.children[0].children[1];
-    eventNumberElement.innerHTML = parseInt(eventNumberElement.innerHTML) - 1;
+    });
   };
 
   let eventParticipantsElements = [];
 
   data.participants.forEach((participant) => {
     eventParticipantsElements.push(
-      <div key={participant.studentID}>
+      <div
+        key={participant.studentID}
+        id={participant.studentID + data.eventID}
+      >
         <IconSpan
           imageSrc="/images/account.png"
           text={participant.fullName + " - " + participant.schoolName}
@@ -308,8 +275,8 @@ function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
           alt=""
           width="20"
           height="20"
-          onClick={(event) => {
-            deleteParticipant(event, participant.studentID);
+          onClick={() => {
+            deleteParticipant(participant.studentID);
           }}
         />
       </div>

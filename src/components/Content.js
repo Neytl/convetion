@@ -128,6 +128,36 @@ export default function Content({ setPageSchoolData }) {
 
         break;
       }
+    } else if (pathname == "/adminEvents") {
+      // Update the entry height
+      document
+        .getElementById(payload.studentID + payload.eventID)
+        .classList.add("hidden"); // Hide the element to be removed
+      let entryElement = document.getElementById("entry" + payload.eventID);
+
+      entryElement.style.height =
+        entryElement.children[0].offsetHeight +
+        entryElement.children[1].offsetHeight +
+        "px";
+
+      // Find the event
+      let tableData = updatedData.tables[0].tableData;
+      for (let i = 0; i < tableData.length; i++) {
+        if (tableData[i].eventID != payload.eventID) continue;
+
+        // Found the event - find the student
+        let participationData = tableData[i].participants;
+
+        for (let j = 0; j < participationData.length; j++) {
+          if (payload.studentID == participationData[j].studentID) {
+            // Found the item to delete
+            participationData.splice(j, 1);
+            break;
+          }
+        }
+
+        break;
+      }
     }
 
     setViewData(updatedData);
