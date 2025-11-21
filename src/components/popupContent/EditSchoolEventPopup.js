@@ -203,12 +203,31 @@ function toggleParticipant(studentData) {
     let currentEvent = JSON.parse(sessionStorage.getItem("currentEvent"));
 
     if (currentEvent.maxTeamSize > 1) {
+      // Team event - validate addition
+      // Look for already student already in another event
+      if (
+        currentStudentList.some(
+          (participantData) =>
+            participantData.studentID == studentData.studentID
+        )
+      ) {
+        document
+          .getElementById("participant" + studentData.studentID)
+          .classList.remove("selected");
+
+        alert(
+          "This student is already in another team! Students can only participate in one team per event."
+        );
+
+        return;
+      }
+
+      // Check for going over the max
       let currentAmount = parseInt(
         document.getElementById("currentParticipantAmount").innerHTML
       );
 
       if (currentAmount + 1 > currentEvent.maxTeamSize) {
-        // Unable to add participant - already at the max amount
         document
           .getElementById("participant" + studentData.studentID)
           .classList.remove("selected");
