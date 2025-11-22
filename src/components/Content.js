@@ -355,22 +355,21 @@ export default function Content({ setPageSchoolData }) {
     }
 
     // Request the page data from the database
+    console.log("Loading from database...");
+
     if (window.location.pathname == "/") {
-      console.log("Loading from database...");
       fetch("https://localhost:44398/api/MiniConvention/adminSchoolsPage")
         .then((response) => response.json())
         .then((data) => {
           setViewData(data);
         });
     } else if (window.location.pathname == "/adminEvents") {
-      console.log("Loading from database...");
       fetch("https://localhost:44398/api/MiniConvention/adminEventsPage")
         .then((response) => response.json())
         .then((data) => {
           setViewData(data);
         });
     } else if (window.location.pathname == "/schoolStudents") {
-      console.log("Loading from database...");
       fetch(
         "https://localhost:44398/api/MiniConvention/schoolStudentsPage/" +
           queryStringSchoolID
@@ -388,7 +387,6 @@ export default function Content({ setPageSchoolData }) {
           }
         });
     } else {
-      console.log("Loading from database...");
       fetch(
         "https://localhost:44398/api/MiniConvention/schoolEventsPage/" +
           queryStringSchoolID
