@@ -1,14 +1,8 @@
 import "convention/app/css/print.css";
-import "convention/app/css/table.css";
 import StudentPrintEntry from "./StudentPrintEntry";
-import Stats from "../pageComponents/Stats";
+import SoloEventPrintEntry from "./SoloEventPrintEntry";
 
-export default function SchoolPrintTable({ tableData }) {
-  // Empty table
-  if (tableData.tableData.length == 0) {
-    return;
-  }
-
+export default function SoloEventPrintTable({ tableData }) {
   // Build the table entries
   let tableEntries = [];
   let currentAgeGroup = "";
@@ -27,7 +21,7 @@ export default function SchoolPrintTable({ tableData }) {
     }
 
     tableEntries.push(
-      <StudentPrintEntry
+      <SoloEventPrintEntry
         studentData={studentData}
         key={studentData.studentID}
       />
@@ -37,13 +31,11 @@ export default function SchoolPrintTable({ tableData }) {
   // Bulid the table
   return (
     <div className="printTableContainer">
-      <div className="schoolHeader">{tableData.tableName}</div>
-      <Stats statsData={tableData.printStats} />
-      <div className="schoolPrintTable">
+      <div className="eventPrintHeader">{tableData.tableName}</div>
+      <div className="soloEventPrintTable">
         <div className="tableHeader">
           <span>Name</span>
-          <span>Age</span>
-          <span>Events</span>
+          <span>School</span>
         </div>
         <div>{tableEntries}</div>
       </div>

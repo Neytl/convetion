@@ -227,6 +227,11 @@
   border-top: 0.5em solid #2e4136;
 }
 
+.tableEntryHeader.Mixto {
+  background-color: #6b4c4c;
+  border-top: 0.5em solid #4a3434;
+}
+
 .addTeamMemeberButton {
   display: flex;
   align-items: center;

@@ -5,6 +5,9 @@
   }
 
   .printTableContainer:not(:first-child) {
+    /* page-break-before: always; */
+  }
+  .eventCategoryPrint:not(:first-child) {
     page-break-before: always;
   }
 
@@ -65,4 +68,89 @@
 }
 .tableEntryHeader.Ovejas::after {
   content: "(10-12)";
+}
+
+/* Solo Event Printouts */
+.eventPrintHeader {
+  font-size: 1.5em;
+  font-weight: bold;
+  padding-left: 1em;
+}
+
+.soloEventPrintTable .tableHeader,
+.soloEventPrintTable .tableEntryData {
+  display: grid;
+  grid-template-columns: 1fr 13em;
+}
+
+.soloEventPrintTable .tableEntry {
+  height: 60px;
+}
+
+.soloEventPrintTable .tableEntryData {
+  padding: 0.5em 1em;
+}
+
+#pageContainer.eventsPrintPage {
+  gap: 2em;
+  padding: 1em 0;
+}
+
+.eventCategoryPrint {
+  font-size: 2em;
+  border-top: solid black 1px;
+  border-bottom: solid black 1px;
+  padding: 0.5em 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+.eventCategoryPrint:not(:first-child) {
+  margin-top: 1em;
+}
+
+/* Team Event Printouts */
+.teamEventPrintTable .tableHeader,
+.teamEventPrintTable .eventTeamEntry {
+  display: grid;
+  grid-template-columns: 13em 1fr;
+}
+
+.eventTeamEntry {
+  border-top: 0.2em solid #474747;
+}
+
+.eventTeamHeader {
+  background-color: #adb6dc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em 1em;
+  font-weight: bold;
+}
+
+.teamEventParticipant {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  background-color: #d5d9eb;
+  padding: 0.5em 1em;
+}
+.teamEventParticipant:nth-child(odd) {
+  background-color: #e6e6fa;
+}
+
+.eventTeamEntry:not(.mixedAges) .studentAge {
+  /* display: none; */
+}
+
+.eventTeamEntry:last-child {
+  border-radius: 0 0 0.3em 0.3em;
+}
+.eventTeamEntry:last-child .eventTeamHeader {
+  border-radius: 0 0 0 0.3em;
+}
+.eventTeamEntry:last-child .teamEventParticipant {
+  border-radius: 0 0 0.3em 0;
 }
