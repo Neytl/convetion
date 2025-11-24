@@ -142,7 +142,7 @@
 }
 
 .eventTeamEntry:not(.mixedAges) .studentAge {
-  /* display: none; */
+  display: none;
 }
 
 .eventTeamEntry:last-child {

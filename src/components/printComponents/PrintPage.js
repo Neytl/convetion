@@ -98,7 +98,6 @@ export default function PrintPage() {
       if (tableData.tableData.length == 0) return;
       if (tableData.tableCategory != currentCategory) {
         currentCategory = tableData.tableCategory;
-        console.log(currentCategory);
 
         tables.push(
           <div className="eventCategoryPrint Header" key={currentCategory}>

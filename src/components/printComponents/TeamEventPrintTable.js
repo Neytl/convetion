@@ -16,7 +16,48 @@ export default function TeamEventPrintTable({ tableData }) {
 
   tableData.tableData.forEach((studentData) => {
     currentSchool = studentData.schoolName;
+    if (!currentTeamNumber) currentTeamNumber = studentData.teamNumber;
+    if (!currentAgeGroup) currentAgeGroup = studentData.ageGroup;
 
+    // Add the current team once complete
+    if (studentData.teamNumber != currentTeamNumber) {
+      if (isMixedAgeGroup) {
+        mixedAgeTeamEntries.push(
+          buildTeamElement(
+            currentSchool,
+            currentTeamNumber,
+            currentTeamEntries,
+            true
+          )
+        );
+      } else {
+        // Look for a new age group
+        if (!isMixedAgeGroup && currentAgeGroup != currentTeamAgeGroup) {
+          currentTeamAgeGroup = currentAgeGroup;
+
+          tableEntries.push(
+            <div
+              key={currentTeamAgeGroup}
+              className={"tableEntryHeader " + currentTeamAgeGroup}
+            >
+              {currentTeamAgeGroup}
+            </div>
+          );
+        }
+
+        tableEntries.push(
+          buildTeamElement(currentSchool, currentTeamNumber, currentTeamEntries)
+        );
+      }
+
+      // Reset variable for the next team
+      isMixedAgeGroup = false;
+      currentTeamEntries = [];
+      currentAgeGroup = "";
+      currentTeamNumber = studentData.teamNumber;
+    }
+
+    // Look for mixed age groups
     if (studentData.ageGroup != currentAgeGroup) {
       if (!!currentAgeGroup) {
         isMixedAgeGroup = true;
@@ -25,58 +66,12 @@ export default function TeamEventPrintTable({ tableData }) {
       currentAgeGroup = studentData.ageGroup;
     }
 
-    // Add the current team
-    if (studentData.teamNumber != currentTeamNumber) {
-      if (!!currentTeamNumber) {
-        if (isMixedAgeGroup) {
-          mixedAgeTeamEntries.push(
-            buildTeamElement(
-              currentSchool,
-              currentTeamNumber,
-              currentTeamEntries,
-              true
-            )
-          );
-        } else {
-          tableEntries.push(
-            buildTeamElement(
-              currentSchool,
-              currentTeamNumber,
-              currentTeamEntries
-            )
-          );
-        }
-      }
-
-      // Look for a new age group
-      if (!isMixedAgeGroup && currentAgeGroup != currentTeamAgeGroup) {
-        currentTeamAgeGroup = currentAgeGroup;
-
-        tableEntries.push(
-          <div
-            key={currentTeamAgeGroup}
-            className={"tableEntryHeader " + currentTeamAgeGroup}
-          >
-            {currentTeamAgeGroup}
-          </div>
-        );
-      }
-
-      // Reset variable for the next team
-      currentTeamEntries = [];
-      currentTeamNumber = studentData.teamNumber;
-      currentAgeGroup = "";
-      isMixedAgeGroup = false;
-    }
-
     // Build the participant entry element
     currentTeamEntries.push(
       <div key={studentData.studentID} className="teamEventParticipant">
         <Image src={"/images/account.png"} alt="" width={30} height={30} />
         <div>{studentData.fullName}</div>
-        <div className="studentAge">
-          {"(" + studentData.age + "-" + studentData.ageGroup + ")"}
-        </div>
+        <div className="studentAge">{"(" + studentData.age + ")"}</div>
       </div>
     );
   });
@@ -130,9 +125,9 @@ function buildTeamElement(
 ) {
   return (
     <div
-      key={currentSchool + currentTeamNumber}
+      key={currentSchool + "-" + currentTeamNumber}
       className={
-        isMixedAgeGroup ? "eventTeamEntry mixedAges" : "eventTeamEntry"
+        !!isMixedAgeGroup ? "eventTeamEntry mixedAges" : "eventTeamEntry"
       }
     >
       <div className="eventTeamHeader">
