@@ -13,7 +13,7 @@ import EditSchoolEventPopup from "./EditSchoolEventPopup";
 import { setUpEditSchoolEventPopup } from "./EditSchoolEventPopup";
 import AddSchoolEventPopup from "./AddSchoolEventPopup";
 
-export default function Popup({ events }) {
+export default function Popup({ events, pathname }) {
   const closePopup = (event) => {
     if (
       event.target.closest("#closePopupButton") == null &&
@@ -22,6 +22,58 @@ export default function Popup({ events }) {
       return;
     document.getElementById("popupContainer").classList.add("hidden");
   };
+
+  // Load in the correct popups
+  let popups = [];
+
+  if (pathname == "/") {
+    popups.push(
+      <AddSchoolPopup key={"AddSchoolPopup"} postNewData={events.postNewData} />
+    );
+    popups.push(
+      <EditSchoolPopup
+        key={"EditSchoolPopup"}
+        updateDataEntry={events.updateDataEntry}
+      />
+    );
+  } else if (pathname == "/adminEvents") {
+    popups.push(
+      <AddEventPopup key={"AddEventPopup"} postNewData={events.postNewData} />
+    );
+    popups.push(
+      <EditAdminEventPopup
+        key={"EditAdminEventPopup"}
+        updateDataEntry={events.updateDataEntry}
+      />
+    );
+  } else if (pathname == "/schoolStudents") {
+    popups.push(
+      <AddStudentPopup
+        key={"AddStudentPopup"}
+        postNewData={events.postNewData}
+      />
+    );
+    popups.push(
+      <EditStudentPopup
+        key={"AddScEditStudentPopuphoolPopup"}
+        updateDataEntry={events.updateDataEntry}
+      />
+    );
+  } else if (pathname == "/schoolEvents") {
+    popups.push(
+      <EditSchoolEventPopup
+        key={"EditSchoolEventPopup"}
+        schoolData={events.schoolData}
+        updateEventParticipants={events.updateEventParticipants}
+      />
+    );
+    popups.push(
+      <AddSchoolEventPopup
+        key={"AddSchoolEventPopup"}
+        pageTables={events.pageTables}
+      />
+    );
+  }
 
   return (
     <div id="popupContainer" onClick={closePopup} className="hidden">
@@ -39,19 +91,7 @@ export default function Popup({ events }) {
           />
           <div id="popupTitle">Title</div>
         </div>
-        <div id="popupContent">
-          <AddSchoolPopup postNewData={events.postNewData} />
-          <EditSchoolPopup updateDataEntry={events.updateDataEntry} />
-          <AddEventPopup postNewData={events.postNewData} />
-          <EditAdminEventPopup updateDataEntry={events.updateDataEntry} />
-          <AddStudentPopup postNewData={events.postNewData} />
-          <EditStudentPopup updateDataEntry={events.updateDataEntry} />
-          <EditSchoolEventPopup
-            schoolData={events.schoolData}
-            updateEventParticipants={events.updateEventParticipants}
-          />
-          <AddSchoolEventPopup pageTables={events.pageTables} />
-        </div>
+        <div id="popupContent">{popups}</div>
       </div>
     </div>
   );

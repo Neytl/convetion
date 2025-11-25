@@ -446,7 +446,7 @@ export default function Content({ setPageSchoolData }) {
 
   return (
     <div id="content">
-      <Popup events={popupEvents} />
+      <Popup events={popupEvents} pathname={pathname} />
       <PageInfo pathname={pathname} />
       <Stats statsData={viewData.stats} />
       <div
