@@ -1,3 +1,5 @@
+import { onPopupInput } from "./Popup";
+
 export default function EditSchoolPopup({ updateDataEntry }) {
   const updateSchool = () => {
     let input = document.getElementById("editSchoolName");
@@ -29,6 +31,8 @@ export default function EditSchoolPopup({ updateDataEntry }) {
             id="editSchoolName"
             placeholder="School Name"
             onInput={clearError}
+            onKeyDown={onPopupInput}
+            data-tab="B1"
           />
         </div>
       </form>
@@ -40,6 +44,9 @@ export default function EditSchoolPopup({ updateDataEntry }) {
           onClick={updateSchool}
           className="submitPopupButton"
           id="submitAdminSchool"
+          onKeyDown={onPopupInput}
+          data-tab="B2"
+          tabIndex={-1}
         >
           Update
         </div>

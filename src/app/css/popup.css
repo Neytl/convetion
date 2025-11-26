@@ -96,6 +96,12 @@
   cursor: pointer;
   background-color: #d6d6d6;
   width: 5em;
+  box-shadow: 0 0 0.2em #979797;
+}
+
+.submitPopupButton:hover,
+.submitPopupButton:focus {
+  background-color: #e3e3e3;
 }
 
 .popupInputLabel {

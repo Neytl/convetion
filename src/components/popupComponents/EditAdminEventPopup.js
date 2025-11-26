@@ -1,3 +1,5 @@
+import { onPopupInput } from "./Popup";
+
 export default function EditAdminEventPopup({ updateDataEntry }) {
   let onToggleCheckbox = function (event) {
     if (event.target.checked) {
@@ -41,6 +43,8 @@ export default function EditAdminEventPopup({ updateDataEntry }) {
             type="text"
             id="editEventName"
             placeholder="Event Name"
+            onKeyDown={onPopupInput}
+            data-tab="B1"
           />
         </div>
         {/* Team Size */}
@@ -55,7 +59,12 @@ export default function EditAdminEventPopup({ updateDataEntry }) {
                 type="checkbox"
                 id="editEventHasTeams"
               />
-              <div className="slider"></div>
+              <div
+                className="slider"
+                onKeyDown={onPopupInput}
+                data-tab="B2"
+                tabIndex={-1}
+              ></div>
             </label>
           </div>
           <div id="editTeamSizeContainer">
@@ -68,6 +77,8 @@ export default function EditAdminEventPopup({ updateDataEntry }) {
               defaultValue={4}
               min={2}
               max={30}
+              onKeyDown={onPopupInput}
+              data-tab="B3"
             />
           </div>
         </div>
@@ -80,6 +91,8 @@ export default function EditAdminEventPopup({ updateDataEntry }) {
             id="editEventCategory"
             defaultValue={"Deportes"}
             className="popupSelect"
+            onKeyDown={onPopupInput}
+            data-tab="B4"
           >
             <option>Deportes</option>
             <option>Música</option>
@@ -92,7 +105,13 @@ export default function EditAdminEventPopup({ updateDataEntry }) {
       <span className="popupMessage"></span>
 
       <div className="popupButtonContainer">
-        <div onClick={updateEvent} className="submitPopupButton">
+        <div
+          onClick={updateEvent}
+          className="submitPopupButton"
+          onKeyDown={onPopupInput}
+          data-tab="B5"
+          tabIndex={-1}
+        >
           Update
         </div>
       </div>

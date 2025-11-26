@@ -1,10 +1,15 @@
+import { validateBirthdate } from "./AddStudentPopup";
+import { onPopupInput } from "./Popup";
+
 export default function EditStudentPopup({ updateDataEntry }) {
   const updateStudent = () => {
     let payload = {
       studentID: document.getElementById("editFirstName").dataset.studentID,
       firstNames: document.getElementById("editFirstName").value,
       lastNames: document.getElementById("editLastName").value,
-      birthdate: document.getElementById("editBirthdate").value,
+      birthdate: validateBirthdate(
+        document.getElementById("editBirthdate").value
+      ),
     };
 
     // Incomplete data
@@ -17,15 +22,7 @@ export default function EditStudentPopup({ updateDataEntry }) {
       document.getElementById("lastName").classList.add("error");
       errors = true;
     }
-    if (!!payload.birthdate) {
-      const date = new Date(payload.birthdate);
-      if (
-        !(date instanceof Date && !isNaN(date) && date.getFullYear() > 2000)
-      ) {
-        document.getElementById("editBirthdate").classList.add("error");
-        errors = true;
-      }
-    } else {
+    if (!payload.birthdate) {
       document.getElementById("editBirthdate").classList.add("error");
       errors = true;
     }
@@ -47,6 +44,8 @@ export default function EditStudentPopup({ updateDataEntry }) {
             id="editFirstName"
             placeholder="First Name"
             onInput={clearError}
+            onKeyDown={onPopupInput}
+            data-tab="B1"
           />
         </div>
         <div>
@@ -58,6 +57,8 @@ export default function EditStudentPopup({ updateDataEntry }) {
             id="editLastName"
             placeholder="Last Name"
             onInput={clearError}
+            onKeyDown={onPopupInput}
+            data-tab="B2"
           />
         </div>
         <div>
@@ -67,8 +68,10 @@ export default function EditStudentPopup({ updateDataEntry }) {
           <input
             type="text"
             id="editBirthdate"
-            placeholder="DD/MM/YYYY"
+            placeholder="dd/mm/aaaa"
             onInput={clearError}
+            onKeyDown={onPopupInput}
+            data-tab="B3"
           />
         </div>
       </form>
@@ -76,7 +79,13 @@ export default function EditStudentPopup({ updateDataEntry }) {
       <span className="popupMessage"></span>
 
       <div className="popupButtonContainer">
-        <div onClick={updateStudent} className="submitPopupButton">
+        <div
+          onClick={updateStudent}
+          className="submitPopupButton"
+          onKeyDown={onPopupInput}
+          data-tab="B4"
+          tabIndex={-1}
+        >
           Update
         </div>
       </div>

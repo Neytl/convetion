@@ -1,13 +1,11 @@
-// import Image from "next/image";
-import { Birthstone } from "next/font/google";
-import TinyImage from "./TinyImage";
+import { onPopupInput } from "./Popup";
 
 export default function AddStudentPopup({ postNewData }) {
   const addNewStudent = () => {
     let payload = {
       firstNames: document.getElementById("firstName").value,
       lastNames: document.getElementById("lastName").value,
-      birthdate: document.getElementById("birthdate").value,
+      birthdate: validateBirthdate(document.getElementById("birthdate").value),
     };
 
     // Incomplete data
@@ -23,14 +21,6 @@ export default function AddStudentPopup({ postNewData }) {
     if (!payload.birthdate) {
       document.getElementById("birthdate").classList.add("error");
       errors = true;
-    } else {
-      const date = new Date(payload.birthdate);
-      if (
-        !(date instanceof Date && !isNaN(date) && date.getFullYear() > 2000)
-      ) {
-        document.getElementById("birthdate").classList.add("error");
-        errors = true;
-      }
     }
 
     if (errors) return;
@@ -51,6 +41,8 @@ export default function AddStudentPopup({ postNewData }) {
             id="firstName"
             placeholder="First Name"
             onInput={clearError}
+            onKeyDown={onPopupInput}
+            data-tab="A1"
           />
         </div>
         <div>
@@ -62,6 +54,8 @@ export default function AddStudentPopup({ postNewData }) {
             id="lastName"
             placeholder="Last Name"
             onInput={clearError}
+            onKeyDown={onPopupInput}
+            data-tab="A2"
           />
         </div>
         <div>
@@ -71,8 +65,10 @@ export default function AddStudentPopup({ postNewData }) {
           <input
             type="text"
             id="birthdate"
-            placeholder="DD/MM/YYYY"
+            placeholder="dd/mm/aaaa"
             onInput={clearError}
+            onKeyDown={onPopupInput}
+            data-tab="A3"
           />
         </div>
       </form>
@@ -80,7 +76,13 @@ export default function AddStudentPopup({ postNewData }) {
       <span className="popupMessage"></span>
 
       <div className="popupButtonContainer">
-        <div onClick={addNewStudent} className="submitPopupButton">
+        <div
+          onClick={addNewStudent}
+          className="submitPopupButton"
+          onKeyDown={onPopupInput}
+          data-tab="A4"
+          tabIndex={-1}
+        >
           Add
         </div>
       </div>
@@ -97,3 +99,37 @@ export const clearStudentPopup = () => {
 function clearError(event) {
   event.target.classList.remove("error");
 }
+
+// Returns true if valid, false if not
+export const validateBirthdate = (birthdateString) => {
+  // Split the string into day, month, and year parts
+  if (!birthdateString) return false;
+  const parts = birthdateString.split("/"); // [DD, MM, YYYY]
+  if (parts.length != 3) return false;
+  for (let i = 0; i < parts.length; i++) {
+    let part = parts[i];
+    if (!part) return false;
+    if (isNaN(part)) return false;
+  }
+
+  const day = parseInt(parts[0]);
+  const month = parseInt(parts[1]);
+  const year = parseInt(parts[2]);
+
+  // Generate and validate the date
+  const date = new Date(month + "/" + day + "/" + year);
+  if (!(date instanceof Date && !isNaN(date))) return false;
+
+  // Validate the student's age
+  if (date.getFullYear() <= 2012) {
+    alert("Student is too old to participate.");
+    return false;
+  }
+
+  if (date.getFullYear() >= 2021) {
+    alert("Student is too young to participate.");
+    return false;
+  }
+
+  return date.toLocaleDateString("en-US");
+};

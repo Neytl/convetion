@@ -316,7 +316,9 @@ function generateSchoolStudentsEntryDropdown(tableType, data, deleteDataEntry) {
     input.value = data.firstNames;
     input.dataset.studentID = data.studentID;
     document.getElementById("editLastName").value = data.lastNames;
-    document.getElementById("editBirthdate").value = data.birthdate;
+    document.getElementById("editBirthdate").value = new Date(
+      data.birthdate
+    ).toLocaleDateString("es-MX");
   };
 
   let deleteStudent = function (event) {

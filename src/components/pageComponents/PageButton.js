@@ -1,5 +1,6 @@
 import Image from "next/image";
 import "convention/app/css/table.css";
+import { clearStudentPopup } from "../popupComponents/AddStudentPopup";
 
 export default function PageButton({ pathName, pageData }) {
   switch (pathName) {
@@ -33,6 +34,40 @@ export default function PageButton({ pathName, pageData }) {
           </div>
         </div>
       );
+    case "/schoolStudents":
+      return (
+        <div id="pageButtonContainer">
+          <div
+            id="pageButton"
+            className="pageButton"
+            onClick={() => {
+              // Close the current popup
+              document
+                .getElementById("popupContent")
+                .childNodes.forEach((element) =>
+                  element.classList.add("hidden")
+                );
+
+              // Set up the new popup
+              document.getElementById("popupTitle").innerHTML = "Add Student";
+              document.getElementById("popupHeaderIcon").srcset =
+                "/images/account.png";
+              clearStudentPopup();
+
+              // Show the new popup
+              document
+                .getElementById("school_students_popup")
+                .classList.remove("hidden");
+              document
+                .getElementById("popupContainer")
+                .classList.remove("hidden");
+            }}
+          >
+            <Image src={"/images/account.png"} alt="" width={20} height={20} />
+            <span>Add Student</span>
+          </div>
+        </div>
+      );
     case "/schoolEvents":
       return (
         <div id="pageButtonContainer">
@@ -50,7 +85,7 @@ export default function PageButton({ pathName, pageData }) {
               // Set up the new popup
               document.getElementById("popupTitle").innerHTML = "Edit Events";
               document.getElementById("popupHeaderIcon").srcset =
-                "/images/Event.png";
+                "/images/event.png";
 
               // Show the new popup
               document

@@ -12,7 +12,7 @@ export default function Table({
   tableObject,
   pageTables,
 }) {
-  if (tableData.length == 0) return 0;
+  if (tableData.length == 0) return null;
   let rowIndex = 0;
 
   let tableColumns = ((tableType) => {
@@ -216,22 +216,23 @@ function getTableTopper(
   return (
     <div className="tableTopper">
       <span>{tableName}</span>
-      <div
-        className="tableButton"
-        onClick={() => {
-          openTableButtonPopup(
-            tableType + "_popup",
-            tableName,
-            tableData,
-            tableObject,
-            null,
-            pageTables
-          );
-        }}
-      >
-        <span>{getTableButtonText(tableType)}</span>
-        <div className="tableButtonDropdown"></div>
-      </div>
+      {tableType == "school_students" ? null : (
+        <div
+          className="tableButton"
+          onClick={() => {
+            openTableButtonPopup(
+              tableType + "_popup",
+              tableName,
+              tableData,
+              tableObject,
+              null,
+              pageTables
+            );
+          }}
+        >
+          <span>{getTableButtonText(tableType)}</span>
+        </div>
+      )}
     </div>
   );
 }

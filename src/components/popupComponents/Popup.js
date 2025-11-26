@@ -14,15 +14,6 @@ import { setUpEditSchoolEventPopup } from "./EditSchoolEventPopup";
 import AddSchoolEventPopup from "./AddSchoolEventPopup";
 
 export default function Popup({ events, pathname }) {
-  const closePopup = (event) => {
-    if (
-      event.target.closest("#closePopupButton") == null &&
-      event.target.closest("#popup") != null
-    )
-      return;
-    document.getElementById("popupContainer").classList.add("hidden");
-  };
-
   // Load in the correct popups
   let popups = [];
 
@@ -96,6 +87,71 @@ export default function Popup({ events, pathname }) {
     </div>
   );
 }
+
+const closePopup = (event) => {
+  if (
+    !!event &&
+    event.target.closest("#closePopupButton") == null &&
+    event.target.closest("#popup") != null
+  )
+    return;
+
+  // Close the popup
+  document.activeElement.blur();
+  document.getElementById("popupContainer").classList.add("hidden");
+};
+
+export const onPopupInput = (event) => {
+  // Close the popup
+  if (event.code == "Escape") {
+    closePopup();
+    return;
+  }
+
+  // Submit popup or click checkbox
+  if (
+    event.code == "Enter" &&
+    (event.target.classList.contains("submitPopupButton") ||
+      event.target.classList.contains("slider"))
+  ) {
+    event.preventDefault();
+    event.target.click();
+    return;
+  }
+
+  // Tab next
+  if (event.code == "Tab" || event.code == "Enter") {
+    event.preventDefault();
+    let newTarget;
+    let currentTab = event.target.dataset.tab;
+    let currentLetter = currentTab[0];
+
+    if (event.target.classList.contains("submitPopupButton")) {
+      // Tab back to first element
+      newTarget = document.querySelector('[data-tab="' + currentLetter + '1"]');
+      newTarget.focus();
+    } else {
+      // Tab to next element
+      let currentIndex = parseInt(currentTab[1]);
+      let newIndex = currentIndex + 1 + "";
+      newTarget = document.querySelector(
+        '[data-tab="' + currentLetter + newIndex + '"]'
+      );
+
+      newTarget.focus();
+
+      // Unable to focus - tab next
+      if (newTarget != document.activeElement) {
+        let newIndex = currentIndex + 2 + "";
+        newTarget = document.querySelector(
+          '[data-tab="' + currentLetter + newIndex + '"]'
+        );
+
+        newTarget.focus();
+      }
+    }
+  }
+};
 
 export const openTableButtonPopup = (
   popupName,

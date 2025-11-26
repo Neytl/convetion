@@ -3,9 +3,7 @@ import "convention/app/css/nav.css";
 import NavLink from "convention/components/navComponents/NavLink";
 
 export default function AdminSchoolLinks({ schoolData }) {
-  if (!schoolData) {
-    return <div></div>;
-  }
+  if (!schoolData) return null;
 
   return (
     <div id="adminSchoolLinksContainer">
@@ -19,11 +17,13 @@ export default function AdminSchoolLinks({ schoolData }) {
           href={"/schoolStudents?school=" + schoolData.schoolID}
           iconSrc={"/images/account.png"}
         />
-        <NavLink
-          name={"Events"}
-          href={"/schoolEvents?school=" + schoolData.schoolID}
-          iconSrc={"/images/event.png"}
-        />
+        {schoolData.numStudents == 0 ? null : (
+          <NavLink
+            name={"Events"}
+            href={"/schoolEvents?school=" + schoolData.schoolID}
+            iconSrc={"/images/event.png"}
+          />
+        )}
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+import { onPopupInput } from "./Popup";
+
 export default function AddEventPopup({ postNewData }) {
   const onToggleCheckbox = (event) => {
     if (event.target.checked) {
@@ -38,6 +40,8 @@ export default function AddEventPopup({ postNewData }) {
             type="text"
             id="eventName"
             placeholder="Event Name"
+            onKeyDown={onPopupInput}
+            data-tab="A1"
           />
         </div>
         {/* Team Size */}
@@ -52,7 +56,12 @@ export default function AddEventPopup({ postNewData }) {
                 type="checkbox"
                 id="eventHasTeams"
               />
-              <div className="slider"></div>
+              <div
+                className="slider"
+                onKeyDown={onPopupInput}
+                data-tab="A2"
+                tabIndex={-1}
+              ></div>
             </label>
           </div>
           <div id="teamSizeContainer">
@@ -65,6 +74,8 @@ export default function AddEventPopup({ postNewData }) {
               defaultValue={4}
               min={2}
               max={30}
+              onKeyDown={onPopupInput}
+              data-tab="A3"
             />
           </div>
         </div>
@@ -77,6 +88,8 @@ export default function AddEventPopup({ postNewData }) {
             id="eventCategory"
             defaultValue={"Deportes"}
             className="popupSelect"
+            onKeyDown={onPopupInput}
+            data-tab="A4"
           >
             <option>Deportes</option>
             <option>Música</option>
@@ -89,7 +102,13 @@ export default function AddEventPopup({ postNewData }) {
       <span className="popupMessage"></span>
 
       <div className="popupButtonContainer">
-        <div onClick={addNewEvent} className="submitPopupButton">
+        <div
+          onClick={addNewEvent}
+          className="submitPopupButton"
+          onKeyDown={onPopupInput}
+          data-tab="A5"
+          tabIndex={-1}
+        >
           Add
         </div>
       </div>

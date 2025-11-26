@@ -1,3 +1,5 @@
+import { onPopupInput } from "./Popup";
+
 export default function AddSchoolPopup({ postNewData }) {
   const addNewSchool = () => {
     let payload = {
@@ -30,6 +32,8 @@ export default function AddSchoolPopup({ postNewData }) {
             id="schoolName"
             placeholder="School Name"
             onInput={clearError}
+            onKeyDown={onPopupInput}
+            data-tab="A1"
           />
         </div>
       </form>
@@ -37,7 +41,13 @@ export default function AddSchoolPopup({ postNewData }) {
       <span className="popupMessage"></span>
 
       <div className="popupButtonContainer">
-        <div onClick={addNewSchool} className="submitPopupButton">
+        <div
+          onClick={addNewSchool}
+          className="submitPopupButton"
+          onKeyDown={onPopupInput}
+          data-tab="A2"
+          tabIndex={-1}
+        >
           Add
         </div>
       </div>

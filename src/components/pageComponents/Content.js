@@ -63,6 +63,7 @@ export default function Content({ setPageSchoolData }) {
         setViewData(updatedData);
       });
 
+    document.activeElement.blur();
     document.getElementById("popupContainer").classList.add("hidden");
   };
 
@@ -279,6 +280,7 @@ export default function Content({ setPageSchoolData }) {
         }
       });
 
+    document.activeElement.blur();
     document.getElementById("popupContainer").classList.add("hidden");
   };
 
