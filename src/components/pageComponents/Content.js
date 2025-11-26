@@ -22,10 +22,11 @@ export default function Content({ setPageSchoolData }) {
   const [schoolID, setSchoolID] = useState("");
 
   const closeTableEntries = () => {
-    Array.from(
-      document.getElementById(viewData.tables[0].tableName + "TableEntries")
-        .children
-    ).forEach((element) => {
+    let tableEntries = document.getElementById(
+      viewData.tables[0].tableName + "TableEntries"
+    );
+    if (!tableEntries) return;
+    Array.from(tableEntries.children).forEach((element) => {
       element.style = "";
       element.classList.add("closed");
     });
@@ -36,7 +37,24 @@ export default function Content({ setPageSchoolData }) {
     closeTableEntries();
 
     // Make the request
-    if (endpoint == "student") payload.schoolID = schoolID;
+    if (endpoint == "student") {
+      payload.schoolID = schoolID;
+
+      // Add a student - update number of students
+      if (endpoint == "student") {
+        let storedPageSchoolData = JSON.parse(
+          localStorage.getItem("pageSchoolData")
+        );
+
+        storedPageSchoolData.numStudents++;
+        setPageSchoolData(storedPageSchoolData);
+        localStorage.setItem(
+          "pageSchoolData",
+          JSON.stringify(storedPageSchoolData)
+        );
+      }
+    }
+
     console.log("Fetch add " + endpoint, payload);
 
     fetch("https://localhost:44398/api/MiniConvention/" + endpoint, {
@@ -210,6 +228,20 @@ export default function Content({ setPageSchoolData }) {
       }
     }
 
+    // Remove a student - update number of students
+    if (endpoint == "student") {
+      let storedPageSchoolData = JSON.parse(
+        localStorage.getItem("pageSchoolData")
+      );
+
+      storedPageSchoolData.numStudents--;
+      setPageSchoolData(storedPageSchoolData);
+      localStorage.setItem(
+        "pageSchoolData",
+        JSON.stringify(storedPageSchoolData)
+      );
+    }
+
     // Make the delete request
     console.log("Fetch delete " + endpoint, payload);
     fetch("https://localhost:44398/api/MiniConvention/" + endpoint, {
@@ -353,6 +385,10 @@ export default function Content({ setPageSchoolData }) {
       // Storage hit!
       setPageSchoolData(storedPageSchoolData);
     }
+    const updateSchoolData = (newData) => {
+      localStorage.setItem("pageSchoolData", JSON.stringify(newData));
+      setPageSchoolData(newData);
+    };
 
     // Request the page data from the database
     console.log("Loading from database...");
@@ -377,14 +413,7 @@ export default function Content({ setPageSchoolData }) {
         .then((response) => response.json())
         .then((data) => {
           setViewData(data);
-
-          if (!foundPageSchoolData) {
-            setPageSchoolData(data.pageSchoolData);
-            localStorage.setItem(
-              "pageSchoolData",
-              JSON.stringify(data.pageSchoolData)
-            );
-          }
+          updateSchoolData(data.pageSchoolData);
         });
     } else {
       fetch(
@@ -394,13 +423,7 @@ export default function Content({ setPageSchoolData }) {
         .then((response) => response.json())
         .then((data) => {
           setViewData(data);
-          if (!foundPageSchoolData) {
-            setPageSchoolData(data.pageSchoolData);
-            localStorage.setItem(
-              "pageSchoolData",
-              JSON.stringify(data.pageSchoolData)
-            );
-          }
+          updateSchoolData(data.pageSchoolData);
         });
     }
   }, [viewData, setPageSchoolData]);
