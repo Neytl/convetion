@@ -9,7 +9,7 @@ export default function EditSchoolEventPopup({
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    if (!schoolData || students.length > 0) return;
+    if (!schoolData) return;
 
     fetch(
       "https://localhost:44398/api/MiniConvention/students/" +

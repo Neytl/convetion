@@ -330,6 +330,7 @@ export default function Content({ setPageSchoolData }) {
 
     if (!found) {
       let currentEvent = JSON.parse(sessionStorage.getItem("currentEvent"));
+
       let newTable = {
         tableEventID: eventID,
         tableData: newParticipants,
@@ -346,6 +347,7 @@ export default function Content({ setPageSchoolData }) {
         if (updatedData.tables[i].tableCategory == currentEvent.category) {
           found = true;
           updatedData.tables.splice(i, 0, newTable);
+          break;
         }
       }
 
