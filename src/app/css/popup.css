@@ -194,7 +194,7 @@ input:checked + .slider:before {
   flex-direction: row;
   flex-wrap: wrap;
   overflow: auto;
-  width: 30em;
+  width: 35em;
   max-height: 30em;
   gap: 1em;
   padding: 0.5em 1em;

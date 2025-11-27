@@ -32,7 +32,10 @@ export default function EditSchoolEventPopup({
     if (student.ageGroup != currentAgeGroup) {
       currentAgeGroup = student.ageGroup;
       popupElements.push(
-        <div className="ageGroupHeader" key={currentAgeGroup}>
+        <div
+          className={"ageGroupHeader " + currentAgeGroup}
+          key={currentAgeGroup}
+        >
           {currentAgeGroup}
         </div>
       );

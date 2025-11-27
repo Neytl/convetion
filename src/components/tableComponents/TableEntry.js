@@ -141,7 +141,7 @@ function lookupTableEntryDropdown(tableType, data, deleteDataEntry) {
 
 function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
   let printSchoolData = function () {
-    window.location.href = "./printSchool?school=" + data.schoolID;
+    window.open("./printSchool?school=" + data.schoolID, "_blank");
   };
 
   let editSchoolData = function () {
@@ -214,7 +214,7 @@ function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
 
 function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
   let printEvent = function () {
-    window.location.href = "./printEvent?event=" + data.eventID;
+    window.open("./printEvent?event=" + data.eventID, "_blank");
   };
 
   let editEvent = function () {

@@ -44,7 +44,7 @@ body::after {
   width: 90vw;
   max-width: 85em;
   height: 90vh;
-  border-radius: 0.5em;
+  border-radius: 0.6em;
   /* box-shadow: 0 0 0.5em #575757; */
   box-shadow: 0 0 0.5em #000000b8;
   display: flex;
@@ -115,4 +115,10 @@ body::after {
   z-index: 20;
   height: 0;
   align-items: end;
+}
+
+#split,
+#header,
+#links {
+  border-radius: 0 0 0 0.5em;
 }

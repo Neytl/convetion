@@ -151,6 +151,10 @@
 }
 
 /* - Admin Schools - */
+.schoolLoginInfo span {
+  user-select: all;
+}
+
 .schoolLoginInfo {
   display: grid;
   align-items: center;
@@ -236,10 +240,18 @@
   background-color: #4c6b5a;
   border-top: 0.5em solid #2e4136;
 }
-
 .tableEntryHeader.Mixtas {
   background-color: #6b4c4c;
   border-top: 0.5em solid #4a3434;
+}
+.Corderitos::after {
+  content: "(6-7)";
+}
+.Ovejitas::after {
+  content: "(8-9)";
+}
+.Ovejas::after {
+  content: "(10-12)";
 }
 
 .addTeamMemeberButton {

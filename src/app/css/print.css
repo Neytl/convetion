@@ -14,13 +14,20 @@
   .tableEntry {
     break-inside: avoid;
   }
+
+  .schoolHeader,
+  .eventPrintHeader,
+  .tableHeader,
+  .tableEntryHeader {
+    break-after: avoid;
+  }
 }
 
 :root body {
+  /* pointer-events: none; */
   background: white;
   width: auto;
   height: auto;
-  pointer-events: none;
 }
 
 :root body::after {
@@ -62,16 +69,6 @@
   gap: 0.3em;
   padding: 0.5em;
   padding-left: 5em;
-}
-
-.tableEntryHeader.Corderitos::after {
-  content: "(6-7)";
-}
-.tableEntryHeader.Ovejitas::after {
-  content: "(8-9)";
-}
-.tableEntryHeader.Ovejas::after {
-  content: "(10-12)";
 }
 
 /* Solo Event Printouts */

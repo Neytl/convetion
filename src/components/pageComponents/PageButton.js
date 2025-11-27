@@ -11,7 +11,7 @@ export default function PageButton({ pathName, pageData }) {
             id="pageButton"
             className="pageButton"
             onClick={() => {
-              window.location.href = "printSchools";
+              window.open("printSchools", "_blank");
             }}
           >
             <Image src={"/images/print.png"} alt="" width={20} height={20} />
@@ -26,7 +26,7 @@ export default function PageButton({ pathName, pageData }) {
             id="pageButton"
             className="pageButton"
             onClick={() => {
-              window.location.href = "printEvents";
+              window.open("printEvents", "_blank");
             }}
           >
             <Image src={"/images/print.png"} alt="" width={20} height={20} />

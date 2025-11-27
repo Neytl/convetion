@@ -371,6 +371,13 @@ export default function Content({ setPageSchoolData }) {
     // Pull data from the URL and try to pull the page's school data
     setPathname(window.location.pathname);
 
+    if (
+      window.location.pathname == "/" ||
+      window.location.pathname == "/adminEvents"
+    ) {
+      document.getElementById("page").classList.add("adminPage");
+    }
+
     let queryStringSchoolID = new URLSearchParams(window.location.search).get(
       "school"
     );

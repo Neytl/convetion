@@ -3,8 +3,14 @@
   display: flex;
   flex-direction: column;
   gap: 0.5em;
-  width: 15em;
-  /* background-color: antiquewhite; */
+  min-width: 15em;
+  background-color: #364954;
+  background-color: #122e49;
+  color: #f8f8f8;
+}
+
+#header img {
+  filter: invert(1);
 }
 
 /* Topper */
@@ -17,12 +23,15 @@
 #topper {
   border-radius: 0.5em 0.5em 0 0;
   background-color: #2a4c70;
+  background-color: #364954;
+  background-color: #122e49;
   color: #f8f8f8;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.3em;
   padding: 0.8em 2em 0.8em 0.8em;
+  padding: 1em 2em 1em 1em;
 }
 
 #user span {
@@ -31,6 +40,7 @@
 
 #tag {
   font-size: 1.5em;
+  font-size: 1.7em;
   display: flex;
   align-items: center;
   gap: 0.3em;
@@ -67,6 +77,10 @@
   padding: 0 1em;
   box-shadow: inset 0.3em 0 0 0 #819ae3;
   margin-top: 3em;
+}
+
+.adminPage #adminSchoolLinksContainer {
+  /* box-shadow: none; */
 }
 
 #adminSchoolLinksHeader {
