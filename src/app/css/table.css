@@ -226,7 +226,7 @@
   font-weight: bold;
   border-top: 0.5em solid #2e4136;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
   gap: 1em;
 }
 
@@ -246,14 +246,27 @@
   background-color: #6b4c4c;
   border-top: 0.5em solid #4a3434;
 }
-.Corderitos::after {
+.Corderitos:not(.schoolEventTable)::after {
   content: "(6-7)";
 }
-.Ovejitas::after {
+.Ovejitas:not(.schoolEventTable)::after {
   content: "(8-9)";
 }
-.Ovejas::after {
+.Ovejas:not(.schoolEventTable)::after {
   content: "(10-12)";
+}
+
+.Corderitos.schoolEventTable > div:last-child::after {
+  content: "(6-7)";
+  padding-left: 0.3em;
+}
+.Ovejitas.schoolEventTable > div:last-child::after {
+  content: "(8-9)";
+  padding-left: 0.3em;
+}
+.Ovejas.schoolEventTable > div:last-child::after {
+  content: "(10-12)";
+  padding-left: 0.3em;
 }
 
 .addTeamMemeberButton {

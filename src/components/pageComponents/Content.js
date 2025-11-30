@@ -199,7 +199,7 @@ export default function Content({ setPageSchoolData, pathname }) {
       })
       .then((data) => {
         if (!data) return;
-        if (notAuthorized(response)) return;
+        if (notAuthorized(data)) return;
         console.log(" = Response: ", data);
       });
   };

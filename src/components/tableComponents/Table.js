@@ -48,6 +48,7 @@ export default function Table({
   let entryIconSrc = getTableEntryIcon(tableType);
   let tableEntries;
   let tableID = tableName + "Table";
+  let newTableData = tableData;
 
   // Build the table entries
   if (tableType != "school_team_event") {
@@ -62,12 +63,6 @@ export default function Table({
       />
     ));
   } else {
-    tableEntries = [];
-    let currentTeamNumber;
-    let teamNumber;
-    let currentTeamSize = 0;
-    let keyIndex = 0;
-
     let fillInRemainingEntries = function (
       entriesList,
       entriesLeft,
@@ -75,14 +70,17 @@ export default function Table({
     ) {
       for (let i = entriesLeft; i > 0; i--) {
         entriesList.push(
-          <div key={tableName + "-" + keyIndex++} className="tableEntry">
+          <div
+            key={tableName + "-" + teamNumberToOpen + "-" + i}
+            className="tableEntry"
+          >
             <div
               className="tableEntryData pointer"
               onClick={() => {
                 openTableButtonPopup(
                   "school_team_event_popup",
                   tableName,
-                  tableData,
+                  newTableData,
                   tableObject,
                   teamNumberToOpen,
                   pageTables
@@ -104,49 +102,92 @@ export default function Table({
       }
     };
 
-    tableData.forEach((entryData) => {
-      teamNumber = entryData.teamNumber;
+    // Build the team objects
+    let participants = structuredClone(tableData);
+    let teams = [];
+    let currentTeamNumber = tableData[0].teamNumber;
+    let currentTeam = {
+      teamMembers: [],
+    };
 
-      // New team
-      if (currentTeamNumber != teamNumber) {
-        if (!!currentTeamNumber) {
-          fillInRemainingEntries(
-            tableEntries,
-            maxTeamSize - currentTeamSize,
-            currentTeamNumber
-          );
-        }
-
-        currentTeamNumber = teamNumber;
-        tableEntries.push(
-          <div key={"Team" + teamNumber} className="tableEntryHeader">
-            <div>{"Team " + teamNumber}</div>
-            <div></div>
-            <div>{"Corederitos"}</div>
-          </div>
-        );
-        currentTeamSize = 0;
+    participants.sort((a, b) => a.teamNumber - b.teamNumber);
+    participants.forEach((participantData) => {
+      if (participantData.teamNumber != currentTeamNumber) {
+        currentTeamNumber = participantData.teamNumber;
+        teams.push(currentTeam);
+        currentTeam = {
+          teamMembers: [],
+        };
       }
 
-      // Add the data entry
-      currentTeamSize++;
-      tableEntries.push(
-        <TableEntry
-          key={rowIndex}
-          entryIconSrc={entryIconSrc}
-          data={entryData}
-          tableType={tableType}
-          rowIndex={rowIndex++}
-          deleteDataEntry={deleteDataEntry}
-        />
+      currentTeam.teamMembers.push(participantData);
+    });
+    teams.push(currentTeam);
+
+    // Add the team age group info
+    teams.forEach((team) => {
+      team.ageGroup = team.teamMembers[0].ageGroup;
+      team.isMixedAgeGroup = team.teamMembers.some(
+        (teamMember) => teamMember.ageGroup != team.ageGroup
       );
+
+      if (team.isMixedAgeGroup) {
+        team.sortPriority = 100;
+        team.ageGroup = "Edades Mixtas";
+      } else {
+        team.sortPriority = team.teamMembers[0].age;
+      }
     });
 
-    fillInRemainingEntries(
-      tableEntries,
-      maxTeamSize - currentTeamSize,
-      currentTeamNumber
-    );
+    // Sort teams by age group
+    teams.sort((a, b) => a.sortPriority - b.sortPriority);
+    for (let i = 0; i < teams.length; i++) {
+      teams[i].teamNumber = i + 1;
+    }
+    teams.forEach((team) => {
+      team.teamMembers.forEach((participantData) => {
+        participantData.teamNumber = team.teamNumber;
+      });
+    });
+    participants.sort((a, b) => a.teamNumber - b.teamNumber);
+    newTableData = participants;
+
+    // Build the teams entries
+    tableEntries = [];
+
+    teams.forEach((teamData) => {
+      // Team header
+      tableEntries.push(
+        <div
+          key={"Equipo" + teamData.teamNumber}
+          className={"tableEntryHeader schoolEventTable " + teamData.ageGroup}
+        >
+          <div>{"Equipo " + teamData.teamNumber}</div>
+          <div></div>
+          <div>{teamData.ageGroup}</div>
+        </div>
+      );
+
+      // Team members
+      teamData.teamMembers.forEach((participantData) => {
+        tableEntries.push(
+          <TableEntry
+            key={participantData.studentID}
+            entryIconSrc={entryIconSrc}
+            data={participantData}
+            tableType={tableType}
+            // rowIndex={rowIndex++}
+            deleteDataEntry={deleteDataEntry}
+          />
+        );
+      });
+
+      fillInRemainingEntries(
+        tableEntries,
+        maxTeamSize - teamData.teamMembers.length,
+        teamData.teamNumber
+      );
+    });
   }
 
   // Build the table header
@@ -166,7 +207,13 @@ export default function Table({
   // Build the table
   return (
     <div className={columns}>
-      {getTableTopper(tableType, tableName, tableData, tableObject, pageTables)}
+      {getTableTopper(
+        tableType,
+        tableName,
+        newTableData,
+        tableObject,
+        pageTables
+      )}
       <div className="table" id={tableID}>
         <div className="tableHeader">{tableHeader}</div>
         <div className="tableEntries" id={tableID + "Entries"}>
