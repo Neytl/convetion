@@ -104,8 +104,8 @@ export default function TeamEventPrintTable({ tableData }) {
       <div className="eventPrintHeader">{tableData.tableName}</div>
       <div className="teamEventPrintTable">
         <div className="tableHeader">
-          <span>School</span>
-          <span>Name</span>
+          <span>Escuela</span>
+          <span>Nombre</span>
         </div>
         <div>{tableEntries}</div>
       </div>
@@ -129,7 +129,7 @@ function buildTeamElement(
       <div className="eventTeamHeader">
         <IconSpan imageSrc={"/images/school.png"} text={currentSchool} />
         <div>{"-"}</div>
-        <div>{"Team " + currentTeamNumber}</div>
+        <div>{"Equipo " + currentTeamNumber}</div>
       </div>
       <div className="eventTeamParticipants">{currentTeamEntries}</div>
     </div>

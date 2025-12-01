@@ -34,8 +34,8 @@ export default function SoloEventPrintTable({ tableData }) {
       <div className="eventPrintHeader">{tableData.tableName}</div>
       <div className="soloEventPrintTable">
         <div className="tableHeader">
-          <span>Name</span>
-          <span>School</span>
+          <span>Nombre</span>
+          <span>Escuela</span>
         </div>
         <div>{tableEntries}</div>
       </div>

@@ -54,7 +54,7 @@ export default function LoginPage() {
                 <TinyImage imageSrc={"account.png"} />
                 <label htmlFor="username">Usuario:</label>
               </div>
-              <input type="text" id="username" autoComplete="mini-convention" />
+              <input type="text" id="username" autoComplete="username" />
             </div>
             <div className="formInputContainer">
               <div className="inputLabel">
@@ -64,11 +64,11 @@ export default function LoginPage() {
               <input
                 type="password"
                 id="password"
-                autoComplete="mini-convention"
+                autoComplete="current-password"
               />
             </div>
             <button
-              type="buton"
+              type="submit"
               id="loginButton"
               className="button"
               onClick={login}

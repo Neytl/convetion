@@ -257,8 +257,11 @@ function toggleParticipant(studentData) {
   // Check for maxed out student
   if (participantElement.classList.contains("maxed")) {
     alert(
-      "This student is already registered for 7 events. They cannot register for more events."
+      "Este alumno ya está registrado para 7 eventos. No puede registrar en más eventos."
     );
+    // alert(
+    //   "This student is already registered for 7 events. They cannot register for more events."
+    // );
 
     return;
   }
@@ -279,8 +282,11 @@ function toggleParticipant(studentData) {
         participantElement.classList.remove("selected");
 
         alert(
-          "This student is already in another team! Students can only participate in one team per event."
+          "¡Este alumno ya está en otro equipo! Solo se puede participar en un equipo por evento."
         );
+        // alert(
+        //   "This student is already in another team! Students can only participate in one team per event."
+        // );
 
         return;
       }
@@ -294,10 +300,15 @@ function toggleParticipant(studentData) {
         participantElement.classList.remove("selected");
 
         alert(
-          "Cannot select more than " +
+          "No se pueden seleccionar más de " +
             currentEvent.maxTeamSize +
-            " participants per team. Unselect another student first."
+            " participantes por equipo. Primero, deseleccione a otro alumno."
         );
+        // alert(
+        //   "Cannot select more than " +
+        //     currentEvent.maxTeamSize +
+        //     " participants per team. Unselect another student first."
+        // );
 
         return;
       }

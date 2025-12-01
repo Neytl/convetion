@@ -41,9 +41,9 @@ export default function SchoolPrintTable({ tableData }) {
       <Stats statsData={tableData.printStats} />
       <div className="schoolPrintTable">
         <div className="tableHeader">
-          <span>Name</span>
-          <span>Age</span>
-          <span>Events</span>
+          <span>Nombre</span>
+          <span>Edad</span>
+          <span>Eventos</span>
         </div>
         <div>{tableEntries}</div>
       </div>
