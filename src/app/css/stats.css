@@ -28,3 +28,7 @@
   font-size: 2em;
   font-weight: bold;
 }
+
+.stat > span {
+  font-weight: bold;
+}

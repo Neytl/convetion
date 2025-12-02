@@ -1,6 +1,8 @@
 import Image from "next/image";
 
 export default function Stat({ imageSrc, title, value }) {
+  if (value == 0) return;
+
   return (
     <div className="stat">
       <span>{title}</span>

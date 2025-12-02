@@ -94,7 +94,7 @@ export default function EditSchoolEventPopup({
           }}
           className="submitPopupButton"
         >
-          Registrar
+          Confirmar
         </div>
       </div>
     </div>

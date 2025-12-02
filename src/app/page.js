@@ -101,8 +101,6 @@ const login = (event) => {
     return;
   }
 
-  // get("password").value = "";
-
   fetch("https://localhost:44398/api/Login", {
     method: "POST",
     headers: {

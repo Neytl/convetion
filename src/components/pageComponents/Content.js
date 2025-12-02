@@ -117,9 +117,15 @@ export default function Content({ setPageSchoolData, pathname }) {
       }
     } else if (pathname == "/schoolStudents") {
       // Update the entry height
-      document
-        .getElementById(payload.studentID + payload.eventID)
-        .classList.add("hidden"); // Hide the element to be removed
+      let elementToHide = document.getElementById(
+        payload.studentID + payload.eventID
+      );
+
+      if (elementToHide.parentNode.children.length == 1)
+        elementToHide = elementToHide.parentNode;
+
+      elementToHide.classList.add("hidden"); // Hide the element to be removed
+
       let entryElement = document.getElementById("entry" + payload.studentID);
 
       entryElement.style.height =
@@ -147,9 +153,15 @@ export default function Content({ setPageSchoolData, pathname }) {
       }
     } else if (pathname == "/adminEvents") {
       // Update the entry height
-      document
-        .getElementById(payload.studentID + payload.eventID)
-        .classList.add("hidden"); // Hide the element to be removed
+      let elementToHide = document.getElementById(
+        payload.studentID + payload.eventID
+      );
+
+      if (elementToHide.parentNode.children.length == 1)
+        elementToHide = elementToHide.parentNode;
+
+      elementToHide.classList.add("hidden"); // Hide the element to be removed
+
       let entryElement = document.getElementById("entry" + payload.eventID);
 
       entryElement.style.height =
@@ -241,6 +253,16 @@ export default function Content({ setPageSchoolData, pathname }) {
         "pageSchoolData",
         JSON.stringify(storedPageSchoolData)
       );
+    } else if (endpoint == "school") {
+      // When deleting the current school - remove it from storage
+      let storedPageSchoolData = JSON.parse(
+        localStorage.getItem("pageSchoolData")
+      );
+
+      if (payload.schoolID == storedPageSchoolData.schoolID) {
+        localStorage.removeItem("pageSchoolData");
+        setPageSchoolData({});
+      }
     }
 
     // Make the delete request
@@ -479,7 +501,7 @@ export default function Content({ setPageSchoolData, pathname }) {
   let currentCategory = "";
 
   viewData.tables.forEach((table) => {
-    if (table.tableCategory != currentCategory) {
+    if (pathname == "/schoolEvents" && table.tableCategory != currentCategory) {
       currentCategory = table.tableCategory;
       tablesContent.push(
         <div key={currentCategory} className="eventCategoryHeader">
@@ -509,7 +531,7 @@ export default function Content({ setPageSchoolData, pathname }) {
       <Stats statsData={viewData.stats} />
       <div
         id="tables"
-        className={viewData.tables.length > 1 ? "teamEvents" : ""}
+        className={pathname == "/schoolEvents" ? "schoolEvents" : ""}
       >
         {tablesContent}
       </div>

@@ -250,10 +250,18 @@ function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
   };
 
   let deleteParticipant = function (participantToDelete) {
-    deleteDataEntry("participant", {
-      studentID: participantToDelete,
-      eventID: data.eventID,
-    });
+    if (
+      confirm(
+        "Are you sure you want to delete '" +
+          participantToDelete.fullName +
+          "'?"
+      )
+    ) {
+      deleteDataEntry("participant", {
+        studentID: participantToDelete.studentID,
+        eventID: data.eventID,
+      });
+    }
   };
 
   let eventParticipantsElements = [];
@@ -272,7 +280,7 @@ function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
         <div
           className="deleteParticipantButton"
           onClick={() => {
-            deleteParticipant(participant.studentID);
+            deleteParticipant(participant);
           }}
         >
           <Image src="/images/delete.png" alt="" width="20" height="20" />

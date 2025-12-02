@@ -3,7 +3,7 @@ import Stat from "convention/components/pageComponents/Stat";
 
 export default function Stats({ statsData }) {
   if (!statsData) {
-    return <div>Loading page...</div>;
+    return;
   }
 
   return (

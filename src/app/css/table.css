@@ -282,12 +282,13 @@
   font-size: 3em;
   font-weight: bold;
   text-align: center;
-  text-decoration: underline;
   max-width: 20em;
-  padding-bottom: 0.1em;
+  margin: 0.5em 0;
+  border-top: solid 1px;
+  border-bottom: solid 1px;
 }
 
-#tables.teamEvents .tableEntryData {
+#tables.schoolEvents .tableEntryData {
   position: relative;
   cursor: default;
 }
@@ -304,6 +305,6 @@
   padding-right: 1em;
 }
 
-.teamEvents .tableTopper > span {
+.schoolEvents .tableTopper > span {
   color: #565656;
 }

@@ -42,7 +42,7 @@ body::after {
   /* opacity: 0; */
   width: 90vw;
   max-width: 85em;
-  height: 90vh;
+  height: 94vh;
   border-radius: 0.6em;
   box-shadow: 0 0 0.5em #000000b8;
   display: flex;
@@ -87,6 +87,7 @@ body::after {
   display: flex;
   flex-direction: column;
   z-index: 10;
+  padding-top: 1em;
 }
 
 #pageButton {
