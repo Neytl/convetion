@@ -122,13 +122,13 @@ export const validateBirthdate = (birthdateString) => {
 
   // Validate the student's age
   if (date.getFullYear() <= 2012) {
-    alert("Ha pasado el límite de edad.");
+    alert("Alumno ha pasado el rango de edad.");
     // alert("Student is too old to participate.");
     return false;
   }
 
   if (date.getFullYear() >= 2021) {
-    alert("Está por debajo del límite de edad.");
+    alert("Alumno está por debajo del rango de edad.");
     // alert("Student is too young to participate.");
     return false;
   }

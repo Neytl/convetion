@@ -12,11 +12,12 @@ export const metadata = {
   icons: {
     icon: "/images/favicon.png",
   },
+  lang: "es",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${openSans.className}`}>
+    <html lang="es" className={`${openSans.className}`}>
       <body>{children}</body>
     </html>
   );

@@ -56,6 +56,23 @@ export default function TeamEventPrintTable({ tableData }) {
   // Sort teams by age group
   teamData.sort((a, b) => a.sortPriority - b.sortPriority);
 
+  // Update the team numbers
+  let teamNumbers = {};
+
+  teamData.forEach((team) => {
+    let storedTeamNumber = teamNumbers[team.schoolName];
+    if (!storedTeamNumber) {
+      // Team not found - add school
+      teamNumbers[team.schoolName] = 1;
+      team.teamNumber = 1;
+    } else {
+      // Team found - update the number
+      storedTeamNumber++;
+      teamNumbers[team.schoolName] = storedTeamNumber;
+      team.teamNumber = storedTeamNumber;
+    }
+  });
+
   // Build the table entries
   let tableEntries = [];
   let currentAgeGroup = "";

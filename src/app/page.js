@@ -48,13 +48,18 @@ export default function LoginPage() {
               &times;
             </div>
           </div>
-          <form id="loginContainer" className="popupFields">
+          <form id="loginContainer" className="popupFields" action={login}>
             <div className="formInputContainer">
               <div className="inputLabel">
                 <TinyImage imageSrc={"account.png"} />
                 <label htmlFor="username">Usuario:</label>
               </div>
-              <input type="text" id="username" autoComplete="username" />
+              <input
+                type="text"
+                id="username"
+                required
+                autoComplete="username"
+              />
             </div>
             <div className="formInputContainer">
               <div className="inputLabel">
@@ -62,17 +67,13 @@ export default function LoginPage() {
                 <label htmlFor="password">Contraseña:</label>
               </div>
               <input
+                required
                 type="password"
                 id="password"
                 autoComplete="current-password"
               />
             </div>
-            <button
-              type="submit"
-              id="loginButton"
-              className="button"
-              onClick={login}
-            >
+            <button type="submit" id="loginButton" className="button">
               Entrar
             </button>
           </form>
@@ -86,7 +87,7 @@ const get = (id) => {
 };
 
 const login = (event) => {
-  event.preventDefault();
+  // event.preventDefault();
 
   let payload = {
     username: get("username").value,

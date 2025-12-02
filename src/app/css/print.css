@@ -11,7 +11,8 @@
     page-break-before: always;
   }
 
-  .tableEntry {
+  .tableEntry,
+  .eventTeamEntry {
     break-inside: avoid;
   }
 
@@ -24,7 +25,7 @@
 }
 
 :root body {
-  /* pointer-events: none; */
+  pointer-events: none;
   background: white;
   width: auto;
   height: auto;

@@ -257,7 +257,7 @@ function toggleParticipant(studentData) {
   // Check for maxed out student
   if (participantElement.classList.contains("maxed")) {
     alert(
-      "Este alumno ya está registrado para 7 eventos. No puede registrar en más eventos."
+      "Este alumno ya está registrado para 7 eventos. No puede registrarse en más eventos."
     );
     // alert(
     //   "This student is already registered for 7 events. They cannot register for more events."
@@ -300,7 +300,7 @@ function toggleParticipant(studentData) {
         participantElement.classList.remove("selected");
 
         alert(
-          "No se pueden seleccionar más de " +
+          "No se puede seleccionar más de " +
             currentEvent.maxTeamSize +
             " participantes por equipo. Primero, deseleccione a otro alumno."
         );
