@@ -15,6 +15,7 @@ export default function SchoolStudentsPage() {
         <Content
           setPageSchoolData={setPageSchoolData}
           pathname="/schoolStudents"
+          pageSchoolData={pageSchoolData}
         />
       </div>
     </div>

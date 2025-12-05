@@ -23,7 +23,7 @@ export default function Table({
       case "school_team_event":
         return ["Nombre", "Edad", "Groupo"];
       case "school_students":
-        return ["Nombre", "Edad", "Groupo", "Eventos"];
+        return ["Nombre", "Edad", "Eventos"];
       case "admin_events":
       default:
         return ["Evento", "Participantes", "Tamaño de Equipos", "Categoria"];
@@ -37,8 +37,8 @@ export default function Table({
         return "two-columns";
       case "school_event":
       case "school_team_event":
-        return "three-columns";
       case "school_students":
+        return "three-columns";
       case "admin_events":
       default:
         return "four-columns";
@@ -51,18 +51,7 @@ export default function Table({
   let newTableData = tableData;
 
   // Build the table entries
-  if (tableType != "school_team_event") {
-    tableEntries = tableData.map((entryData) => (
-      <TableEntry
-        key={rowIndex}
-        entryIconSrc={entryIconSrc}
-        data={entryData}
-        tableType={tableType}
-        rowIndex={rowIndex++}
-        deleteDataEntry={deleteDataEntry}
-      />
-    ));
-  } else {
+  if (tableType == "school_team_event") {
     let fillInRemainingEntries = function (
       entriesList,
       entriesLeft,
@@ -188,6 +177,47 @@ export default function Table({
         teamData.teamNumber
       );
     });
+  } else if (tableType == "school_students") {
+    let currentAgeGroup = "";
+    tableEntries = [];
+
+    tableData.forEach((studentData) => {
+      if (studentData.ageGroup != currentAgeGroup) {
+        currentAgeGroup = studentData.ageGroup;
+        tableEntries.push(
+          <div
+            key={currentAgeGroup}
+            className={
+              "tableEntryHeader ageGroupTableHeader " + currentAgeGroup
+            }
+          >
+            {currentAgeGroup}
+          </div>
+        );
+      }
+
+      tableEntries.push(
+        <TableEntry
+          key={rowIndex}
+          entryIconSrc={entryIconSrc}
+          data={studentData}
+          tableType={tableType}
+          rowIndex={rowIndex++}
+          deleteDataEntry={deleteDataEntry}
+        />
+      );
+    });
+  } else {
+    tableEntries = tableData.map((entryData) => (
+      <TableEntry
+        key={rowIndex}
+        entryIconSrc={entryIconSrc}
+        data={entryData}
+        tableType={tableType}
+        rowIndex={rowIndex++}
+        deleteDataEntry={deleteDataEntry}
+      />
+    ));
   }
 
   // Build the table header

@@ -86,7 +86,7 @@ export default function TeamEventPrintTable({ tableData }) {
       tableEntries.push(
         <div
           key={currentAgeGroup}
-          className={"tableEntryHeader " + currentAgeGroup}
+          className={"tableEntryHeader ageGroupTableHeader " + currentAgeGroup}
         >
           {currentAgeGroup}
         </div>

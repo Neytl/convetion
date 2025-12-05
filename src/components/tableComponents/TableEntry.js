@@ -87,8 +87,10 @@ function lookupTableEntryData(tableType, data, entryIconSrc, deleteDataEntry) {
             <span>{data.fullName}</span>
           </div>
           <span key={columnIndex++}>{data.age}</span>
-          <span key={columnIndex++}>{data.ageGroup}</span>
-          <span key={columnIndex++}>{data.events.length}</span>
+          <span key={columnIndex++}>
+            {data.events.length}
+            <Image src={"/images/event.png"} alt="" width={25} height={25} />
+          </span>
         </div>
       );
     case "school_event":

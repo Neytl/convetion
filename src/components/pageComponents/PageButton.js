@@ -2,7 +2,7 @@ import Image from "next/image";
 import "convention/app/css/table.css";
 import { clearStudentPopup } from "../popupComponents/AddStudentPopup";
 
-export default function PageButton({ pathName, pageData }) {
+export default function PageButton({ pathName }) {
   switch (pathName) {
     case "/":
       return (

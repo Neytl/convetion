@@ -1,5 +1,4 @@
 import "convention/app/css/print.css";
-import StudentPrintEntry from "./StudentPrintEntry";
 import SoloEventPrintEntry from "./SoloEventPrintEntry";
 
 export default function SoloEventPrintTable({ tableData }) {
@@ -13,7 +12,7 @@ export default function SoloEventPrintTable({ tableData }) {
       tableEntries.push(
         <div
           key={currentAgeGroup}
-          className={"tableEntryHeader " + currentAgeGroup}
+          className={"tableEntryHeader ageGroupTableHeader " + currentAgeGroup}
         >
           {currentAgeGroup}
         </div>

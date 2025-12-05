@@ -8,7 +8,11 @@ import PageButton from "convention/components/pageComponents/PageButton";
 import { useState, useEffect } from "react";
 import { unauthorized } from "next/navigation";
 
-export default function Content({ setPageSchoolData, pathname }) {
+export default function Content({
+  setPageSchoolData,
+  pathname,
+  pageSchoolData,
+}) {
   useEffect(() => {
     sessionStorage.clear();
   }, []);
@@ -491,7 +495,7 @@ export default function Content({ setPageSchoolData, pathname }) {
         <PageInfo pathname={pathname} />
         <Stats statsData={viewData.stats} />
         <div id="tables"></div>
-        <PageButton pathName={pathname} pageData={viewData.pageSchoolData} />
+        <PageButton pathName={pathname} />
       </div>
     );
   }
@@ -527,7 +531,7 @@ export default function Content({ setPageSchoolData, pathname }) {
   return (
     <div id="content">
       <Popup events={popupEvents} pathname={pathname} />
-      <PageInfo pathname={pathname} />
+      <PageInfo pathname={pathname} pageData={pageSchoolData} />
       <Stats statsData={viewData.stats} />
       <div
         id="tables"
@@ -535,7 +539,7 @@ export default function Content({ setPageSchoolData, pathname }) {
       >
         {tablesContent}
       </div>
-      <PageButton pathName={pathname} pageData={viewData.pageSchoolData} />
+      <PageButton pathName={pathname} />
     </div>
   );
 }

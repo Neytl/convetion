@@ -25,7 +25,7 @@
 }
 
 :root body {
-  pointer-events: none;
+  /* pointer-events: none; */
   background: white;
   width: auto;
   height: auto;
@@ -63,13 +63,6 @@
 .schoolPrintTable .tableEntryData {
   display: grid;
   grid-template-columns: 12em 4em 1fr;
-}
-
-:root .tableEntryHeader {
-  display: flex;
-  gap: 0.3em;
-  padding: 0.5em;
-  padding-left: 5em;
 }
 
 /* Solo Event Printouts */
