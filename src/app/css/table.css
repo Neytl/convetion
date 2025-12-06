@@ -193,8 +193,8 @@
   position: relative;
 }
 
-.eventParticipants > div:hover {
-  text-decoration: underline;
+.eventParticipants > div:hover span:first-child {
+  font-weight: bold;
 }
 
 .participantIcon {
