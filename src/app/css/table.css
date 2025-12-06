@@ -300,14 +300,17 @@
 .Corderitos.schoolEventTable > div:last-child::after {
   content: "(6-7)";
   padding-left: 0.3em;
+  white-space: pre;
 }
 .Ovejitas.schoolEventTable > div:last-child::after {
   content: "(8-10)";
   padding-left: 0.3em;
+  white-space: pre;
 }
 .Ovejas.schoolEventTable > div:last-child::after {
   content: "(11-12)";
   padding-left: 0.3em;
+  white-space: pre;
 }
 
 .addTeamMemeberButton {

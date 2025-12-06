@@ -196,9 +196,10 @@ input:checked + .slider:before {
   flex-wrap: wrap;
   overflow: auto;
   width: 35em;
-  max-height: 30em;
+  max-height: 28em;
   gap: 1em;
   padding: 0.5em 1em;
+  max-width: -webkit-fill-available;
 }
 
 .ageGroupHeader {
@@ -234,6 +235,7 @@ input:checked + .slider:before {
   max-height: 30em;
   width: 25em;
   overflow: auto;
+  max-width: -webkit-fill-available;
 }
 
 .eventCategoryPopupHeader,
