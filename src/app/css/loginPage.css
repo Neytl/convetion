@@ -173,10 +173,14 @@ input {
       display: flex;
     }
     #titleContainer #subtitle {
-      padding-bottom: 3em;
+      padding-bottom: 2em;
     }
     #loginSplit {
       flex-grow: 1;
+    }
+    #title img {
+      width: 60px;
+      height: 60px;
     }
   }
   @media (max-width: 850px) {
