@@ -1,4 +1,4 @@
-// import Image from "next/image";
+// import SimpleImage from "convention/components/generalComponents/SimpleImage";
 import { useEffect, useState } from "react";
 import TinyImage from "./TinyImage";
 import { setUpEditSchoolEventPopup } from "./EditSchoolEventPopup";

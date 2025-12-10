@@ -8,7 +8,7 @@ import EditAdminEventPopup from "./EditAdminEventPopup";
 import AddStudentPopup from "./AddStudentPopup";
 import { clearStudentPopup } from "./AddStudentPopup";
 import EditStudentPopup from "./EditStudentPopup";
-import Image from "next/image";
+import SimpleImage from "convention/components/generalComponents/SimpleImage";
 import EditSchoolEventPopup from "./EditSchoolEventPopup";
 import { setUpEditSchoolEventPopup } from "./EditSchoolEventPopup";
 import AddSchoolEventPopup from "./AddSchoolEventPopup";
@@ -73,9 +73,8 @@ export default function Popup({ events, pathname }) {
           <span>&times;</span>
         </div>
         <div id="popupHeader">
-          <Image
+          <SimpleImage
             src={"/images/event.png"}
-            alt=""
             width={30}
             height={30}
             id="popupHeaderIcon"

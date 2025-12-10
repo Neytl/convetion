@@ -1,6 +1,6 @@
 import "convention/app/css/nav.css";
 import NavLink from "convention/components/navComponents/NavLink";
-import Image from "next/image";
+import SimpleImage from "convention/components/generalComponents/SimpleImage";
 
 export default function AdminLinks({ schoolData, loggedInUser, pathname }) {
   let schoolID = schoolData.schoolID;
@@ -33,7 +33,7 @@ export default function AdminLinks({ schoolData, loggedInUser, pathname }) {
           }
         >
           <div id="schoolLinksHeader">
-            <Image
+            <SimpleImage
               src="/images/school.png"
               alt="School"
               width={30}

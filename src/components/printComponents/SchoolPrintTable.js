@@ -2,7 +2,7 @@ import "convention/app/css/print.css";
 import "convention/app/css/table.css";
 import StudentPrintEntry from "./StudentPrintEntry";
 import Stats from "../pageComponents/Stats";
-import Image from "next/image";
+import SimpleImage from "convention/components/generalComponents/SimpleImage";
 
 export default function SchoolPrintTable({ tableData }) {
   // Empty table
@@ -39,7 +39,7 @@ export default function SchoolPrintTable({ tableData }) {
   return (
     <div className="printTableContainer">
       <div className="schoolHeader">
-        <Image src={"/images/school.png"} alt="" width={35} height={35} />
+        <SimpleImage src={"/images/school.png"} width={35} height={35} />
         {tableData.tableName}
       </div>
       <Stats statsData={tableData.printStats} />

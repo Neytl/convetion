@@ -1,5 +1,5 @@
 import "convention/app/css/print.css";
-import Image from "next/image";
+import SimpleImage from "convention/components/generalComponents/SimpleImage";
 import IconSpan from "../generalComponents/IconSpan";
 
 export default function TeamEventPrintTable({ tableData }) {
@@ -97,7 +97,7 @@ export default function TeamEventPrintTable({ tableData }) {
     team.teamMembers.forEach((teamMember) => {
       currentTeamEntries.push(
         <div key={teamMember.studentID} className="teamEventParticipant">
-          <Image src={"/images/account.png"} alt="" width={30} height={30} />
+          <SimpleImage src={"/images/account.png"} width={30} height={30} />
           <div>{teamMember.fullName}</div>
           <div className="studentAge">{"(" + teamMember.age + ")"}</div>
         </div>
@@ -119,7 +119,7 @@ export default function TeamEventPrintTable({ tableData }) {
   return (
     <div className="printTableContainer">
       <div className="eventPrintHeader">
-        <Image src={"/images/event.png"} alt="" width={25} height={25} />
+        <SimpleImage src={"/images/event.png"} width={25} height={25} />
         {tableData.tableName}
       </div>
       <div className="teamEventPrintTable">

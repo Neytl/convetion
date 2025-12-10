@@ -3,7 +3,7 @@ import "convention/app/css/loginPage.css";
 import "convention/app/css/popup.css";
 
 import TinyImage from "convention/components/popupComponents/TinyImage";
-import Image from "next/image";
+import SimpleImage from "convention/components/generalComponents/SimpleImage";
 
 export default function LoginPage() {
   return (
@@ -13,7 +13,7 @@ export default function LoginPage() {
           <div id="splashArt">
             <div id="titleContainer">
               <div id="title">
-                <Image
+                <SimpleImage
                   src="/images/logo.png"
                   className="invert"
                   alt="School"
@@ -29,9 +29,8 @@ export default function LoginPage() {
         <div id="loginSplit">
           <div id="loginTitle">Iniciar Sesión Para Registrar Tu Escuela</div>
           <div id="errorMessageContainer" className="hidden">
-            <Image
+            <SimpleImage
               id="errorImage"
-              alt=""
               src={"/images/error.png"}
               width={25}
               height={25}

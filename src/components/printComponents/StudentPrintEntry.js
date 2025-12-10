@@ -1,5 +1,5 @@
 import "convention/app/css/print.css";
-import Image from "next/image";
+import SimpleImage from "convention/components/generalComponents/SimpleImage";
 
 export default function StudentPrintEntry({ studentData }) {
   let events = <span>None</span>;
@@ -16,12 +16,12 @@ export default function StudentPrintEntry({ studentData }) {
     <div className="tableEntry">
       <div className="tableEntryData">
         <div className="primaryTableEntryData">
-          <Image src={"/images/account.png"} alt="" width={30} height={30} />
+          <SimpleImage src={"/images/account.png"} width={30} height={30} />
           <span>{studentData.fullName}</span>
         </div>
         <span>{studentData.age}</span>
         <div>
-          <Image src={"/images/event.png"} alt="" width={30} height={30} />
+          <SimpleImage src={"/images/event.png"} width={30} height={30} />
           <div className="studentEvents">{events}</div>
         </div>
       </div>

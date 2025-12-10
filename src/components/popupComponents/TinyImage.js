@@ -1,5 +1,5 @@
-import Image from "next/image";
+import SimpleImage from "convention/components/generalComponents/SimpleImage";
 
 export default function Stats({ imageSrc }) {
-  return <Image src={"/images/" + imageSrc} alt="" width={15} height={15} />;
+  return <SimpleImage src={"/images/" + imageSrc} width={15} height={15} />;
 }

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SimpleImage from "convention/components/generalComponents/SimpleImage";
 import "convention/app/css/table.css";
 import { clearStudentPopup } from "../popupComponents/AddStudentPopup";
 
@@ -14,7 +14,7 @@ export default function PageButton({ pathName }) {
               window.open("imprimirEscuelas", "_blank");
             }}
           >
-            <Image src={"/images/print.png"} alt="" width={20} height={20} />
+            <SimpleImage src={"/images/print.png"} width={20} height={20} />
             <span>Inscipción</span>
           </div>
         </div>
@@ -29,7 +29,7 @@ export default function PageButton({ pathName }) {
               window.open("imprimirEventos", "_blank");
             }}
           >
-            <Image src={"/images/print.png"} alt="" width={20} height={20} />
+            <SimpleImage src={"/images/print.png"} width={20} height={20} />
             <span>Eventos</span>
           </div>
         </div>
@@ -64,7 +64,7 @@ export default function PageButton({ pathName }) {
                 .classList.remove("hidden");
             }}
           >
-            <Image src={"/images/account.png"} alt="" width={20} height={20} />
+            <SimpleImage src={"/images/account.png"} width={20} height={20} />
             <span>Registrar Alumno</span>
           </div>
         </div>
@@ -99,7 +99,7 @@ export default function PageButton({ pathName }) {
               document.getElementById("eventsListConatiner").scrollTop = 0;
             }}
           >
-            <Image src={"/images/event.png"} alt="" width={20} height={20} />
+            <SimpleImage src={"/images/event.png"} width={20} height={20} />
             <span>Editar Eventos</span>
           </div>
         </div>

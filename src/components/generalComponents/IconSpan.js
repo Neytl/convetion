@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SimpleImage from "convention/components/generalComponents/SimpleImage";
 import "convention/app/css/table.css";
 
 export default function IconSpan({ imageSrc, text, specialClass, onClick }) {
@@ -7,7 +7,7 @@ export default function IconSpan({ imageSrc, text, specialClass, onClick }) {
 
   return (
     <div className={classes} onClick={onClick}>
-      <Image src={imageSrc} alt="" width={20} height={20} />
+      <SimpleImage src={imageSrc} width={20} height={20} />
       <span>{text}</span>
     </div>
   );

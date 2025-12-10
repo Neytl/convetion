@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SimpleImage from "convention/components/generalComponents/SimpleImage";
 import IconSpan from "../generalComponents/IconSpan";
 import TableEntryButton from "./TableEntryButton";
 import "convention/app/css/table.css";
@@ -59,7 +59,7 @@ function lookupTableEntryData(tableType, data, entryIconSrc, deleteDataEntry) {
       return (
         <div className="tableEntryData" onClick={onclickEntry}>
           <div className="primaryTableEntryData">
-            <Image src={entryIconSrc} alt="" width={30} height={30} />
+            <SimpleImage src={entryIconSrc} width={30} height={30} />
             <span>{data.schoolName}</span>
           </div>
           <span key={columnIndex++}>{data.numStudents}</span>
@@ -69,7 +69,7 @@ function lookupTableEntryData(tableType, data, entryIconSrc, deleteDataEntry) {
       return (
         <div className="tableEntryData" onClick={onclickEntry}>
           <div className="primaryTableEntryData">
-            <Image src={entryIconSrc} alt="" width={30} height={30} />
+            <SimpleImage src={entryIconSrc} width={30} height={30} />
             <span>{data.eventName}</span>
           </div>
           <span key={columnIndex++}>{data.participants.length}</span>
@@ -83,13 +83,13 @@ function lookupTableEntryData(tableType, data, entryIconSrc, deleteDataEntry) {
       return (
         <div className="tableEntryData" onClick={onclickEntry}>
           <div className="primaryTableEntryData">
-            <Image src={entryIconSrc} alt="" width={30} height={30} />
+            <SimpleImage src={entryIconSrc} width={30} height={30} />
             <span>{data.fullName}</span>
           </div>
           <span key={columnIndex++}>{data.age}</span>
           <span key={columnIndex++}>
             {data.events.length}
-            <Image src={"/images/event.png"} alt="" width={25} height={25} />
+            <SimpleImage src={"/images/event.png"} width={25} height={25} />
           </span>
         </div>
       );
@@ -98,7 +98,7 @@ function lookupTableEntryData(tableType, data, entryIconSrc, deleteDataEntry) {
       return (
         <div className="tableEntryData" onClick={() => {}}>
           <div className="primaryTableEntryData">
-            <Image src={entryIconSrc} alt="" width={30} height={30} />
+            <SimpleImage src={entryIconSrc} width={30} height={30} />
             <span>{data.fullName}</span>
           </div>
           <span key={columnIndex++}>{data.age}</span>
@@ -113,7 +113,7 @@ function lookupTableEntryData(tableType, data, entryIconSrc, deleteDataEntry) {
                 });
               }}
             >
-              <Image src="/images/delete.png" alt="" width="20" height="20" />
+              <SimpleImage src="/images/delete.png" width="20" height="20" />
             </div>
           </div>
         </div>
@@ -209,7 +209,7 @@ function generateAdminSchoolEntryDropdown(tableType, data, deleteDataEntry) {
           title="Copiar Información"
           onClick={copyText}
         >
-          <Image
+          <SimpleImage
             id={"copy" + data.schoolID}
             src={"/images/copy.png"}
             alt="Copiar"
@@ -335,7 +335,7 @@ function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
             deleteParticipant(participant);
           }}
         >
-          <Image src="/images/delete.png" alt="" width="20" height="20" />
+          <SimpleImage src="/images/delete.png" width="20" height="20" />
         </div>
       </div>
     );
@@ -437,7 +437,7 @@ function generateSchoolStudentsEntryDropdown(tableType, data, deleteDataEntry) {
             deleteParticipant(studentEvent);
           }}
         >
-          <Image src="/images/delete.png" alt="" width="20" height="20" />
+          <SimpleImage src="/images/delete.png" width="20" height="20" />
         </div>
       </div>
     );

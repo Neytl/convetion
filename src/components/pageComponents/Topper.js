@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SimpleImage from "convention/components/generalComponents/SimpleImage";
 import "convention/app/css/nav.css";
 import { useEffect, useState } from "react";
 
@@ -26,7 +26,7 @@ export default function Topper() {
   return (
     <div id="topper">
       <div id="user">
-        <Image
+        <SimpleImage
           src={imageSrc}
           className="invert"
           alt="School"
@@ -39,7 +39,7 @@ export default function Topper() {
         </div>
       </div>
       <div id="tag">
-        <Image
+        <SimpleImage
           src="/images/logo.png"
           className="invert"
           alt="School"

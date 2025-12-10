@@ -1,7 +1,7 @@
 import "convention/app/css/table.css";
 import TableEntry from "./TableEntry";
 import { openTableButtonPopup } from "../popupComponents/Popup";
-import Image from "next/image";
+import SimpleImage from "convention/components/generalComponents/SimpleImage";
 
 export default function Table({
   tableData,
@@ -77,13 +77,12 @@ export default function Table({
               }}
             >
               <div>
-                <Image
+                <SimpleImage
                   src={"/images/account.png"}
-                  alt=""
                   width={30}
                   height={30}
                 />
-                <Image src={"/images/add.png"} alt="" width={15} height={15} />
+                <SimpleImage src={"/images/add.png"} width={15} height={15} />
               </div>
             </div>
           </div>
