@@ -68,6 +68,22 @@ function lookupTableEntryData(tableType, data, entryIconSrc, deleteDataEntry) {
         </div>
       );
     case "admin_events":
+      let teamSizeData = "-";
+      let max = parseInt(data.maxTeamSize);
+      if (isNaN(max)) max = 1;
+      let min = parseInt(data.minTeamSize);
+      if (isNaN(min)) min = 1;
+
+      if (max > 1) {
+        if (min == max || min < 2) {
+          teamSizeData = "(" + max + ")";
+        } else {
+          teamSizeData = "(" + min + "-" + max + ")";
+        }
+      } else if (min > 1) {
+        teamSizeData = "(" + min + "+)";
+      }
+
       return (
         <div className="tableEntryData" onClick={onclickEntry}>
           <div className="primaryTableEntryData">
@@ -75,9 +91,7 @@ function lookupTableEntryData(tableType, data, entryIconSrc, deleteDataEntry) {
             <span>{data.eventName}</span>
           </div>
           <span key={columnIndex++}>{data.participants.length}</span>
-          <span key={columnIndex++}>
-            {data.isTeamEvent ? data.maxTeamSize : "-"}
-          </span>
+          <span key={columnIndex++}>{teamSizeData}</span>
           <span key={columnIndex++}>{data.category}</span>
         </div>
       );
@@ -316,8 +330,37 @@ function generateAdminEventsEntryDropdown(tableType, data, deleteDataEntry) {
   let eventParticipantsElements = [];
   let index = 0;
 
+  // Sort the participants by - age group > school > name
+  data.participants.forEach((participant) => {
+    if (participant.ageGroup == "Corderitos") participant.sortPriority = 1;
+    else if (participant.ageGroup == "Ovejitas") participant.sortPriority = 2;
+    else participant.sortPriority = 3;
+    participant.sortPriority +=
+      "-" + participant.schoolName + participant.fullName;
+  });
+
+  data.participants.sort((a, b) =>
+    a.sortPriority.localeCompare(b.sortPriority)
+  );
+
+  // Display the participants
+  let currentAgeGroup = "";
   data.participants.forEach((participant) => {
     index++;
+
+    if (participant.ageGroup != currentAgeGroup) {
+      currentAgeGroup = participant.ageGroup;
+      eventParticipantsElements.push(
+        <div
+          className={
+            "ageGroupHeader adminEventAgeGroupHeader " + currentAgeGroup
+          }
+          key={currentAgeGroup}
+        >
+          {currentAgeGroup}
+        </div>
+      );
+    }
 
     eventParticipantsElements.push(
       <div

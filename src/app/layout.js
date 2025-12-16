@@ -7,8 +7,8 @@ const openSans = Open_Sans({
 });
 
 export const metadata = {
-  title: "Mini Convention",
-  description: "Mini Convention",
+  title: "Mini Convención",
+  description: "Inscripción para el Mini Convención 2026",
   icons: {
     icon: "/images/favicon.png",
   },

@@ -180,6 +180,15 @@
 }
 
 /* Admin Events */
+#page .adminEventAgeGroupHeader {
+  justify-content: start;
+  gap: 0.3em;
+  padding-left: 2em;
+}
+#page .adminEventAgeGroupHeader::after {
+  color: #535353;
+}
+
 .eventParticipants {
   display: flex;
   flex-direction: column;

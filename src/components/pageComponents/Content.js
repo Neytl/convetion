@@ -60,6 +60,7 @@ export default function Content({
     console.log("Fetch add " + endpoint, payload);
 
     fetch(
+      // "https://localhost:44398/api/MiniConvention/" +
       "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/" +
         endpoint,
       {
@@ -468,6 +469,7 @@ export default function Content({
 
     if (pathname == "/") {
       fetch(
+        // "https://localhost:44398/api/MiniConvention/adminSchoolsPage",
         "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/adminSchoolsPage",
         getLoggedInUserHeaders()
       )
@@ -478,6 +480,7 @@ export default function Content({
         });
     } else if (pathname == "/adminEvents") {
       fetch(
+        // "https://localhost:44398/api/MiniConvention/adminEventsPage",
         "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/MiniConvention/adminEventsPage",
         getLoggedInUserHeaders()
       )

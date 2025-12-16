@@ -21,7 +21,7 @@ export default function LoginPage() {
                   width={85}
                   height={85}
                 />
-                <span>Mini-Convención</span>
+                <span>Mini Convención</span>
               </div>
               <span id="subtitle">Inscripción 2026</span>
             </div>
@@ -86,9 +86,7 @@ const get = (id) => {
   return document.getElementById(id);
 };
 
-const login = (event) => {
-  // event.preventDefault();
-
+const login = () => {
   let payload = {
     username: get("username").value,
     password: get("password").value,
@@ -102,6 +100,7 @@ const login = (event) => {
   }
 
   fetch(
+    // "https://localhost:44398/api/Login",
     "https://mini-convention-beedavbxfwa0fdcj.mexicocentral-01.azurewebsites.net/api/Login",
     {
       method: "POST",

@@ -398,4 +398,19 @@ function updateCurrentEventParticipantsAmount(change) {
   let target = document.getElementById("currentParticipantAmount");
   let currentAmount = parseInt(target.innerHTML);
   target.innerHTML = currentAmount + change;
+
+  // let max = parseInt(data.maxTeamSize);
+  //     if (isNaN(max)) max = 1;
+  //     let min = parseInt(data.minTeamSize);
+  //     if (isNaN(min)) min = 1;
+
+  //     if (max > 1) {
+  //       if (min == max || min < 2) {
+  //         teamSizeData = "(" + max + ")";
+  //       } else {
+  //         teamSizeData = "(" + min + "-" + max + ")";
+  //       }
+  //     } else if (min > 1) {
+  //       teamSizeData = "(" + min + "+)";
+  //     }
 }
