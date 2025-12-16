@@ -75,12 +75,6 @@ export default function EditSchoolEventPopup({
             <span>Equipo</span>
           </div>
         </div>
-        <div id="participantsAmountContainer">
-          <span id="currentParticipantAmount">0</span>
-          <span>{"/"}</span>
-          <span id="currentMaxTeamSize">0</span>
-          <span> Participantes</span>
-        </div>
       </div>
 
       <form className="popupFields" id="participantsConatiner">
@@ -96,6 +90,16 @@ export default function EditSchoolEventPopup({
         >
           Confirmar
         </div>
+      </div>
+
+      <div id="participantsAmountContainer">
+        <span id="currentParticipantAmount">0</span>
+        <span id="maxTeamSizeSlash">{"/"}</span>
+        <span id="currentMaxTeamSize">0</span>
+        <span id="participantsPlural"> Participantes</span>
+      </div>
+      <div id="eventNoteContainer">
+        <span id="eventNote"></span>
       </div>
     </div>
   );
@@ -129,14 +133,39 @@ const setUpEditSchoolEventPopupInternal = (
 
   document.getElementById("popupHeader").dataset.eventID = eventID;
 
-  // Show team event data
+  // Show team event note and team size
+  let note = "";
+  console.log(eventData);
+
+  let max = parseInt(eventData.maxTeamSize);
+  if (isNaN(max)) max = 1;
+  let min = parseInt(eventData.minTeamSize);
+  if (isNaN(min)) min = 1;
+
+  if (max > 1) {
+    if (min == max || min < 2) {
+      // note = "(" + max + " integrantes por equipo)";
+    } else {
+      note = "(" + min + "-" + max + " integrantes por equipo)";
+    }
+  } else if (min > 1) {
+    note = "(Mínimo de " + min + " integrantes)";
+  }
+
+  document.getElementById("eventNote").innerHTML = note;
+
   if (eventData.isTeamEvent) {
     document.getElementById("currentMaxTeamSize").innerHTML =
       eventData.maxTeamSize;
     document.getElementById("teamEventContainer").classList.remove("hidden");
+    document.getElementById("maxTeamSizeSlash").classList.remove("hidden");
+    document.getElementById("currentMaxTeamSize").classList.remove("hidden");
   } else {
     document.getElementById("teamEventContainer").classList.add("hidden");
+    document.getElementById("maxTeamSizeSlash").classList.add("hidden");
+    document.getElementById("currentMaxTeamSize").classList.add("hidden");
   }
+  document.getElementById("participantsPlural").innerHTML = " Participantes";
 
   // Generate the new participants list
   if (eventData.isTeamEvent) {
@@ -183,7 +212,13 @@ const setUpEditSchoolEventPopupInternal = (
       teamOptionsElements.appendChild(child);
     }
   } else {
-    // Solo event
+    // Solo event or school event
+    document.getElementById("currentParticipantAmount").innerHTML =
+      tableData.length;
+
+    if (tableData.length == 1)
+      document.getElementById("participantsPlural").innerHTML = " Participante";
+
     tableData.forEach((participantData) => {
       participantData.team = "";
       participantData.teamNumber = 0;
@@ -399,18 +434,14 @@ function updateCurrentEventParticipantsAmount(change) {
   let currentAmount = parseInt(target.innerHTML);
   target.innerHTML = currentAmount + change;
 
-  // let max = parseInt(data.maxTeamSize);
-  //     if (isNaN(max)) max = 1;
-  //     let min = parseInt(data.minTeamSize);
-  //     if (isNaN(min)) min = 1;
-
-  //     if (max > 1) {
-  //       if (min == max || min < 2) {
-  //         teamSizeData = "(" + max + ")";
-  //       } else {
-  //         teamSizeData = "(" + min + "-" + max + ")";
-  //       }
-  //     } else if (min > 1) {
-  //       teamSizeData = "(" + min + "+)";
-  //     }
+  if (
+    document.getElementById("currentMaxTeamSize").classList.contains("hidden")
+  ) {
+    if (currentAmount + change != 1) {
+      document.getElementById("participantsPlural").innerHTML =
+        " Participantes";
+    } else {
+      document.getElementById("participantsPlural").innerHTML = " Participante";
+    }
+  }
 }

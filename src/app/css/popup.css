@@ -316,3 +316,14 @@ input:checked + .slider:before {
   background-color: #f8f8f8;
   opacity: 0.4;
 }
+
+#eventNoteContainer {
+  font-style: italic;
+  position: absolute;
+  /* bottom: 1.5em; */
+  /* left: 2em; */
+  /* width: 11em; */
+  bottom: 1.8em;
+  left: 1.8em;
+  font-size: 0.9em;
+}

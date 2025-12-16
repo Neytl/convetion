@@ -407,6 +407,7 @@ export default function Content({
         tableName: currentEvent.eventName,
         tableCategory: currentEvent.category,
         maxTeamSize: currentEvent.maxTeamSize,
+        minTeamSize: currentEvent.minTeamSize,
       };
 
       found = false;
@@ -560,6 +561,7 @@ export default function Content({
         tableType={table.tableType}
         tableName={table.tableName}
         maxTeamSize={table.maxTeamSize}
+        minTeamSize={table.minTeamSize}
         deleteDataEntry={deleteDataEntry}
         tableObject={table}
         pageTables={viewData.tables}

@@ -218,6 +218,7 @@ export const openTableButtonPopup = (
           eventID: tableObject.tableEventID,
           isTeamEvent: tableObject.tableType == "school_team_event",
           maxTeamSize: tableObject.maxTeamSize,
+          minTeamSize: tableObject.minTeamSize,
         },
         teamToOpen,
         pageTables

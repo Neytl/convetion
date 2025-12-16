@@ -8,6 +8,7 @@ export default function Table({
   tableType,
   tableName,
   maxTeamSize,
+  minTeamSize,
   deleteDataEntry,
   tableObject,
   pageTables,
@@ -164,17 +165,23 @@ export default function Table({
             entryIconSrc={entryIconSrc}
             data={participantData}
             tableType={tableType}
-            // rowIndex={rowIndex++}
             deleteDataEntry={deleteDataEntry}
           />
         );
       });
 
-      fillInRemainingEntries(
-        tableEntries,
-        maxTeamSize - teamData.teamMembers.length,
-        teamData.teamNumber
-      );
+      // Buttons to add remaining participants to a group
+      let entriesLeft = 1;
+      let count = teamData.teamMembers.length;
+      if (minTeamSize > count) {
+        entriesLeft = minTeamSize - count;
+      } else if (minTeamSize > 1) {
+        entriesLeft = Math.min(1, maxTeamSize - count);
+      } else {
+        entriesLeft = maxTeamSize - count;
+      }
+
+      fillInRemainingEntries(tableEntries, entriesLeft, teamData.teamNumber);
     });
   } else if (tableType == "school_students") {
     let currentAgeGroup = "";
