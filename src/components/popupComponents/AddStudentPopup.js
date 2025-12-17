@@ -121,13 +121,23 @@ export const validateBirthdate = (birthdateString) => {
   if (!(date instanceof Date && !isNaN(date))) return false;
 
   // Validate the student's age
-  if (date.getFullYear() <= 2012) {
+  if (
+    year < 2013 ||
+    (year == 2013 && month < 5) ||
+    (year == 2013 && month == 5 && day <= 8)
+  ) {
+    // Must be less than 13 on May 8th, 2026
     alert("Alumno ha pasado el rango de edad.");
     // alert("Student is too old to participate.");
     return false;
   }
 
-  if (date.getFullYear() >= 2021) {
+  if (
+    year > 2020 ||
+    (year == 2020 && month > 5) ||
+    (year == 2020 && month == 5 && day > 8)
+  ) {
+    // Must be 6 by May 8th, 2026
     alert("Alumno está por debajo del rango de edad.");
     // alert("Student is too young to participate.");
     return false;

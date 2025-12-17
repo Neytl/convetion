@@ -135,7 +135,6 @@ const setUpEditSchoolEventPopupInternal = (
 
   // Show team event note and team size
   let note = "";
-  console.log(eventData);
 
   let max = parseInt(eventData.maxTeamSize);
   if (isNaN(max)) max = 1;
