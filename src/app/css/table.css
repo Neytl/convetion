@@ -222,6 +222,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 }
 
 .schoolEvents .deleteParticipantButton {
@@ -389,4 +390,13 @@
 
 .schoolEvents .tableTopper > span {
   color: #565656;
+}
+
+@media only screen and (max-height: 450px) {
+  :root #participantsConatiner {
+    max-height: 10em;
+  }
+  :root #eventsListConatiner {
+    max-height: 17em;
+  }
 }

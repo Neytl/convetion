@@ -159,42 +159,45 @@ input {
 }
 
 /* Mobile Styles */
-@media only screen and (min-height: 450px) {
-  /* Small devices */
-  @media (max-width: 750px) {
-    #titleContainer,
-    #splashArt {
-      border-radius: 0;
-    }
-    #loginSplashConatiner {
-      min-height: 40vh;
-    }
-    #page {
-      min-height: fit-content;
-    }
-    #split {
-      display: flex;
-      width: 100vw;
-      height: 100vh;
-      min-height: fit-content;
-    }
-    #titleContainer #subtitle {
-      padding-bottom: 2em;
-    }
-    #loginSplit {
-      flex-grow: 1;
-    }
-    #title img {
-      width: 60px;
-      height: 60px;
-    }
+@media (max-width: 750px) {
+  #titleContainer,
+  #splashArt {
+    border-radius: 0;
   }
-  @media (max-width: 850px) {
-    #title {
-      font-size: 1.5em;
-    }
-    #titleContainer #subtitle {
-      font-size: 1.5em;
-    }
+  #loginSplashConatiner {
+    min-height: 40vh;
+  }
+  #page {
+    min-height: fit-content;
+  }
+  #split {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    min-height: fit-content;
+  }
+  #titleContainer #subtitle {
+    padding-bottom: 2em;
+  }
+  #loginSplit {
+    flex-grow: 1;
+  }
+  #title img {
+    width: 60px;
+    height: 60px;
+  }
+}
+@media (max-width: 850px) {
+  #title {
+    font-size: 1.5em;
+  }
+  #titleContainer #subtitle {
+    font-size: 1.5em;
+  }
+}
+
+@media only screen and (max-height: 450px) {
+  :root #split {
+    flex-direction: row;
   }
 }

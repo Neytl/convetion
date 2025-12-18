@@ -129,56 +129,53 @@ body::after {
 }
 
 /* Mobile Styles */
-@media only screen and (min-height: 450px) {
-  /* Small devices */
-  @media (max-width: 750px) {
-    #page {
-      width: 100vw;
-      height: 100vh;
-      border-radius: 0;
-    }
-    #page #topper {
-      flex-direction: row-reverse;
-      align-items: flex-start;
-      padding: 1em;
-      gap: 1em;
-    }
-    #page #logoutButton {
-      left: auto;
-      right: 0;
-      display: flex;
-      justify-content: flex-end;
-    }
-    #page #tag {
-      font-size: 1.3em;
-    }
-    #tag img {
-      width: 30px;
-      height: 30px;
-    }
+@media (max-width: 750px) {
+  #page {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+  #page #topper {
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    padding: 1em;
+    gap: 1em;
+  }
+  #page #logoutButton {
+    left: auto;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+  #page #tag {
+    font-size: 1.3em;
+  }
+  #tag img {
+    width: 30px;
+    height: 30px;
+  }
 
-    #page #schoolLinksContainer {
-      margin-top: 2em;
-    }
-    #page #user {
-      gap: 0.5em;
-    }
-    #user > span {
-      width: max-content;
-    }
-    #links {
-      padding: 1em 0 2em 0;
-    }
-    #split {
-      flex-direction: column;
-    }
-    #content {
-      border-radius: 0;
-      overflow: inherit;
-    }
-    #pageButtonContainer {
-      width: 100vw;
-      bottom: 1vh;
-    }
+  #page #schoolLinksContainer {
+    margin-top: 2em;
+  }
+  #page #user {
+    gap: 0.5em;
+  }
+  #user > span {
+    width: max-content;
+  }
+  #links {
+    padding: 1em 0 2em 0;
+  }
+  #split {
+    flex-direction: column;
+  }
+  #content {
+    border-radius: 0;
+    overflow: inherit;
+  }
+  #pageButtonContainer {
+    width: 100vw;
+    bottom: 1vh;
   }
 }
