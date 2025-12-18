@@ -245,6 +245,35 @@
   padding-left: 0.2em;
 }
 
+/* Mobile Styles */
+@media only screen and (min-height: 450px) {
+  /* Small devices */
+  @media (max-width: 750px) {
+    #EventsTable .tableHeader,
+    #EventsTable .tableEntryData {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+    #EventsTable .tableHeader > span:nth-child(3),
+    #EventsTable .tableEntryData > span:nth-child(3) {
+      display: none;
+    }
+    #EventsTable .participantDisplay {
+      height: fit-content;
+      margin-bottom: 1.5em;
+    }
+    #EventsTable .participantDisplay:last-child {
+      margin-bottom: 0;
+    }
+    #EventsTable .participantIcon {
+      grid-template-columns: 1.8em 1fr;
+    }
+    #EventsTable .participantIcon > div:last-child {
+      grid-column: span 2;
+      padding: 0.5em 0 0 1.8em;
+    }
+  }
+}
+
 /* School Students */
 .eventListEntry {
   display: flex;
